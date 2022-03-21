@@ -1,5 +1,7 @@
 package com.park.spacemng.api.web;
 
+import java.util.Collections;
+
 import com.park.spacemng.model.response.BookingSpaceResponse;
 import com.park.spacemng.model.response.NearbyAvailableSpacesResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +22,7 @@ public class SpaceOperationResource {
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<NearbyAvailableSpacesResponse> getNearbyAvailableSpaces() {
-		return new ResponseEntity<>(new NearbyAvailableSpacesResponse(), HttpStatus.OK);
+		return new ResponseEntity<>(new NearbyAvailableSpacesResponse(Collections.emptyList()), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/book",
