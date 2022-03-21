@@ -1,7 +1,9 @@
 package com.park.spacemng.model.response;
 
 import com.park.spacemng.model.constants.ProcessStatus;
+import lombok.Data;
 
+@Data
 public class GeneralResponse {
 
 	private final ProcessStatus status;
