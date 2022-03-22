@@ -6,13 +6,15 @@ import lombok.Data;
 @Data
 public class Space {
 
-	private final String businessId;
+	private final String spaceId;
 
-	private String name;
+	private final String batchId;
+
+	private String title;
 
 	private String description;
 
-	private int capacity;
+	private String address;
 
 	private Location location;
 

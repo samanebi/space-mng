@@ -7,16 +7,16 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum ProcessStatus {
+public enum CarType {
 
-	SUCCESS(0), FAILURE(1);
+	MICRO(0), SEDAN(1), TRUCK(2), VAN(3), COUPE(4);
 
 	private final int value;
 
 	@JsonCreator
-	public static ProcessStatus fromValue(int value) {
-		return Stream.of(ProcessStatus.values()).filter(status -> status.value == value).findFirst()
-				.orElseThrow(() -> new IllegalArgumentException("invalid status found: " + value));
+	public static CarType fromValue(int value) {
+		return Stream.of(CarType.values()).filter(type -> type.value == value).findFirst()
+				.orElseThrow(() -> new IllegalArgumentException("invalid car type found: " + value));
 	}
 
 	@JsonValue
