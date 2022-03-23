@@ -10,21 +10,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
-@RestController
-@Validated
+@Controller
 @RequestMapping("/payments")
-public class PaymentResource {
+@Slf4j
+public class PaymentController {
 
-	@GetMapping(value = "/pay/dpg/{ticket}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/pay/ipg/{ticket}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> pay(@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId,
+			@NotBlank @RequestHeader(Constants.HEADER_X_FORWARD_FOR) String userIp,
 			@NotBlank @PathVariable String ticket) {
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
