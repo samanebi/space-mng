@@ -102,6 +102,31 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<spring.active.profile>local</spring.active.profile>
+			</properties>
+		</profile>
+		<profile>
+			<id>staging</id>
+			<properties>
+				<spring.active.profile>staging</spring.active.profile>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<spring.active.profile>prod</spring.active.profile>
+			</properties>
+		</profile>
+
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
