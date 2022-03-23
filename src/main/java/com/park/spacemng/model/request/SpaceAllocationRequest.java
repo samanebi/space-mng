@@ -1,11 +1,12 @@
 package com.park.spacemng.model.request;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 
 import lombok.Data;
 
 @Data
-public class SpaceBookingRequest {
+public class SpaceAllocationRequest {
 
 	@NotBlank
 	private String batchId;
@@ -16,7 +17,7 @@ public class SpaceBookingRequest {
 	@NotBlank
 	private String carId;
 
-	@NotBlank
-	private String paymentTrackingCode;
+	@PositiveOrZero
+	private long amount;
 
 }

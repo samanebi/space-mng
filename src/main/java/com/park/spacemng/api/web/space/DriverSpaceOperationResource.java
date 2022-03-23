@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
-import com.park.spacemng.model.request.SpaceBookingRequest;
+import com.park.spacemng.model.request.SpaceAllocationRequest;
 import com.park.spacemng.model.response.BookingSpaceResponse;
 import com.park.spacemng.model.response.NearbyAvailableSpacesResponse;
 import com.park.spacemng.util.Constants;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Validated
 @RequestMapping("/spaces")
-public class SpaceOperationResource {
+public class DriverSpaceOperationResource {
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<NearbyAvailableSpacesResponse> getNearbyAvailableSpaces(
@@ -36,9 +36,9 @@ public class SpaceOperationResource {
 		return new ResponseEntity<>(new NearbyAvailableSpacesResponse(Collections.emptyList()), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/book",
+	@PostMapping(value = "/allocate",
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<BookingSpaceResponse> bookSpace(@NotNull SpaceBookingRequest request,
+	public ResponseEntity<BookingSpaceResponse> allocateSpace(@NotNull @RequestBody SpaceAllocationRequest request,
 			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) {
 		return new ResponseEntity<>(new BookingSpaceResponse(), HttpStatus.OK);
 	}
