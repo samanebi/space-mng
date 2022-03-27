@@ -1,6 +1,6 @@
 package com.park.spacemng.model.user;
 
-import com.park.spacemng.model.constants.CarType;
+import com.park.spacemng.model.user.constants.CarType;
 import lombok.Data;
 
 @Data

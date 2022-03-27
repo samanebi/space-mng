@@ -1,43 +1,45 @@
-package com.park.spacemng.model.space;
+package com.park.spacemng.model.payment;
 
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.park.spacemng.model.user.Owner;
+import com.park.spacemng.model.payment.constants.PaymentGateway;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class Space {
+public class SpacePayment {
 
-	private final String spaceId;
+	private String ticket;
 
-	private final String batchId;
+	private String trackingCode;
 
-	private String title;
+	private long amount;
 
-	private String description;
+	private String batchId;
 
-	private String address;
+	private long creationDate;
 
-	private Location location;
+	private long exerciseDate;
 
-	private Owner owner;
+	private PaymentGateway gateway;
 
 	private Status status;
+
+	private ProviderResponse providerResponse;
 
 	@AllArgsConstructor
 	public enum Status {
 
-		INITIATED(0), ACCEPTED(1), PAYED(2), CONFIRMED(3);
+		INITIATED(0), PAYED(1), CONFIRMED(2);
 
 		private final int value;
 
 		@JsonCreator
 		public static Status fromValue(int value) {
 			return Stream.of(Status.values()).filter(status -> status.value == value).findFirst()
-					.orElseThrow(() -> new IllegalArgumentException("invalid space statue found: " + value));
+					.orElseThrow(() -> new IllegalArgumentException("invalid payment status found: " + value));
 		}
 
 		@JsonValue

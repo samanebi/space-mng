@@ -1,4 +1,4 @@
-package com.park.spacemng.model.constants;
+package com.park.spacemng.model.payment.constants;
 
 import java.util.stream.Stream;
 
