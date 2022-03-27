@@ -1,9 +1,9 @@
-package com.park.spacemng.model.dto;
+package com.park.spacemng.service.space.driver.model;
 
 import lombok.Data;
 
 @Data
-public class OwnerDto {
+public class OwnerDetails {
 
 	private String userId;
 

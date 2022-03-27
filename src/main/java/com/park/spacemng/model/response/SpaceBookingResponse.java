@@ -9,12 +9,17 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class BookingSpaceResponse extends GeneralResponse {
+public class SpaceBookingResponse extends GeneralResponse {
 
 	private SpaceDetailsDto space;
 
-	public BookingSpaceResponse() {
+	public SpaceBookingResponse() {
 		super(ProcessStatus.SUCCESS);
+	}
+
+	public SpaceBookingResponse(SpaceDetailsDto space) {
+		super(ProcessStatus.SUCCESS);
+		this.space = space;
 	}
 
 }

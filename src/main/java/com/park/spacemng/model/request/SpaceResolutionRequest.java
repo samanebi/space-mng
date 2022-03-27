@@ -12,7 +12,7 @@ import lombok.Data;
 public class SpaceResolutionRequest {
 
 	@NotEmpty
-	private List<SpaceAllocationRequest> requests;
+	private List<SpaceBookingRequest> requests;
 
 	@NotNull
 	private RequestResolution resolution;

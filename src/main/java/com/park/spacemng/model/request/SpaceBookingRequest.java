@@ -6,7 +6,7 @@ import javax.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
 @Data
-public class SpaceAllocationRequest {
+public class SpaceBookingRequest {
 
 	@NotBlank
 	private String batchId;

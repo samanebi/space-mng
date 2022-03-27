@@ -1,13 +1,13 @@
-package com.park.spacemng.model.dto;
+package com.park.spacemng.service.space.driver.model;
 
 import lombok.Data;
 
 @Data
-public class SpaceDetailsDto {
+public class SpaceDetails {
 
-	private LocationDto location;
+	private Location location;
 
-	private OwnerDto owner;
+	private OwnerDetails owner;
 
 	private String spaceId;
 
