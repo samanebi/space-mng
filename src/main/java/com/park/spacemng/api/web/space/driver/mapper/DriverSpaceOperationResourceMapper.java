@@ -1,5 +1,6 @@
 package com.park.spacemng.api.web.space.driver.mapper;
 
+import com.park.spacemng.model.dto.LocationDto;
 import com.park.spacemng.model.dto.OwnerDto;
 import com.park.spacemng.model.dto.SpaceDetailsDto;
 import com.park.spacemng.model.request.LocationRequest;
@@ -36,5 +37,9 @@ public interface DriverSpaceOperationResourceMapper {
 	OwnerDto toOwnerDto(OwnerDetails owner);
 
 	SpaceDetailsDto toSpaceDetailsDto(DriverSpaceBookingResult result);
+
+	Location toLocation(LocationDto location);
+
+	LocationDto toLocationDto(Location location);
 
 }

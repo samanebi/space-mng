@@ -1,14 +1,19 @@
 package com.park.spacemng.api.web.space.owner.mapper;
 
+import com.park.spacemng.model.request.LocationRequest;
+import com.park.spacemng.model.request.SpaceBookingRequest;
 import com.park.spacemng.model.request.SpaceGenerationRequest;
 import com.park.spacemng.model.request.SpaceResolutionRequest;
 import com.park.spacemng.model.request.SpaceUpdateRequest;
 import com.park.spacemng.model.response.SpaceRetrievalResponse;
+import com.park.spacemng.service.space.owner.model.Location;
+import com.park.spacemng.service.space.owner.model.SpaceBookingModel;
 import com.park.spacemng.service.space.owner.model.SpaceGenerationModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsResolutionModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalResult;
 import com.park.spacemng.service.space.owner.model.SpaceUpdateModel;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
@@ -24,5 +29,10 @@ public interface OwnerSpaceOperationResourceMapper {
 	SpaceRetrievalResponse toSpaceRetrievalResponse(SpaceRequestsRetrievalResult result);
 
 	SpaceGenerationModel toSpaceGenerationModel(SpaceGenerationRequest request, String userId);
+
+	@InheritInverseConfiguration
+	Location toLocation(LocationRequest location);
+
+	SpaceBookingModel toSpaceBookingModel(SpaceBookingRequest request);
 
 }
