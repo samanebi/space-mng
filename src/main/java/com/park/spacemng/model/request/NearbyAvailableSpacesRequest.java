@@ -1,5 +1,7 @@
 package com.park.spacemng.model.request;
 
+import java.awt.Point;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +17,6 @@ public class NearbyAvailableSpacesRequest {
 	private String carId;
 
 	@NotNull
-	private LocationRequest location;
+	private Point location;
 
 }

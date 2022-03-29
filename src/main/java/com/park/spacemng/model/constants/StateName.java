@@ -7,19 +7,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum RequestResolution {
+public enum StateName {
 
 	//@formatter off
-	APPROVE(0),
-	REJECT(1);
+	TEHRAN(0);
 	//@formatter on
 
 	private final int value;
 
 	@JsonCreator
-	public static RequestResolution fromValue(int value) {
-		return Stream.of(RequestResolution.values()).filter(resolution -> resolution.value == value).findFirst()
-				.orElseThrow(() -> new IllegalArgumentException("invalid resolution found: " + value));
+	public static StateName fromValue(int value) {
+		return Stream.of(StateName.values()).filter(state -> state.value == value).findFirst()
+				.orElseThrow(() -> new IllegalArgumentException("invalid geo state found: " + value));
 	}
 
 	@JsonValue

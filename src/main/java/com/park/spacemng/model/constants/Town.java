@@ -7,19 +7,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum RequestResolution {
+public enum Town {
 
 	//@formatter off
-	APPROVE(0),
-	REJECT(1);
+	TEHRAN(0);
 	//@formatter on
 
 	private final int value;
 
 	@JsonCreator
-	public static RequestResolution fromValue(int value) {
-		return Stream.of(RequestResolution.values()).filter(resolution -> resolution.value == value).findFirst()
-				.orElseThrow(() -> new IllegalArgumentException("invalid resolution found: " + value));
+	public static Town fromValue(int value) {
+		return Stream.of(Town.values()).filter(town -> town.value == value).findFirst()
+				.orElseThrow(() -> new IllegalArgumentException("invalid town found: " + value));
 	}
 
 	@JsonValue

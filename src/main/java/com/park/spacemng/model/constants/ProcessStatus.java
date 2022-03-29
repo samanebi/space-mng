@@ -9,7 +9,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum ProcessStatus {
 
-	SUCCESS(0), FAILURE(1);
+	//@formatter off
+	SUCCESS(0),
+	FAILURE(1);
+	//@formatter on
 
 	private final int value;
 

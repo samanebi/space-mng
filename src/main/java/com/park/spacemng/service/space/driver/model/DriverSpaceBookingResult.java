@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class DriverSpaceBookingResult {
 
-	private Location location;
+	private DriverLocation driverLocation;
 
 	private OwnerDetails owner;
 

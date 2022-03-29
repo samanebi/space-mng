@@ -3,14 +3,13 @@ package com.park.spacemng.api.web.space.driver.mapper;
 import com.park.spacemng.model.dto.LocationDto;
 import com.park.spacemng.model.dto.OwnerDto;
 import com.park.spacemng.model.dto.SpaceDetailsDto;
-import com.park.spacemng.model.request.LocationRequest;
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
 import com.park.spacemng.model.request.SpaceBookingRequest;
 import com.park.spacemng.model.response.NearbyAvailableSpacesResponse;
 import com.park.spacemng.model.response.SpaceBookingResponse;
+import com.park.spacemng.service.space.driver.model.DriverLocation;
 import com.park.spacemng.service.space.driver.model.DriverSpaceBookingModel;
 import com.park.spacemng.service.space.driver.model.DriverSpaceBookingResult;
-import com.park.spacemng.service.space.driver.model.Location;
 import com.park.spacemng.service.space.driver.model.NearbyAvailableSpacesRetrievalModel;
 import com.park.spacemng.service.space.driver.model.NearbyAvailableSpacesRetrievalResult;
 import com.park.spacemng.service.space.driver.model.OwnerDetails;
@@ -30,16 +29,14 @@ public interface DriverSpaceOperationResourceMapper {
 		return new SpaceBookingResponse(toSpaceDetailsDto(result));
 	}
 
-	Location toLocation(LocationRequest request);
-
 	SpaceDetailsDto toSpaceDetailsDto(SpaceDetails space);
 
 	OwnerDto toOwnerDto(OwnerDetails owner);
 
 	SpaceDetailsDto toSpaceDetailsDto(DriverSpaceBookingResult result);
 
-	Location toLocation(LocationDto location);
+	DriverLocation toLocation(LocationDto location);
 
-	LocationDto toLocationDto(Location location);
+	LocationDto toLocationDto(DriverLocation driverLocation);
 
 }
