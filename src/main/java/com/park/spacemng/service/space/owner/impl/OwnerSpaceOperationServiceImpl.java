@@ -1,6 +1,8 @@
 package com.park.spacemng.service.space.owner.impl;
 
 import com.park.spacemng.service.space.owner.OwnerSpaceOperationService;
+import com.park.spacemng.service.space.owner.model.OwnerSpaceRetrievalModel;
+import com.park.spacemng.service.space.owner.model.OwnerSpaceRetrievalResult;
 import com.park.spacemng.service.space.owner.model.SpaceGenerationModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsResolutionModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalModel;
@@ -24,6 +26,11 @@ public class OwnerSpaceOperationServiceImpl implements OwnerSpaceOperationServic
 
 	@Override
 	public void resolveSpaceRequests(SpaceRequestsResolutionModel model) {
+	}
+
+	@Override
+	public OwnerSpaceRetrievalResult querySpaces(OwnerSpaceRetrievalModel model) {
+		return null;
 	}
 
 }

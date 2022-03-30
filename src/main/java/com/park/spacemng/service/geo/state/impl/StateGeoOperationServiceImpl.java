@@ -19,6 +19,7 @@ public class StateGeoOperationServiceImpl implements StateGeoOperationService {
 
 	private final StateGeoOperationServiceMapper mapper;
 
+	//todo : complete repo
 	@Override
 	public StateRetrievalResult retrieveStateDetails(StateRetrievalModel model) {
 		return new StateRetrievalResult(mapper.toStateDetails(stateDao.findStateByCode(model.getStateName())));

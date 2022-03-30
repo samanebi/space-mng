@@ -1,5 +1,7 @@
 package com.park.spacemng.service.space.owner;
 
+import com.park.spacemng.service.space.owner.model.OwnerSpaceRetrievalModel;
+import com.park.spacemng.service.space.owner.model.OwnerSpaceRetrievalResult;
 import com.park.spacemng.service.space.owner.model.SpaceGenerationModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsResolutionModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalModel;
@@ -15,5 +17,7 @@ public interface OwnerSpaceOperationService {
 	SpaceRequestsRetrievalResult getSpaceRequests(SpaceRequestsRetrievalModel model);
 
 	void resolveSpaceRequests(SpaceRequestsResolutionModel model);
+
+	OwnerSpaceRetrievalResult querySpaces(OwnerSpaceRetrievalModel model);
 
 }

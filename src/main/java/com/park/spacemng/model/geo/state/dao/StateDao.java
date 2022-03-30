@@ -10,6 +10,4 @@ public interface StateDao {
 
 	State findStateByCode(StateName name);
 
-	State findStateByUid(String uid);
-
 }
