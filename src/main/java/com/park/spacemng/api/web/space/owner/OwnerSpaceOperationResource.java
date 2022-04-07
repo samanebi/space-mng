@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.park.spacemng.api.web.space.owner.mapper.OwnerSpaceOperationResourceMapper;
+import com.park.spacemng.exception.ParameterValidationException;
 import com.park.spacemng.model.constants.ProcessStatus;
 import com.park.spacemng.model.request.SpaceGenerationRequest;
 import com.park.spacemng.model.request.SpaceResolutionRequest;
@@ -42,7 +43,7 @@ public class OwnerSpaceOperationResource {
 	@PostMapping(value = "/generate",
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> generateSpaces(@NotNull @RequestBody SpaceGenerationRequest request,
-			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) {
+			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) throws ParameterValidationException {
 		service.generateSpaces(mapper.toSpaceGenerationModel(request, userId));
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
@@ -57,10 +58,9 @@ public class OwnerSpaceOperationResource {
 
 	@GetMapping(value = "/space/requests/{batchId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SpaceRetrievalResponse> getSpaceRequests(
-			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId,
 			@NotBlank @PathVariable String batchId) {
 		SpaceRequestsRetrievalResult result = service.getSpaceRequests
-				(mapper.toSpaceRequestsRetrievalModel(userId, batchId));
+				(mapper.toSpaceRequestsRetrievalModel(batchId));
 		return new ResponseEntity<>(mapper.toSpaceRetrievalResponse(result), HttpStatus.OK);
 	}
 

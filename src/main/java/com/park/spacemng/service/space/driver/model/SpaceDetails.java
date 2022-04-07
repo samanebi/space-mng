@@ -5,8 +5,6 @@ import lombok.Data;
 @Data
 public class SpaceDetails {
 
-	private DriverLocation driverLocation;
-
 	private OwnerDetails owner;
 
 	private String spaceId;

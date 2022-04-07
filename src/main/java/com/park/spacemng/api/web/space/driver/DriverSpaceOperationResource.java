@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.park.spacemng.api.web.space.driver.mapper.DriverSpaceOperationResourceMapper;
+import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
 import com.park.spacemng.model.request.SpaceBookingRequest;
 import com.park.spacemng.model.response.NearbyAvailableSpacesResponse;
@@ -39,7 +40,7 @@ public class DriverSpaceOperationResource {
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<NearbyAvailableSpacesResponse> getNearbyAvailableSpaces(
-			@Valid @RequestBody NearbyAvailableSpacesRequest request) {
+			@Valid @RequestBody NearbyAvailableSpacesRequest request) throws GeneralException {
 		NearbyAvailableSpacesRetrievalResult response =
 				service.getNearbyAvailableSpaces(mapper.toNearbyAvailableSpacesRetrievalModel(request));
 		return new ResponseEntity<>(mapper.toNearbyAvailableSpacesResponse(response), HttpStatus.OK);
@@ -48,7 +49,7 @@ public class DriverSpaceOperationResource {
 	@PostMapping(value = "/book",
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SpaceBookingResponse> bookSpace(@NotNull @RequestBody SpaceBookingRequest request,
-			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) {
+			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) throws GeneralException {
 		DriverSpaceBookingResult response = service.bookSpace(mapper.toDriverBookingModel(request, userId));
 		return new ResponseEntity<>(mapper.toBookingSpaceResponse(response), HttpStatus.OK);
 	}

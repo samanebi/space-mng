@@ -5,13 +5,13 @@ import lombok.Data;
 @Data
 public class DriverSpaceBookingResult {
 
-	private DriverLocation driverLocation;
-
 	private OwnerDetails owner;
 
 	private String spaceId;
 
 	private String batchId;
+
+	private String trackingCode;
 
 	private String title;
 

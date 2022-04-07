@@ -7,5 +7,4 @@ public class SpaceRequestsRetrievalModel {
 
 	private String batchId;
 
-	private String userId;
 }

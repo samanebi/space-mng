@@ -32,8 +32,8 @@ public class DistrictBasedLocationOperationService implements LocationOperationS
 	@Override
 	public DesiredLocationRetrievalResult getDesiredLocation(DesiredLocationRetrievalModel model) {
 		DesiredLocation desiredLocation = new DesiredLocation();
-		desiredLocation.setStateName(Collections.singletonList(model.getStateName()));
-		desiredLocation.setTown(Collections.singletonList(model.getTown()));
+		desiredLocation.setStates(Collections.singletonList(model.getStateName()));
+		desiredLocation.setTowns(Collections.singletonList(model.getTown()));
 		desiredLocation.setDistricts(getDistrictByGeographicLocation(model));
 		return new DesiredLocationRetrievalResult(desiredLocation);
 	}

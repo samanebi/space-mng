@@ -7,12 +7,14 @@ import com.park.spacemng.model.request.SpaceResolutionRequest;
 import com.park.spacemng.model.request.SpaceUpdateRequest;
 import com.park.spacemng.model.response.SpaceRetrievalResponse;
 import com.park.spacemng.service.space.owner.model.Location;
+import com.park.spacemng.service.space.owner.model.OwnerSpaceGenerationModel;
+import com.park.spacemng.service.space.owner.model.OwnerSpaceUpdateModel;
 import com.park.spacemng.service.space.owner.model.SpaceBookingModel;
-import com.park.spacemng.service.space.owner.model.SpaceGenerationModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsResolutionModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalResult;
-import com.park.spacemng.service.space.owner.model.SpaceUpdateModel;
+import com.park.spacemng.service.space.space.model.SpaceGenerationModel;
+import com.park.spacemng.service.space.space.model.SpaceUpdateModel;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
@@ -22,17 +24,21 @@ public interface OwnerSpaceOperationResourceMapper {
 	SpaceRequestsResolutionModel toSpaceRequestsResolutionModel(SpaceResolutionRequest request, String userId,
 			String batchId);
 
-	SpaceUpdateModel toSpaceUpdateModel(SpaceUpdateRequest request, String userId);
+	OwnerSpaceUpdateModel toSpaceUpdateModel(SpaceUpdateRequest request, String userId);
 
-	SpaceRequestsRetrievalModel toSpaceRequestsRetrievalModel(String userId, String batchId);
+	SpaceRequestsRetrievalModel toSpaceRequestsRetrievalModel(String batchId);
 
 	SpaceRetrievalResponse toSpaceRetrievalResponse(SpaceRequestsRetrievalResult result);
 
-	SpaceGenerationModel toSpaceGenerationModel(SpaceGenerationRequest request, String userId);
+	OwnerSpaceGenerationModel toSpaceGenerationModel(SpaceGenerationRequest request, String userId);
 
 	@InheritInverseConfiguration
 	Location toLocation(LocationRequest location);
 
 	SpaceBookingModel toSpaceBookingModel(SpaceBookingRequest request);
+
+	SpaceGenerationModel toSpaceGenerationModel(OwnerSpaceGenerationModel model);
+
+	SpaceUpdateModel toSpaceUpdateModel(OwnerSpaceUpdateModel model);
 
 }

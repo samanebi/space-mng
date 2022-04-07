@@ -12,8 +12,8 @@ public class DesiredLocation {
 
 	private List<District> districts;
 
-	private List<Town> town;
+	private List<Town> towns;
 
-	private List<StateName> stateName;
+	private List<StateName> states;
 
 }

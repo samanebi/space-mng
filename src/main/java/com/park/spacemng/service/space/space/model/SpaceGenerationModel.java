@@ -1,5 +1,6 @@
-package com.park.spacemng.service.space.owner.model;
+package com.park.spacemng.service.space.space.model;
 
+import com.park.spacemng.service.space.owner.model.Location;
 import lombok.Data;
 
 @Data

@@ -4,4 +4,15 @@ import lombok.Data;
 
 @Data
 public class DriverSpaceBookingModel {
+
+	private String batchId;
+
+	private String userId;
+
+	private String driverId;
+
+	private String carId;
+
+	private long amount;
+
 }

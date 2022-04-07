@@ -1,12 +1,12 @@
-package com.park.spacemng.service.space.driver.model;
+package com.park.spacemng.service.user.driver.model;
 
 import com.park.spacemng.model.user.User;
 import lombok.Data;
 
 @Data
-public class OwnerDetails {
+public class DriverInfo {
 
-	private String ownerId;
+	private String driverId;
 
 	private String name;
 

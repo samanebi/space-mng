@@ -1,36 +1,41 @@
-package com.park.spacemng.model.space;
+package com.park.spacemng.model.booking;
 
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.park.spacemng.model.user.Driver;
 import com.park.spacemng.model.user.Owner;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class Space {
+public class BookingRequest {
 
-	private final String spaceId;
+	private String trackingCode;
 
-	private final String batchId;
+	private String batchId;
 
-	private String title;
+	private long creationDate;
 
-	private String description;
+	private long exerciseDate;
 
-	private String address;
-
-	private Location location;
+	private long stateChangedDate;
 
 	private Owner owner;
+
+	private Driver driver;
+
+	private long amount;
+
+	private PaymentProviderResponse providerResponse;
 
 	private Status status;
 
 	@AllArgsConstructor
 	public enum Status {
 
-		FREE(0), PROCESSING(1), TAKEN(2);
+		INITIATED(0), ACCEPTED(1), PAYED(2), CONFIRMED(3);
 
 		private final int value;
 

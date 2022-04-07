@@ -36,4 +36,11 @@ public class CustomizedExceptionControllerAdviser extends ResponseEntityExceptio
 				HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity<GeneralResponse> handleException(GeneralException ex, WebRequest request) {
+		log.error("exception happened : {}", ex.getMessage());
+		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.FAILURE, ex.getMessage()),
+				HttpStatus.UNPROCESSABLE_ENTITY);
+	}
+
 }
