@@ -35,7 +35,11 @@ public class BookingRequest {
 	@AllArgsConstructor
 	public enum Status {
 
-		INITIATED(0), ACCEPTED(1), PAYED(2), CONFIRMED(3);
+		INITIATED(0),
+		ACCEPTED(1),
+		REJECTED(2),
+		PAYED(3),
+		CONFIRMED(4);
 
 		private final int value;
 

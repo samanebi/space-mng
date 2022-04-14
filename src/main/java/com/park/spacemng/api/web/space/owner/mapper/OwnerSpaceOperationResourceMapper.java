@@ -6,12 +6,12 @@ import com.park.spacemng.model.request.SpaceGenerationRequest;
 import com.park.spacemng.model.request.SpaceResolutionRequest;
 import com.park.spacemng.model.request.SpaceUpdateRequest;
 import com.park.spacemng.model.response.SpaceRetrievalResponse;
+import com.park.spacemng.service.booking.model.BookingRequestsRetrievalResult;
 import com.park.spacemng.service.space.owner.model.Location;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceGenerationModel;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceUpdateModel;
 import com.park.spacemng.service.space.owner.model.SpaceBookingModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsResolutionModel;
-import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalResult;
 import com.park.spacemng.service.space.space.model.SpaceGenerationModel;
 import com.park.spacemng.service.space.space.model.SpaceUpdateModel;
@@ -26,8 +26,6 @@ public interface OwnerSpaceOperationResourceMapper {
 
 	OwnerSpaceUpdateModel toSpaceUpdateModel(SpaceUpdateRequest request, String userId);
 
-	SpaceRequestsRetrievalModel toSpaceRequestsRetrievalModel(String batchId);
-
 	SpaceRetrievalResponse toSpaceRetrievalResponse(SpaceRequestsRetrievalResult result);
 
 	OwnerSpaceGenerationModel toSpaceGenerationModel(SpaceGenerationRequest request, String userId);
@@ -40,5 +38,7 @@ public interface OwnerSpaceOperationResourceMapper {
 	SpaceGenerationModel toSpaceGenerationModel(OwnerSpaceGenerationModel model);
 
 	SpaceUpdateModel toSpaceUpdateModel(OwnerSpaceUpdateModel model);
+
+	SpaceRequestsRetrievalResult toSpaceRequestsRetrievalResult(BookingRequestsRetrievalResult result);
 
 }

@@ -8,6 +8,6 @@ import com.park.spacemng.service.user.driver.model.DriverRetrievalModel;
 public interface DriverOperationService {
 
 	// todo :  remember to implement
-	Optional<DriverInfo> retrievalDriver(DriverRetrievalModel model);
+	Optional<DriverInfo> retriveDriver(DriverRetrievalModel model);
 
 }

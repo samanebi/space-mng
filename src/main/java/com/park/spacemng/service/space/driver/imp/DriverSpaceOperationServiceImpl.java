@@ -29,7 +29,6 @@ import com.park.spacemng.service.space.owner.OwnerSpaceOperationService;
 import com.park.spacemng.service.space.owner.model.OnlineOwnerRetrievalModel;
 import com.park.spacemng.service.space.space.SpaceOperationService;
 import com.park.spacemng.service.space.space.model.SpaceInfo;
-import com.park.spacemng.service.space.space.model.SpaceRetrievalModel;
 import com.park.spacemng.service.user.driver.DriverOperationService;
 import com.park.spacemng.service.user.driver.model.DriverInfo;
 import com.park.spacemng.service.user.driver.model.DriverRetrievalModel;
@@ -102,9 +101,9 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 
 		log.info("going to book space for request : {}", model);
 		Optional<DriverInfo> driverInfo = driverOperationService
-				.retrievalDriver(new DriverRetrievalModel(model.getDriverId()));
+				.retriveDriver(new DriverRetrievalModel(model.getDriverId()));
 		List<SpaceInfo> spaceInfo = spaceOperationService
-				.retrieveSpace(new SpaceRetrievalModel(model.getBatchId(), Status.FREE));
+				.retrieveSpace(model.getBatchId(), Status.FREE);
 		if (spaceInfo.isEmpty()) {
 			log.error("no free space available with batch id : {}", model.getBatchId());
 			throw new SpaceNotAvailableException("no free space available with batch id : " + model.getBatchId());
@@ -115,8 +114,7 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 		}
 		int index = new Random().nextInt(spaceInfo.size());
 		SpaceInfo info = spaceInfo.get(index);
-		spaceOperationService.takeUnderProcess(mapper.toSpaceTakeUnderProcessModel(
-				info));
+		spaceOperationService.takeUnderProcess(info.getSpaceId(), info.getBatchId());
 		BookingInitiationResult bookingInitiationResult = bookingOperationService
 				.initiateBookingRequest(mapper.toBookingInitiationModel(model,
 						info.getOwner().getOwnerId()));

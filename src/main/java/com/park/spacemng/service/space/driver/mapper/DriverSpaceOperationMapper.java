@@ -13,7 +13,6 @@ import com.park.spacemng.service.space.driver.model.OwnerDetails;
 import com.park.spacemng.service.space.driver.model.SpaceDetails;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceRetrievalModel;
 import com.park.spacemng.service.space.space.model.SpaceInfo;
-import com.park.spacemng.service.space.space.model.SpaceTakeUnderProcessModel;
 import com.park.spacemng.service.user.owner.model.OwnerInfo;
 import org.mapstruct.Mapper;
 
@@ -31,8 +30,6 @@ public interface DriverSpaceOperationMapper {
 	SpaceDetails toSpaceDetails(Space space);
 
 	OwnerDetails toOwnerDetails(Owner owner);
-
-	SpaceTakeUnderProcessModel toSpaceTakeUnderProcessModel(SpaceInfo space);
 
 	BookingInitiationModel toBookingInitiationModel(DriverSpaceBookingModel model, String ownerId);
 

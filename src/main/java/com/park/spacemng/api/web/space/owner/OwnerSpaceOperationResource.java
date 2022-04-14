@@ -58,9 +58,8 @@ public class OwnerSpaceOperationResource {
 
 	@GetMapping(value = "/space/requests/{batchId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SpaceRetrievalResponse> getSpaceRequests(
-			@NotBlank @PathVariable String batchId) {
-		SpaceRequestsRetrievalResult result = service.getSpaceRequests
-				(mapper.toSpaceRequestsRetrievalModel(batchId));
+			@NotBlank @PathVariable String batchId) throws ParameterValidationException {
+		SpaceRequestsRetrievalResult result = service.getSpaceRequests(batchId);
 		return new ResponseEntity<>(mapper.toSpaceRetrievalResponse(result), HttpStatus.OK);
 	}
 
@@ -69,7 +68,7 @@ public class OwnerSpaceOperationResource {
 	public ResponseEntity<GeneralResponse> resolveSpaceRequests(
 			@NotNull @RequestBody SpaceResolutionRequest request,
 			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId,
-			@NotBlank @PathVariable String batchId) {
+			@NotBlank @PathVariable String batchId) throws ParameterValidationException {
 		service.resolveSpaceRequests(mapper
 				.toSpaceRequestsResolutionModel(request, userId, batchId));
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);

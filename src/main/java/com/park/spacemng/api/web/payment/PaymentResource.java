@@ -20,11 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @Validated
-@RequestMapping("/payments")
+@RequestMapping("/payment")
 public class PaymentResource {
+
+	@GetMapping(value = "/init", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<GeneralResponse> init(@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) {
+		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
+	}
 
 	@GetMapping(value = "/pay/dpg/{ticket}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> pay(@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId,
+			@NotBlank @PathVariable String ticket) {
+		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/verify/{ticket}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<GeneralResponse> verify(@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId,
 			@NotBlank @PathVariable String ticket) {
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
