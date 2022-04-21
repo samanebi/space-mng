@@ -82,15 +82,12 @@ public class OwnerSpaceOperationServiceImpl implements OwnerSpaceOperationServic
 	@Override
 	public void resolveSpaceRequests(SpaceRequestsResolutionModel model) throws ParameterValidationException {
 		verifyResolutionRequestParameters(model);
-
 		RequestResolution resolution = model.getResolution();
-		for (SpaceBookingModel booking : model.getRequests()) {
-			verifyRequestParameters(booking);
-			resolveRequest(booking.getTrackingCode(), resolution);
-		}
+		bookingOperationService.resolve(mapper.toBookingRequestDetailsList(model.getRequests()), resolution);
 	}
 
-	private void verifyResolutionRequestParameters(SpaceRequestsResolutionModel model) throws ParameterValidationException {
+	private void verifyResolutionRequestParameters(SpaceRequestsResolutionModel model)
+			throws ParameterValidationException {
 		if (model.getRequests().isEmpty()) {
 			throw new ParameterValidationException("requests are empty!");
 		}
@@ -117,10 +114,6 @@ public class OwnerSpaceOperationServiceImpl implements OwnerSpaceOperationServic
 	@Override
 	public OwnerSpaceRetrievalResult querySpaces(OwnerSpaceRetrievalModel model) {
 		throw new UnsupportedOperationException();
-	}
-
-	private void resolveRequest(String trackingCode, RequestResolution resolution) {
-		bookingOperationService.resolve(trackingCode, resolution);
 	}
 
 }

@@ -14,7 +14,6 @@ import com.park.spacemng.exception.SpaceNotAvailableException;
 import com.park.spacemng.model.constants.LocationSelectionType;
 import com.park.spacemng.model.space.Space.Status;
 import com.park.spacemng.service.booking.BookingOperationService;
-import com.park.spacemng.service.booking.model.BookingInitiationResult;
 import com.park.spacemng.service.location.model.DesiredLocationRetrievalResult;
 import com.park.spacemng.service.location.strategy.LocationOperationStrategy;
 import com.park.spacemng.service.space.driver.DriverSpaceOperationService;
@@ -31,7 +30,6 @@ import com.park.spacemng.service.space.space.SpaceOperationService;
 import com.park.spacemng.service.space.space.model.SpaceInfo;
 import com.park.spacemng.service.user.driver.DriverOperationService;
 import com.park.spacemng.service.user.driver.model.DriverInfo;
-import com.park.spacemng.service.user.driver.model.DriverRetrievalModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,6 +39,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationService {
+
+	private static final Random RANDOM = new Random();
 
 	private final LocationOperationStrategy locationStrategy;
 
@@ -101,7 +101,7 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 
 		log.info("going to book space for request : {}", model);
 		Optional<DriverInfo> driverInfo = driverOperationService
-				.retriveDriver(new DriverRetrievalModel(model.getDriverId()));
+				.retrieveDriver(model.getDriverId());
 		List<SpaceInfo> spaceInfo = spaceOperationService
 				.retrieveSpace(model.getBatchId(), Status.FREE);
 		if (spaceInfo.isEmpty()) {
@@ -112,13 +112,13 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 			log.error("driver not found with driver id : {}", model.getDriverId());
 			throw new DriverNotFoundException("driver not found with driver id : " + model.getDriverId());
 		}
-		int index = new Random().nextInt(spaceInfo.size());
+		int index = RANDOM.nextInt(spaceInfo.size());
 		SpaceInfo info = spaceInfo.get(index);
 		spaceOperationService.takeUnderProcess(info.getSpaceId(), info.getBatchId());
-		BookingInitiationResult bookingInitiationResult = bookingOperationService
+		String trackingCode = bookingOperationService
 				.initiateBookingRequest(mapper.toBookingInitiationModel(model,
 						info.getOwner().getOwnerId()));
-		return mapper.toDriverSpaceBookingResult(info, bookingInitiationResult.getTrackingCode());
+		return mapper.toDriverSpaceBookingResult(info, trackingCode);
 	}
 
 	private void bookSpaceArgumentValidation(DriverSpaceBookingModel model) throws ParameterValidationException {

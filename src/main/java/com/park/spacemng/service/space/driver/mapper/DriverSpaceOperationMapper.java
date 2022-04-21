@@ -33,7 +33,7 @@ public interface DriverSpaceOperationMapper {
 
 	BookingInitiationModel toBookingInitiationModel(DriverSpaceBookingModel model, String ownerId);
 
-	DriverSpaceBookingResult toDriverSpaceBookingResult(SpaceInfo info, String trckingCode);
+	DriverSpaceBookingResult toDriverSpaceBookingResult(SpaceInfo info, String trackingCode);
 
 	OwnerDetails toOwnerDetails(OwnerInfo ownerInfo);
 

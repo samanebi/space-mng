@@ -1,11 +1,14 @@
 package com.park.spacemng.api.web.space.owner.mapper;
 
+import java.util.List;
+
 import com.park.spacemng.model.request.LocationRequest;
 import com.park.spacemng.model.request.SpaceBookingRequest;
 import com.park.spacemng.model.request.SpaceGenerationRequest;
 import com.park.spacemng.model.request.SpaceResolutionRequest;
 import com.park.spacemng.model.request.SpaceUpdateRequest;
 import com.park.spacemng.model.response.SpaceRetrievalResponse;
+import com.park.spacemng.service.booking.model.BookingRequestDetails;
 import com.park.spacemng.service.booking.model.BookingRequestsRetrievalResult;
 import com.park.spacemng.service.space.owner.model.Location;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceGenerationModel;
@@ -40,5 +43,7 @@ public interface OwnerSpaceOperationResourceMapper {
 	SpaceUpdateModel toSpaceUpdateModel(OwnerSpaceUpdateModel model);
 
 	SpaceRequestsRetrievalResult toSpaceRequestsRetrievalResult(BookingRequestsRetrievalResult result);
+
+	List<BookingRequestDetails> toBookingRequestDetailsList(List<SpaceBookingModel> models);
 
 }
