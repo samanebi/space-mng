@@ -2,12 +2,12 @@ package com.park.spacemng.service.booking.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import com.park.spacemng.exception.DriverNotFoundException;
-import com.park.spacemng.exception.OwnerNotFoundException;
+import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.booking.BookingRequest.Status;
-import com.park.spacemng.model.constants.RequestResolution;
+import com.park.spacemng.model.booking.dao.BookingRequestDao;
 import com.park.spacemng.service.booking.BookingOperationService;
 import com.park.spacemng.service.booking.mapper.BookingOperationServiceMapper;
 import com.park.spacemng.service.booking.model.BookingInitiationModel;
@@ -36,12 +36,12 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 
 	private final TrackingCodeOperationService trackingCodeOperationService;
 
+	private final BookingRequestDao dao;
+
 	@Override
-	public String initiateBookingRequest(BookingInitiationModel model) throws OwnerNotFoundException, DriverNotFoundException {
-		DriverInfo driverInfo = driverOperationService.retrieveDriver(model.getDriverId())
-				.orElseThrow(() -> new DriverNotFoundException("driver not found : " + model.getDriverId()));
-		OwnerInfo ownerInfo = ownerOperationService.retrieveOwner(model.getOwnerId())
-				.orElseThrow(() -> new OwnerNotFoundException("owner not found : " + model.getOwnerId()));
+	public String initiateBookingRequest(BookingInitiationModel model) throws GeneralException {
+		DriverInfo driverInfo = driverOperationService.retrieveDriver(model.getDriverId());
+		OwnerInfo ownerInfo = ownerOperationService.retrieveOwner(model.getOwnerId());
 		long currentDate = new Date().getTime();
 		BookingRequest request = new BookingRequest();
 		request.setBatchId(model.getBatchId());
@@ -53,21 +53,24 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 		request.setDriver(mapper.toDriver(driverInfo));
 		request.setOwner(mapper.toOwner(ownerInfo));
 		request.setStatus(Status.INITIATED);
-		// TODO : DAO save
-		return request.getTrackingCode();
+		return dao.save(request).getTrackingCode();
 	}
 
 	@Override
 	public BookingRequestsRetrievalResult retrieveRequests(String batchId) {
-		// TODO :  retrieve from DAO
-		List<BookingRequest> requests = null;
+		List<BookingRequest> requests = dao.findAllByBatchId(batchId);
 		return mapper.toBookingRequestsRetrievalResult(requests);
 	}
 
 	@Override
-	public void resolve(List<BookingRequestDetails> bookingRequestDetails, RequestResolution resolution) {
+	public void resolve(List<BookingRequestDetails> bookingRequestDetails) {
 		List<BookingRequest> requests = mapper.toToBookingRequestList(bookingRequestDetails);
-		// TODO : save with DAO
+		requests = dao.findAllByTrackingCodes(getTrackingCodes(requests));
+		dao.saveAll(requests);
+	}
+
+	private List<String> getTrackingCodes(List<BookingRequest> requests) {
+		return requests.stream().map(BookingRequest::getTrackingCode).collect(Collectors.toList());
 	}
 
 }

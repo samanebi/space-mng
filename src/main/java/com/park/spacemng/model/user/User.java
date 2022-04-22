@@ -4,14 +4,17 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.park.spacemng.model.MongoBaseEntity;
 import com.park.spacemng.model.user.constants.Gender;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-public class User {
-
-	private String userId;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class User extends MongoBaseEntity {
 
 	private String name;
 

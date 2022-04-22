@@ -1,7 +1,7 @@
 package com.park.spacemng.service.space.space.model;
 
 import com.park.spacemng.model.space.Location;
-import com.park.spacemng.model.space.Space;
+import com.park.spacemng.model.space.space.Space;
 import com.park.spacemng.service.user.owner.model.OwnerInfo;
 import lombok.Data;
 

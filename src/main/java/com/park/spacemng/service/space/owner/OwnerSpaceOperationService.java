@@ -1,5 +1,6 @@
 package com.park.spacemng.service.space.owner;
 
+import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.exception.ParameterValidationException;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceGenerationModel;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceRetrievalModel;
@@ -10,7 +11,7 @@ import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalResult;
 
 public interface OwnerSpaceOperationService {
 
-	void generateSpaces(OwnerSpaceGenerationModel model) throws ParameterValidationException;
+	void generateSpaces(OwnerSpaceGenerationModel model) throws GeneralException;
 
 	void updateSpace(OwnerSpaceUpdateModel model);
 

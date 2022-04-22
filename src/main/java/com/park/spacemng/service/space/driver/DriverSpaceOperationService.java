@@ -10,6 +10,6 @@ public interface DriverSpaceOperationService {
 
 	NearbyAvailableSpacesRetrievalResult getNearbyAvailableSpaces(NearbyAvailableSpacesRetrievalModel model) throws GeneralException;
 
-	DriverSpaceBookingResult bookSpace(DriverSpaceBookingModel model) throws GeneralException;
+	DriverSpaceBookingResult bookSpace(DriverSpaceBookingModel model) throws Throwable;
 
 }

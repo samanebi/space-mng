@@ -4,13 +4,14 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.park.spacemng.model.user.Driver;
-import com.park.spacemng.model.user.Owner;
+import com.park.spacemng.model.MongoBaseEntity;
+import com.park.spacemng.model.user.driver.Driver;
+import com.park.spacemng.model.user.owner.Owner;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class BookingRequest {
+public class BookingRequest extends MongoBaseEntity {
 
 	private String trackingCode;
 

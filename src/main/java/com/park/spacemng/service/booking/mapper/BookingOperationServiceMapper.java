@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.constants.RequestResolution;
-import com.park.spacemng.model.user.Driver;
-import com.park.spacemng.model.user.Owner;
+import com.park.spacemng.model.user.driver.Driver;
+import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.service.booking.model.BookingRequestDetails;
 import com.park.spacemng.service.booking.model.BookingRequestDriverInfo;
 import com.park.spacemng.service.booking.model.BookingRequestOwnerInfo;
@@ -27,6 +27,8 @@ public interface BookingOperationServiceMapper {
 	BookingRequestDriverInfo toBookingRequestDriverInfo(Driver driver);
 
 	BookingRequestDetails toBookingRequestDetails(BookingRequest request);
+
+	BookingRequest toBookingRequest(BookingRequestDetails details);
 
 	BookingRequestsRetrievalResult toBookingRequestsRetrievalResult(List<BookingRequest> requests);
 

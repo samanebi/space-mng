@@ -7,6 +7,8 @@ public class OwnerSpaceUpdateModel {
 
 	private String batchId;
 
+	private String ownerId;
+
 	private String title;
 
 	private String description;

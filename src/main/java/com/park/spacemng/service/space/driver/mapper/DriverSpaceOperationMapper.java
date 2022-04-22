@@ -1,7 +1,7 @@
 package com.park.spacemng.service.space.driver.mapper;
 
-import com.park.spacemng.model.space.Space;
-import com.park.spacemng.model.user.Owner;
+import com.park.spacemng.model.space.space.Space;
+import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.service.booking.model.BookingInitiationModel;
 import com.park.spacemng.service.location.model.DesiredLocation;
 import com.park.spacemng.service.location.model.DesiredLocationRetrievalModel;

@@ -1,0 +1,109 @@
+package com.park.spacemng.service.space.space.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import com.park.spacemng.exception.GeneralException;
+import com.park.spacemng.exception.SpaceNotFoundException;
+import com.park.spacemng.model.space.space.Space;
+import com.park.spacemng.model.space.space.Space.Status;
+import com.park.spacemng.model.space.space.dao.SpaceDao;
+import com.park.spacemng.service.space.space.SpaceOperationService;
+import com.park.spacemng.service.space.space.mapper.SpaceOperationServiceMapper;
+import com.park.spacemng.service.space.space.model.SpaceGenerationModel;
+import com.park.spacemng.service.space.space.model.SpaceInfo;
+import com.park.spacemng.service.space.space.model.SpaceUpdateModel;
+import com.park.spacemng.service.user.owner.OwnerOperationService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RequiredArgsConstructor
+public class SpaceOperationServiceImpl implements SpaceOperationService {
+
+	private static final Random random = new Random();
+
+	private final SpaceDao dao;
+
+	private final SpaceOperationServiceMapper mapper;
+
+	private final OwnerOperationService ownerOperationService;
+
+	@Override
+	public List<SpaceInfo> retrieveSpace(String batchId, Status status) {
+		List<Space> spaces = dao.findAllByBatchIdAndStatus(batchId, status);
+		return mapper.toSpaceInfos(spaces);
+	}
+
+	@Override
+	public void takeUnderProcess(String spaceId) throws SpaceNotFoundException {
+		Space space = getSpace(spaceId);
+		space.setStatus(Status.PROCESSING);
+		dao.save(space);
+	}
+
+	@Override
+	public void takeSpace(String spaceId) throws SpaceNotFoundException {
+		Space space = getSpace(spaceId);
+		space.setStatus(Status.TAKEN);
+		dao.save(space);
+	}
+
+	@Override
+	public void freeSpace(String spaceId) throws SpaceNotFoundException {
+		Space space = getSpace(spaceId);
+		space.setStatus(Status.FREE);
+		dao.save(space);
+	}
+
+	@Override
+	public void generate(SpaceGenerationModel model) throws GeneralException {
+		List<Space> spaces = new ArrayList<>();
+		for (int counter = 0; counter < model.getCapacity(); counter++) {
+			Space space = mapper.toSpace(model);
+			space.setOwner(mapper.toOwner(ownerOperationService.retrieveOwner(model.getOwnerId())));
+			space.setStatus(Status.FREE);
+			spaces.add(mapper.toSpace(model));
+		}
+		dao.saveAll(spaces);
+	}
+
+	@Override
+	public void updateSpace(SpaceUpdateModel model) throws GeneralException {
+		List<Space> spaces = updateSpaceInformation(model);
+		if (spaces.size() > model.getCapacity()) {
+			List<Space> freeSpaceList = dao.findAllByBatchIdAndStatus(model.getBatchId(), Status.FREE);
+			dao.deleteAll(getRandomSpaces(model, spaces, freeSpaceList));
+		} else if (spaces.size() < model.getCapacity()) {
+			SpaceGenerationModel spaceGenerationModel = mapper.toSpaceGenerationModel(model);
+			spaceGenerationModel.setCapacity(model.getCapacity() - spaces.size());
+			generate(spaceGenerationModel);
+		}
+	}
+
+	private List<Space> updateSpaceInformation(SpaceUpdateModel model) {
+		List<Space> spaces = dao.findAllByBatchId(model.getBatchId()).stream().peek(space -> {
+			space.setAddress(model.getAddress());
+			space.setDescription(model.getDescription());
+			space.setLocation(model.getLocation());
+			space.setTitle(model.getTitle());
+		}).collect(Collectors.toList());
+		return dao.saveAll(spaces);
+	}
+
+	private List<Space> getRandomSpaces(SpaceUpdateModel model, List<Space> spaces, List<Space> freeSpaceList) {
+		List<Space> removeList = new ArrayList<>();
+		for (int counter = 0; counter < spaces.size() - model.getCapacity(); counter++) {
+			removeList.add(freeSpaceList.get(random.nextInt(spaces.size())));
+		}
+		return removeList;
+	}
+
+	private Space getSpace(String spaceId) throws SpaceNotFoundException {
+		return dao.findById(spaceId).orElseThrow(() ->
+				new SpaceNotFoundException("space not found : " + spaceId));
+	}
+
+}

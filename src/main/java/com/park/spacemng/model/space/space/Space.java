@@ -1,19 +1,23 @@
-package com.park.spacemng.model.space;
+package com.park.spacemng.model.space.space;
 
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.park.spacemng.model.user.Owner;
+import com.park.spacemng.model.MongoBaseEntity;
+import com.park.spacemng.model.space.Location;
+import com.park.spacemng.model.user.owner.Owner;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-public class Space {
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class Space extends MongoBaseEntity {
 
-	private final String spaceId;
-
-	private final String batchId;
+	private String batchId;
 
 	private String title;
 

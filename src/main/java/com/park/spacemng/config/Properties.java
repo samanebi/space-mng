@@ -4,7 +4,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties({ LocationSelectionProperties.class, TrackingCodeProperties.class })
+@EnableConfigurationProperties({ LocationSelectionProperties.class, TrackingCodeProperties.class,
+		ParameterValidationMessageProperties.class })
 public class Properties {
 
 	// TODO : add properties

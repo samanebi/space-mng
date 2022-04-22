@@ -20,6 +20,7 @@ import com.park.spacemng.service.space.space.model.SpaceGenerationModel;
 import com.park.spacemng.service.space.space.model.SpaceUpdateModel;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface OwnerSpaceOperationResourceMapper {
@@ -27,10 +28,12 @@ public interface OwnerSpaceOperationResourceMapper {
 	SpaceRequestsResolutionModel toSpaceRequestsResolutionModel(SpaceResolutionRequest request, String userId,
 			String batchId);
 
+	@Mapping(source = "userId", target = "ownerId")
 	OwnerSpaceUpdateModel toSpaceUpdateModel(SpaceUpdateRequest request, String userId);
 
 	SpaceRetrievalResponse toSpaceRetrievalResponse(SpaceRequestsRetrievalResult result);
 
+	@Mapping(source = "userId", target = "ownerId")
 	OwnerSpaceGenerationModel toSpaceGenerationModel(SpaceGenerationRequest request, String userId);
 
 	@InheritInverseConfiguration
@@ -43,6 +46,8 @@ public interface OwnerSpaceOperationResourceMapper {
 	SpaceUpdateModel toSpaceUpdateModel(OwnerSpaceUpdateModel model);
 
 	SpaceRequestsRetrievalResult toSpaceRequestsRetrievalResult(BookingRequestsRetrievalResult result);
+
+	BookingRequestDetails toBookingRequestDetails(SpaceBookingModel model);
 
 	List<BookingRequestDetails> toBookingRequestDetailsList(List<SpaceBookingModel> models);
 

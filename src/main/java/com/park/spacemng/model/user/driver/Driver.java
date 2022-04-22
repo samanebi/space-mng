@@ -1,5 +1,6 @@
-package com.park.spacemng.model.user;
+package com.park.spacemng.model.user.driver;
 
+import com.park.spacemng.model.user.User;
 import lombok.Data;
 
 @Data

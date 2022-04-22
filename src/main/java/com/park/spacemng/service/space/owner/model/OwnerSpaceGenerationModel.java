@@ -9,6 +9,8 @@ public class OwnerSpaceGenerationModel {
 
 	private String batchId;
 
+	private String ownerId;
+
 	private String title;
 
 	private String description;

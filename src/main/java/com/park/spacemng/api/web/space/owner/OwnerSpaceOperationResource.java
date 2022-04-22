@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.park.spacemng.api.web.space.owner.mapper.OwnerSpaceOperationResourceMapper;
+import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.exception.ParameterValidationException;
 import com.park.spacemng.model.constants.ProcessStatus;
 import com.park.spacemng.model.request.SpaceGenerationRequest;
@@ -43,7 +44,7 @@ public class OwnerSpaceOperationResource {
 	@PostMapping(value = "/generate",
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> generateSpaces(@NotNull @RequestBody SpaceGenerationRequest request,
-			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) throws ParameterValidationException {
+			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) throws GeneralException {
 		service.generateSpaces(mapper.toSpaceGenerationModel(request, userId));
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
