@@ -51,7 +51,7 @@ public class OwnerSpaceOperationServiceImpl implements OwnerSpaceOperationServic
 	}
 
 	@Override
-	public void updateSpace(OwnerSpaceUpdateModel model) {
+	public void updateSpace(OwnerSpaceUpdateModel model) throws GeneralException {
 		spaceOperationService.updateSpace(mapper.toSpaceUpdateModel(model));
 	}
 

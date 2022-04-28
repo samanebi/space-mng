@@ -5,7 +5,6 @@ import com.park.spacemng.service.user.driver.model.DriverInfo;
 
 public interface DriverOperationService {
 
-	// todo :  remember to implement
 	DriverInfo retrieveDriver(String driverId) throws GeneralException;
 
 }

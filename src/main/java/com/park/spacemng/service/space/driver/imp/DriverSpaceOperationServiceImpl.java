@@ -21,7 +21,6 @@ import com.park.spacemng.service.space.driver.model.NearbyAvailableSpacesRetriev
 import com.park.spacemng.service.space.driver.model.SpaceDetails;
 import com.park.spacemng.service.space.owner.OnlineOwnerOperationService;
 import com.park.spacemng.service.space.owner.OwnerSpaceOperationService;
-import com.park.spacemng.service.space.owner.model.OnlineOwnerRetrievalModel;
 import com.park.spacemng.service.space.space.SpaceOperationService;
 import com.park.spacemng.service.space.space.model.SpaceInfo;
 import com.park.spacemng.service.user.driver.DriverOperationService;
@@ -68,7 +67,7 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 		ownerSpaceOperationService.querySpaces(mapper.toOwnerSpaceRetrievalModel(desiredLocation)).getSpaces()
 				.forEach(space -> {
 					if (onlineOwnerOperationService
-							.isOnline(new OnlineOwnerRetrievalModel(space.getOwner().getId())).isOnline()) {
+							.isOnline(space.getOwner().getId())) {
 						result.add(mapper.toSpaceDetails(space));
 					}
 				});

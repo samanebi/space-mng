@@ -1,9 +1,13 @@
 package com.park.spacemng.service.user.driver.model;
 
 import com.park.spacemng.model.user.User;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Setter
+@Getter
+@ToString
 public class DriverInfo {
 
 	private String driverId;

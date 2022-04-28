@@ -1,5 +1,6 @@
 package com.park.spacemng.service.geo.state.impl;
 
+import com.park.spacemng.exception.StateNotFoundException;
 import com.park.spacemng.model.geo.state.dao.StateDao;
 import com.park.spacemng.service.geo.state.StateGeoOperationService;
 import com.park.spacemng.service.geo.state.mapper.StateGeoOperationServiceMapper;
@@ -19,10 +20,10 @@ public class StateGeoOperationServiceImpl implements StateGeoOperationService {
 
 	private final StateGeoOperationServiceMapper mapper;
 
-	//todo : complete repo
 	@Override
-	public StateRetrievalResult retrieveStateDetails(StateRetrievalModel model) {
-		return new StateRetrievalResult(mapper.toStateDetails(stateDao.findStateByCode(model.getStateName())));
+	public StateRetrievalResult retrieveStateDetails(StateRetrievalModel model) throws StateNotFoundException {
+		return new StateRetrievalResult(mapper.toStateDetails(stateDao.findByStateName(model.getStateName())
+				.orElseThrow(() -> new StateNotFoundException("state not found : " + model.getStateName()))));
 	}
 
 }

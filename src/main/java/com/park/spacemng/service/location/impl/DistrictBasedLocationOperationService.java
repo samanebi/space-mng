@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.park.spacemng.exception.StateNotFoundException;
 import com.park.spacemng.model.constants.District;
 import com.park.spacemng.model.constants.LocationSelectionType;
 import com.park.spacemng.service.geo.state.StateGeoOperationService;
@@ -30,7 +31,8 @@ public class DistrictBasedLocationOperationService implements LocationOperationS
 	private final StateGeoOperationService stateGeoOperationService;
 
 	@Override
-	public DesiredLocationRetrievalResult getDesiredLocation(DesiredLocationRetrievalModel model) {
+	public DesiredLocationRetrievalResult getDesiredLocation(DesiredLocationRetrievalModel model)
+			throws StateNotFoundException {
 		DesiredLocation desiredLocation = new DesiredLocation();
 		desiredLocation.setStates(Collections.singletonList(model.getStateName()));
 		desiredLocation.setTowns(Collections.singletonList(model.getTown()));
@@ -43,7 +45,8 @@ public class DistrictBasedLocationOperationService implements LocationOperationS
 		return LocationSelectionType.DISTRICT_BASED;
 	}
 
-	private List<District> getDistrictByGeographicLocation(DesiredLocationRetrievalModel model) {
+	private List<District> getDistrictByGeographicLocation(DesiredLocationRetrievalModel model)
+			throws StateNotFoundException {
 		StateRetrievalResult stateRetrievalResult = stateGeoOperationService
 				.retrieveStateDetails(new StateRetrievalModel(model.getStateName()));
 		List<District> result = new ArrayList<>();

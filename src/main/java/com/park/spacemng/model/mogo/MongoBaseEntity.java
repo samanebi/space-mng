@@ -1,4 +1,4 @@
-package com.park.spacemng.model;
+package com.park.spacemng.model.mogo;
 
 import java.io.Serializable;
 

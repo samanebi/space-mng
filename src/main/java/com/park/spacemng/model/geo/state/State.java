@@ -4,11 +4,15 @@ import java.util.Map;
 
 import com.park.spacemng.model.constants.District;
 import com.park.spacemng.model.constants.StateName;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import org.springframework.data.geo.Polygon;
 
-@Data
+@Setter
+@Getter
+@ToString
 public class State {
 
 	private State uid;

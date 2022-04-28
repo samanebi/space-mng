@@ -13,7 +13,7 @@ public interface OwnerSpaceOperationService {
 
 	void generateSpaces(OwnerSpaceGenerationModel model) throws GeneralException;
 
-	void updateSpace(OwnerSpaceUpdateModel model);
+	void updateSpace(OwnerSpaceUpdateModel model) throws GeneralException;
 
 	SpaceRequestsRetrievalResult getSpaceRequests(String batchId) throws ParameterValidationException;
 
