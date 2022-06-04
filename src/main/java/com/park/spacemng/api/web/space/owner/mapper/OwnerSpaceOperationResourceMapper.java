@@ -8,9 +8,9 @@ import com.park.spacemng.model.request.SpaceGenerationRequest;
 import com.park.spacemng.model.request.SpaceResolutionRequest;
 import com.park.spacemng.model.request.SpaceUpdateRequest;
 import com.park.spacemng.model.response.SpaceRetrievalResponse;
+import com.park.spacemng.model.space.SpaceLocation;
 import com.park.spacemng.service.booking.model.BookingRequestDetails;
 import com.park.spacemng.service.booking.model.BookingRequestsRetrievalResult;
-import com.park.spacemng.service.space.owner.model.Location;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceGenerationModel;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceUpdateModel;
 import com.park.spacemng.service.space.owner.model.SpaceBookingModel;
@@ -37,7 +37,7 @@ public interface OwnerSpaceOperationResourceMapper {
 	OwnerSpaceGenerationModel toSpaceGenerationModel(SpaceGenerationRequest request, String userId);
 
 	@InheritInverseConfiguration
-	Location toLocation(LocationRequest location);
+	SpaceLocation toLocation(LocationRequest location);
 
 	SpaceBookingModel toSpaceBookingModel(SpaceBookingRequest request);
 

@@ -28,7 +28,7 @@ public class PaymentResource {
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/pay/dpg/{ticket}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/pay/{ticket}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> pay(@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId,
 			@NotBlank @PathVariable String ticket) {
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);

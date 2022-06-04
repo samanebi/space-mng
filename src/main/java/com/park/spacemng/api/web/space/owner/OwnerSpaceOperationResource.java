@@ -52,7 +52,7 @@ public class OwnerSpaceOperationResource {
 	@PostMapping(value = "/space/update",
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> updateSpace(@NotNull @RequestBody SpaceUpdateRequest request,
-			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) {
+			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) throws GeneralException {
 		service.updateSpace(mapper.toSpaceUpdateModel(request, userId));
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}

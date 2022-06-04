@@ -44,10 +44,10 @@ public class OwnerSpaceOperationServiceImpl implements OwnerSpaceOperationServic
 		parameterValidator.requireParameterNotNullOrBlank(model.getBatchId());
 		parameterValidator.requireParameterNotNullOrBlank(model.getOwnerId());
 		parameterValidator.requireParameterNotNullOrBlank(model.getDescription());
-		parameterValidator.requireParameterNotNull(model.getLocation());
+		parameterValidator.requireParameterNotNull(model.getSpaceLocation());
 		parameterValidator.requireParameterNotNullOrBlank(model.getTitle());
-		parameterValidator.requireParameterNotEqualTo(model.getLocation().getY(), 0.0);
-		parameterValidator.requireParameterNotEqualTo(model.getLocation().getX(), 0.0);
+		parameterValidator.requireParameterNotEqualTo(model.getSpaceLocation().getPosition().getX(), 0.0);
+		parameterValidator.requireParameterNotEqualTo(model.getSpaceLocation().getPosition().getY(), 0.0);
 	}
 
 	@Override

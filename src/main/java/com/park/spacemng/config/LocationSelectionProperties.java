@@ -1,11 +1,13 @@
 package com.park.spacemng.config;
 
 import com.park.spacemng.model.constants.LocationSelectionType;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Data
+@Setter
+@Getter
 @ConfigurationProperties(prefix = "location.selection")
 public class LocationSelectionProperties {
 

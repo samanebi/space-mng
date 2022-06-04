@@ -1,11 +1,11 @@
 package com.park.spacemng.model.request;
 
-import java.awt.Point;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+
+import org.springframework.data.geo.Point;
 
 @Data
 public class NearbyAvailableSpacesRequest {

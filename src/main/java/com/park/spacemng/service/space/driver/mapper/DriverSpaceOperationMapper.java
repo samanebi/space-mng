@@ -15,6 +15,7 @@ import com.park.spacemng.service.space.owner.model.OwnerSpaceRetrievalModel;
 import com.park.spacemng.service.space.space.model.SpaceInfo;
 import com.park.spacemng.service.user.owner.model.OwnerInfo;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface DriverSpaceOperationMapper {
@@ -27,8 +28,10 @@ public interface DriverSpaceOperationMapper {
 
 	OwnerSpaceRetrievalModel toOwnerSpaceRetrievalModel(DesiredLocation location);
 
+	@Mapping(target = "spaceId", source = "id")
 	SpaceDetails toSpaceDetails(Space space);
 
+	@Mapping(target = "ownerId", source = "id")
 	OwnerDetails toOwnerDetails(Owner owner);
 
 	BookingInitiationModel toBookingInitiationModel(DriverSpaceBookingModel model, String ownerId);

@@ -1,13 +1,15 @@
 package com.park.spacemng.config;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Data
+@Setter
+@Getter
 @ConfigurationProperties(prefix = "tracking-code")
 public class TrackingCodeProperties {
 
-	private int length;
-	
+	private Integer length;
+
 }

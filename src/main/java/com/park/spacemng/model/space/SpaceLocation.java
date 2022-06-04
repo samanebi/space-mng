@@ -1,18 +1,16 @@
-package com.park.spacemng.model.dto;
+package com.park.spacemng.model.space;
 
 import com.park.spacemng.model.constants.District;
 import com.park.spacemng.model.constants.StateName;
 import com.park.spacemng.model.constants.Town;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import org.springframework.data.geo.Point;
 
 @Setter
 @Getter
-@ToString
-public class LocationDto {
+public class SpaceLocation {
 
 	private Point position;
 

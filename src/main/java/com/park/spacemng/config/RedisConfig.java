@@ -1,6 +1,5 @@
 package com.park.spacemng.config;
 
-import com.park.spacemng.model.user.User;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -28,12 +27,12 @@ public class RedisConfig {
 	}
 
 	@Bean(name = "OnlineUserRedisTemplate")
-	public RedisTemplate<String, User> leaderBoardInfoRedisTemplate(
+	public RedisTemplate<String, Long> leaderBoardInfoRedisTemplate(
 			JedisConnectionFactory jedisConnectionFactory) {
-		final RedisTemplate<String, User> template = new RedisTemplate<>();
+		final RedisTemplate<String, Long> template = new RedisTemplate<>();
 		template.setConnectionFactory(jedisConnectionFactory);
 		template.setKeySerializer(new GenericToStringSerializer<>(String.class));
-		template.setValueSerializer(new Jackson2JsonRedisSerializer<>(User.class));
+		template.setValueSerializer(new Jackson2JsonRedisSerializer<>(Long.class));
 		return template;
 	}
 

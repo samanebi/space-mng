@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.park.spacemng.model.mogo.MongoBaseEntity;
-import com.park.spacemng.model.space.Location;
+import com.park.spacemng.model.space.SpaceLocation;
 import com.park.spacemng.model.user.owner.Owner;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class Space extends MongoBaseEntity {
 
 	private String address;
 
-	private Location location;
+	private SpaceLocation location;
 
 	private Owner owner;
 

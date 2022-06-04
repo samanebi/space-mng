@@ -87,7 +87,7 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 		List<Space> spaces = dao.findAllByBatchId(model.getBatchId()).stream().peek(space -> {
 			space.setAddress(model.getAddress());
 			space.setDescription(model.getDescription());
-			space.setLocation(model.getLocation());
+			space.setLocation(model.getSpaceLocation());
 			space.setTitle(model.getTitle());
 		}).collect(Collectors.toList());
 		return dao.saveAll(spaces);

@@ -13,7 +13,7 @@ import com.park.spacemng.service.booking.model.BookingRequestsRetrievalResult;
 import com.park.spacemng.service.user.driver.model.DriverInfo;
 import com.park.spacemng.service.user.owner.model.OwnerInfo;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.ValueMapping;
 
 @Mapper(componentModel = "spring")
 public interface BookingOperationServiceMapper {
@@ -30,10 +30,16 @@ public interface BookingOperationServiceMapper {
 
 	BookingRequest toBookingRequest(BookingRequestDetails details);
 
-	BookingRequestsRetrievalResult toBookingRequestsRetrievalResult(List<BookingRequest> requests);
+	default BookingRequestsRetrievalResult toBookingRequestsRetrievalResult(List<BookingRequest> requests) {
+		BookingRequestsRetrievalResult requestsRetrievalResult = new BookingRequestsRetrievalResult();
+		requestsRetrievalResult.setRequests(toBookingRequestsDetailsList(requests));
+		return requestsRetrievalResult;
+	}
 
-	@Mapping(source = "APPROVE", target = "ACCEPTED")
-	@Mapping(source = "REJECT", target = "REJECTED")
+	List<BookingRequestDetails> toBookingRequestsDetailsList(List<BookingRequest> requests);
+
+	@ValueMapping(source = "APPROVE", target = "ACCEPTED")
+	@ValueMapping(source = "REJECT", target = "REJECTED")
 	BookingRequest.Status toStatus(RequestResolution resolution);
 
 	List<BookingRequest> toToBookingRequestList(List<BookingRequestDetails> bookingRequestDetails);

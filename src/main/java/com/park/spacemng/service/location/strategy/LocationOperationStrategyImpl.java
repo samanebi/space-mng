@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public non-sealed class LocationOperationStrategyImpl implements LocationOperationStrategy {
+public class LocationOperationStrategyImpl implements LocationOperationStrategy {
 
 	private final Map<LocationSelectionType, LocationOperationService> services = new HashMap<>();
 

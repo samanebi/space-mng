@@ -23,13 +23,13 @@ public final class ParameterValidator {
 	}
 
 	public void requireParameterNotNull(Object argument) throws GeneralException {
-		ExceptionGenerator.generateIfFalse(Objects.isNull(argument), ParameterValidationException.class,
+		ExceptionGenerator.generateIfFalse(Objects.nonNull(argument), ParameterValidationException.class,
 				messages.getNullParameter());
 	}
 
 	public void requireParameterNotEqualTo(Object argument, Object target) throws GeneralException {
 		requireParameterNotNull(argument);
-		ExceptionGenerator.generateIfFalse(Objects.equals(argument, target),
+		ExceptionGenerator.generateIfFalse(!Objects.equals(argument, target),
 				ParameterValidationException.class, messages.getEqualParameter().formatted(argument, target));
 	}
 

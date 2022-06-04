@@ -1,7 +1,6 @@
 package com.park.spacemng.service.space.owner.model;
 
-import java.awt.Point;
-
+import com.park.spacemng.model.space.SpaceLocation;
 import lombok.Data;
 
 @Data
@@ -17,7 +16,7 @@ public class OwnerSpaceGenerationModel {
 
 	private String address;
 
-	private Point location;
+	private SpaceLocation spaceLocation;
 
 	private int capacity;
 

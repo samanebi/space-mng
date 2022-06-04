@@ -35,8 +35,6 @@ public interface DriverSpaceOperationResourceMapper {
 
 	SpaceDetailsDto toSpaceDetailsDto(DriverSpaceBookingResult result);
 
-	DriverLocation toLocation(LocationDto location);
-
 	LocationDto toLocationDto(DriverLocation driverLocation);
 
 }

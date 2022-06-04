@@ -12,4 +12,10 @@ public class GeneralException extends Exception {
 		super(message);
 		this.status = status;
 	}
+
+	public GeneralException(String message) {
+		super(message);
+		this.status = ProcessStatus.FAILURE;
+	}
+
 }

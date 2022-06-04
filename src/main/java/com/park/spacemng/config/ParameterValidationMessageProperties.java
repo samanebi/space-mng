@@ -1,17 +1,19 @@
 package com.park.spacemng.config;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Data
+@Setter
+@Getter
 @ConfigurationProperties(value = "parameter.validation.messages")
 public class ParameterValidationMessageProperties {
 
-	private final String nullParameter;
+	private String nullParameter;
 
-	private final String blankParameter;
+	private String blankParameter;
 
-	private final String equalParameter;
+	private String equalParameter;
 
 }

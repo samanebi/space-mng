@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties({ LocationSelectionProperties.class, TrackingCodeProperties.class,
-		ParameterValidationMessageProperties.class })
+		ParameterValidationMessageProperties.class, OnlineUserProperties.class })
 public class Properties {
 
 	// TODO : add properties

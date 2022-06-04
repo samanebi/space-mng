@@ -8,7 +8,6 @@ import com.park.spacemng.exception.StateNotFoundException;
 import com.park.spacemng.model.constants.District;
 import com.park.spacemng.model.constants.LocationSelectionType;
 import com.park.spacemng.service.geo.state.StateGeoOperationService;
-import com.park.spacemng.service.geo.state.model.StateRetrievalModel;
 import com.park.spacemng.service.geo.state.model.StateRetrievalResult;
 import com.park.spacemng.service.location.LocationOperationService;
 import com.park.spacemng.service.location.model.DesiredLocation;
@@ -34,6 +33,8 @@ public class DistrictBasedLocationOperationService implements LocationOperationS
 	public DesiredLocationRetrievalResult getDesiredLocation(DesiredLocationRetrievalModel model)
 			throws StateNotFoundException {
 		DesiredLocation desiredLocation = new DesiredLocation();
+		/* yes I know it, but we are just starting in tehran,
+		 and it is not necessary to have a functionality that supports other cities.*/
 		desiredLocation.setStates(Collections.singletonList(model.getStateName()));
 		desiredLocation.setTowns(Collections.singletonList(model.getTown()));
 		desiredLocation.setDistricts(getDistrictByGeographicLocation(model));
@@ -48,7 +49,7 @@ public class DistrictBasedLocationOperationService implements LocationOperationS
 	private List<District> getDistrictByGeographicLocation(DesiredLocationRetrievalModel model)
 			throws StateNotFoundException {
 		StateRetrievalResult stateRetrievalResult = stateGeoOperationService
-				.retrieveStateDetails(new StateRetrievalModel(model.getStateName()));
+				.retrieveStateDetails(model.getStateName());
 		List<District> result = new ArrayList<>();
 		stateRetrievalResult.getStateDetails().getDistricts().forEach((name, area) -> {
 			if (isPointInsideArea(model.getLocation(), area)) {

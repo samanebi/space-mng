@@ -1,5 +1,6 @@
 package com.park.spacemng.service.space.owner.model;
 
+import com.park.spacemng.model.space.SpaceLocation;
 import lombok.Data;
 
 @Data
@@ -15,7 +16,7 @@ public class OwnerSpaceUpdateModel {
 
 	private String address;
 
-	private Location location;
+	private SpaceLocation spaceLocation;
 
 	private int capacity;
 
