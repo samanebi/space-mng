@@ -11,6 +11,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class Owner extends User {
 
+	private String ownerId;
+
 	private String nationalId;
 
 	private BirthCertificateInfo birthCertificateInfo;

@@ -7,8 +7,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Setter
 @Getter
-@ConfigurationProperties(prefix = "tracking-code")
-public class TrackingCodeProperties {
+@ConfigurationProperties(prefix = "user-id")
+public class UserIdProperties {
 
 	private int length;
 
