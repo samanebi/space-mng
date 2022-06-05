@@ -4,7 +4,7 @@ import org.testcontainers.containers.MongoDBContainer;
 
 public class MongoContainer extends MongoDBContainer {
 
-	private static final String IMAGE_VERSION = "mongo:5.0.6";
+	private static final String IMAGE_VERSION = "mongo:3.6.3";
 
 	private static MongoContainer container;
 
@@ -22,7 +22,7 @@ public class MongoContainer extends MongoDBContainer {
 	@Override
 	public void start() {
 		super.start();
-		System.setProperty("MONGO-CONTAINER-URL", container.getReplicaSetUrl());
+		System.setProperty("spring.data.mongodb.host", container.getReplicaSetUrl());
 	}
 
 }
