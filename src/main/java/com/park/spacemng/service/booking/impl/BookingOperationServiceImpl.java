@@ -85,8 +85,21 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 	public void pay(String trackingCode) {
 		BookingRequest request = dao.findByTrackingCode(trackingCode).orElseThrow(() ->
 				new BookingRequestNotFoundException("request with tracking code " + trackingCode
-						+ " does not exists."));
+						+ " does not exist for payment."));
 		request.setStatus(Status.PAYED);
+		dao.save(request);
+	}
+
+	@Override
+	public void evacuate(String trackingCode) {
+		BookingRequest request = dao.findByTrackingCode(trackingCode)
+				.orElseThrow(() -> new BookingRequestNotFoundException("request with tracking code " + trackingCode
+						+ " does not exist for evacuation."));
+		if (request.getStatus().equals(Status.PAYED)) {
+			request.setStatus(Status.CONFIRMED);
+		} else {
+			throw new IllegalArgumentException("request cant be evacuated before payment.");
+		}
 		dao.save(request);
 	}
 

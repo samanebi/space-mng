@@ -12,4 +12,6 @@ public interface DriverSpaceOperationService {
 
 	DriverSpaceBookingResult bookSpace(DriverSpaceBookingModel model) throws GeneralException;
 
+	void evacuate(String trackingCode);
+
 }

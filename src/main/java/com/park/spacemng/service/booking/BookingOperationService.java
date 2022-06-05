@@ -17,4 +17,6 @@ public interface BookingOperationService {
 
 	void pay(String trackingCode);
 
+	void evacuate(String trackingCode);
+
 }

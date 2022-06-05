@@ -103,6 +103,11 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 		return mapper.toDriverSpaceBookingResult(info, trackingCode);
 	}
 
+	@Override
+	public void evacuate(String trackingCode) {
+		bookingOperationService.evacuate(trackingCode);
+	}
+
 	private void bookSpaceArgumentValidation(DriverSpaceBookingModel model) throws GeneralException {
 		parameterValidator.requireParameterNotNullOrBlank(model.getDriverId());
 		parameterValidator.requireParameterNotNullOrBlank(model.getBatchId());
