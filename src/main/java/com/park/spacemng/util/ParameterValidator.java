@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import com.park.spacemng.config.ParameterValidationMessageProperties;
 import com.park.spacemng.exception.GeneralException;
-import com.park.spacemng.exception.ParameterValidationException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 
@@ -19,18 +18,18 @@ public final class ParameterValidator {
 	public void requireParameterNotNullOrBlank(String argument) throws GeneralException {
 		requireParameterNotNull(argument);
 		ExceptionGenerator.generateIfFalse(Strings.isNotBlank(argument),
-				ParameterValidationException.class, messages.getBlankParameter());
+				messages.getBlankParameter());
 	}
 
 	public void requireParameterNotNull(Object argument) throws GeneralException {
-		ExceptionGenerator.generateIfFalse(Objects.nonNull(argument), ParameterValidationException.class,
+		ExceptionGenerator.generateIfFalse(Objects.nonNull(argument),
 				messages.getNullParameter());
 	}
 
 	public void requireParameterNotEqualTo(Object argument, Object target) throws GeneralException {
 		requireParameterNotNull(argument);
 		ExceptionGenerator.generateIfFalse(!Objects.equals(argument, target),
-				ParameterValidationException.class, messages.getEqualParameter().formatted(argument, target));
+				messages.getEqualParameter().formatted(argument, target));
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.park.spacemng.model.booking.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.park.spacemng.model.booking.BookingRequest;
 
@@ -15,5 +16,7 @@ public interface BookingRequestDao extends MongoRepository<BookingRequest, Strin
 	List<BookingRequest> findAllByTrackingCodes(List<String> trackingCodes);
 
 	List<BookingRequest> findAllByBatchId(String batchId);
+
+	Optional<BookingRequest> findByTrackingCode(String trackingCode);
 
 }

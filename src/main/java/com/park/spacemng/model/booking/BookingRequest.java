@@ -17,6 +17,10 @@ public class BookingRequest extends MongoBaseEntity {
 
 	private String batchId;
 
+	private String spaceId;
+
+	private String carId;
+
 	private long creationDate;
 
 	private long exerciseDate;

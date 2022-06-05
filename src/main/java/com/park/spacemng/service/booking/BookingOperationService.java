@@ -15,4 +15,6 @@ public interface BookingOperationService {
 
 	void resolve(List<BookingRequestDetails> requestDetails);
 
+	void pay(String trackingCode);
+
 }

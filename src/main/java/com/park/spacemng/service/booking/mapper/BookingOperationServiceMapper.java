@@ -1,6 +1,8 @@
 package com.park.spacemng.service.booking.mapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.constants.RequestResolution;
@@ -42,6 +44,12 @@ public interface BookingOperationServiceMapper {
 	@ValueMapping(source = "REJECT", target = "REJECTED")
 	BookingRequest.Status toStatus(RequestResolution resolution);
 
-	List<BookingRequest> toToBookingRequestList(List<BookingRequestDetails> bookingRequestDetails);
+
+	default Map<String, RequestResolution> toToBookingRequestList(List<BookingRequestDetails> bookingRequestDetails) {
+		Map<String, RequestResolution> result = new HashMap<>();
+		bookingRequestDetails.forEach(request -> result.put(request.getTrackingCode(),
+				request.getResolution()));
+		return result;
+	}
 
 }

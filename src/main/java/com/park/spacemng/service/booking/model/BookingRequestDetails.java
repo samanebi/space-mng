@@ -10,10 +10,6 @@ public class BookingRequestDetails {
 
 	private String batchId;
 
-	private BookingRequestOwnerInfo owner;
-
-	private BookingRequestDriverInfo driver;
-
 	private long amount;
 
 	private RequestResolution resolution;

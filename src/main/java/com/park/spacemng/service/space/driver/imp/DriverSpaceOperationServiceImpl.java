@@ -99,8 +99,7 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 		SpaceInfo info = spaceInfo.get(index);
 		spaceOperationService.takeUnderProcess(info.getSpaceId());
 		String trackingCode = bookingOperationService
-				.initiateBookingRequest(mapper.toBookingInitiationModel(model,
-						info.getOwner().getOwnerId()));
+				.initiateBookingRequest(mapper.toBookingInitiationModel(model, info));
 		return mapper.toDriverSpaceBookingResult(info, trackingCode);
 	}
 

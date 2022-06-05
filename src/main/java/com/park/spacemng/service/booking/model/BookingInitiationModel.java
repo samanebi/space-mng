@@ -7,6 +7,10 @@ public class BookingInitiationModel {
 
 	private String batchId;
 
+	private String spaceId;
+
+	private String carId;
+
 	private String ownerId;
 
 	private String driverId;
