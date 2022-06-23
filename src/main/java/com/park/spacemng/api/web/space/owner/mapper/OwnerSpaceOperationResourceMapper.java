@@ -12,11 +12,13 @@ import com.park.spacemng.model.space.SpaceLocation;
 import com.park.spacemng.service.booking.model.BookingRequestDetails;
 import com.park.spacemng.service.booking.model.BookingRequestsRetrievalResult;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceGenerationModel;
+import com.park.spacemng.service.space.owner.model.OwnerSpaceRetrievalModel;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceUpdateModel;
 import com.park.spacemng.service.space.owner.model.SpaceBookingModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsResolutionModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalResult;
 import com.park.spacemng.service.space.space.model.SpaceGenerationModel;
+import com.park.spacemng.service.space.space.model.SpaceQueryModel;
 import com.park.spacemng.service.space.space.model.SpaceUpdateModel;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -50,5 +52,7 @@ public interface OwnerSpaceOperationResourceMapper {
 	BookingRequestDetails toBookingRequestDetails(SpaceBookingModel model);
 
 	List<BookingRequestDetails> toBookingRequestDetailsList(List<SpaceBookingModel> models);
+
+	SpaceQueryModel toSpaceQueryModel(OwnerSpaceRetrievalModel model);
 
 }

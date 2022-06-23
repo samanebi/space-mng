@@ -9,6 +9,8 @@ import com.park.spacemng.service.space.owner.model.OwnerSpaceUpdateModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsResolutionModel;
 import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalResult;
 
+import org.springframework.data.geo.Point;
+
 public interface OwnerSpaceOperationService {
 
 	void generateSpaces(OwnerSpaceGenerationModel model) throws GeneralException;
@@ -20,5 +22,7 @@ public interface OwnerSpaceOperationService {
 	void resolveSpaceRequests(SpaceRequestsResolutionModel model) throws ParameterValidationException;
 
 	OwnerSpaceRetrievalResult querySpaces(OwnerSpaceRetrievalModel model);
+
+	OwnerSpaceRetrievalResult findSpaces(Point point);
 
 }

@@ -10,7 +10,6 @@ import com.park.spacemng.exception.SpaceNotAvailableException;
 import com.park.spacemng.model.constants.LocationSelectionType;
 import com.park.spacemng.model.space.space.Space.Status;
 import com.park.spacemng.service.booking.BookingOperationService;
-import com.park.spacemng.service.location.model.DesiredLocationRetrievalResult;
 import com.park.spacemng.service.location.strategy.LocationOperationStrategy;
 import com.park.spacemng.service.space.driver.DriverSpaceOperationService;
 import com.park.spacemng.service.space.driver.mapper.DriverSpaceOperationMapper;
@@ -60,11 +59,11 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 		nearbyAvailableSpacesArgumentValidation(model);
 
 		log.info("going to get nearby available spaces for request : {}", model);
-		DesiredLocationRetrievalResult desiredLocation = locationStrategy
+		/*DesiredLocationRetrievalResult desiredLocation = locationStrategy
 				.getLocationOperationService(getLocationSelectionType())
-				.getDesiredLocation(mapper.toDesiredLocationRetrievalModel(model));
+				.getDesiredLocation(mapper.toDesiredLocationRetrievalModel(model));*/
 		List<SpaceDetails> result = new ArrayList<>();
-		ownerSpaceOperationService.querySpaces(mapper.toOwnerSpaceRetrievalModel(desiredLocation)).getSpaces()
+		ownerSpaceOperationService.findSpaces(model.getLocation()).getSpaces()
 				.forEach(space -> {
 					if (onlineOwnerOperationService
 							.isOnline(space.getOwner().getId())) {

@@ -97,6 +97,7 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 						+ " does not exist for evacuation."));
 		if (request.getStatus().equals(Status.PAYED)) {
 			request.setStatus(Status.CONFIRMED);
+			spaceOperationService.freeSpace(request.getSpaceId());
 		} else {
 			throw new IllegalArgumentException("request cant be evacuated before payment.");
 		}

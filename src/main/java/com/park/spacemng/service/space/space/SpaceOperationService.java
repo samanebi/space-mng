@@ -7,7 +7,10 @@ import com.park.spacemng.exception.SpaceNotFoundException;
 import com.park.spacemng.model.space.space.Space;
 import com.park.spacemng.service.space.space.model.SpaceGenerationModel;
 import com.park.spacemng.service.space.space.model.SpaceInfo;
+import com.park.spacemng.service.space.space.model.SpaceQueryModel;
 import com.park.spacemng.service.space.space.model.SpaceUpdateModel;
+
+import org.springframework.data.geo.Point;
 
 public interface SpaceOperationService {
 
@@ -23,4 +26,7 @@ public interface SpaceOperationService {
 
 	void updateSpace(SpaceUpdateModel model) throws GeneralException;
 
+	List<Space> querySpaces(SpaceQueryModel model);
+
+	List<Space> findByPoint(Point point);
 }

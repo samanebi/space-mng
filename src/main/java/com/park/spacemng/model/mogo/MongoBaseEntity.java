@@ -1,5 +1,6 @@
 package com.park.spacemng.model.mogo;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.Getter;
@@ -13,6 +14,7 @@ import org.springframework.data.annotation.Id;
 @ToString
 public class MongoBaseEntity implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = -8152521988572821258L;
 
 	@Id

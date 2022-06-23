@@ -51,4 +51,8 @@ public class Space extends MongoBaseEntity {
 
 	}
 
+	public boolean equalsById(Space space) {
+		return space.getId().equals(this.getId());
+	}
+
 }

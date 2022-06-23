@@ -14,11 +14,13 @@ import com.park.spacemng.service.space.space.SpaceOperationService;
 import com.park.spacemng.service.space.space.mapper.SpaceOperationServiceMapper;
 import com.park.spacemng.service.space.space.model.SpaceGenerationModel;
 import com.park.spacemng.service.space.space.model.SpaceInfo;
+import com.park.spacemng.service.space.space.model.SpaceQueryModel;
 import com.park.spacemng.service.space.space.model.SpaceUpdateModel;
 import com.park.spacemng.service.user.owner.OwnerOperationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -84,6 +86,22 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 			spaceGenerationModel.setCapacity(model.getCapacity() - spaces.size());
 			generate(spaceGenerationModel);
 		}
+	}
+
+	@Override
+	public List<Space> querySpaces(SpaceQueryModel model) {
+		return dao.findAllByStateNameAndDistrictAndTown(model.getStates(),
+				model.getDistricts(), model.getTowns());
+	}
+
+	@Override
+	public List<Space> findByPoint(Point point) {
+		List<Space> result = new ArrayList<>();
+		List<Space> spaces = dao.findAllByPointX(point.getX() - 1000, point.getX() + 1000);
+		dao.findAllByPointY(point.getY() - 1000, point.getY() + 1000).forEach(space -> {
+			result.addAll(spaces.stream().filter(s -> s.getId().equals(space.getId())).toList());
+		});
+		return result;
 	}
 
 	private List<Space> updateSpaceInformation(SpaceUpdateModel model) {

@@ -16,14 +16,12 @@ import com.park.spacemng.service.location.model.DesiredLocationRetrievalResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.geo.Point;
 import org.springframework.data.geo.Polygon;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-@Primary
 @RequiredArgsConstructor
 public class DistrictBasedLocationOperationService implements LocationOperationService {
 

@@ -1,8 +1,11 @@
 package com.park.spacemng.service.space.owner.impl;
 
+import java.util.List;
+
 import com.park.spacemng.api.web.space.owner.mapper.OwnerSpaceOperationResourceMapper;
 import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.exception.ParameterValidationException;
+import com.park.spacemng.model.space.space.Space;
 import com.park.spacemng.service.booking.BookingOperationService;
 import com.park.spacemng.service.booking.model.BookingRequestsRetrievalResult;
 import com.park.spacemng.service.space.owner.OwnerSpaceOperationService;
@@ -18,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -81,7 +85,15 @@ public class OwnerSpaceOperationServiceImpl implements OwnerSpaceOperationServic
 
 	@Override
 	public OwnerSpaceRetrievalResult querySpaces(OwnerSpaceRetrievalModel model) {
-		throw new UnsupportedOperationException();
+		List<Space> spaces = spaceOperationService.querySpaces(mapper.toSpaceQueryModel(model));
+		return new OwnerSpaceRetrievalResult(spaces);
+	}
+
+	@Override
+	public OwnerSpaceRetrievalResult findSpaces(Point point) {
+		OwnerSpaceRetrievalResult result = new OwnerSpaceRetrievalResult();
+		result.setSpaces(spaceOperationService.findByPoint(point));
+		return result;
 	}
 
 }
