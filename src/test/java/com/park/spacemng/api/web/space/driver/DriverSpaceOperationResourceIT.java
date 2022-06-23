@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 
 	@Autowired
@@ -66,6 +68,7 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		owner.setBirthCertificateInfo(birthCertificateInfo);
 		space.setOwner(owner);
 		dao.save(space);
+		assertThat(dao.findAll()).hasSize(1);
 	}
 
 

@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.park.spacemng.config.LocationSelectionProperties;
 import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.exception.SpaceNotAvailableException;
-import com.park.spacemng.model.constants.LocationSelectionType;
 import com.park.spacemng.model.space.space.Space.Status;
 import com.park.spacemng.service.booking.BookingOperationService;
-import com.park.spacemng.service.location.strategy.LocationOperationStrategy;
 import com.park.spacemng.service.space.driver.DriverSpaceOperationService;
 import com.park.spacemng.service.space.driver.mapper.DriverSpaceOperationMapper;
 import com.park.spacemng.service.space.driver.model.DriverSpaceBookingModel;
@@ -35,10 +32,6 @@ import org.springframework.stereotype.Service;
 public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationService {
 
 	private static final Random RANDOM = new Random();
-
-	private final LocationOperationStrategy locationStrategy;
-
-	private final LocationSelectionProperties properties;
 
 	private final DriverSpaceOperationMapper mapper;
 
@@ -113,10 +106,6 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 		parameterValidator.requireParameterNotNullOrBlank(model.getCarId());
 		parameterValidator.requireParameterNotNullOrBlank(model.getUserId());
 		parameterValidator.requireParameterNotEqualTo(model.getAmount(), 0L);
-	}
-
-	private LocationSelectionType getLocationSelectionType() {
-		return properties.getDefaultType();
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import com.park.spacemng.config.LocationSelectionProperties;
 import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.exception.SpaceNotFoundException;
 import com.park.spacemng.model.space.space.Space;
@@ -35,6 +36,8 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 	private final SpaceOperationServiceMapper mapper;
 
 	private final OwnerOperationService ownerOperationService;
+
+	private final LocationSelectionProperties properties;
 
 	@Override
 	public List<SpaceInfo> retrieveSpace(String batchId, Status status) {
@@ -97,8 +100,9 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 	@Override
 	public List<Space> findByPoint(Point point) {
 		List<Space> result = new ArrayList<>();
-		List<Space> spaces = dao.findAllByPointX(point.getX() - 1000, point.getX() + 1000);
-		dao.findAllByPointY(point.getY() - 1000, point.getY() + 1000).forEach(space -> {
+		double distance = properties.getDistance();
+		List<Space> spaces = dao.findAllByPointX(point.getX() - distance, point.getX() + distance);
+		dao.findAllByPointY(point.getY() - distance, point.getY() + distance).forEach(space -> {
 			result.addAll(spaces.stream().filter(s -> s.getId().equals(space.getId())).toList());
 		});
 		return result;
