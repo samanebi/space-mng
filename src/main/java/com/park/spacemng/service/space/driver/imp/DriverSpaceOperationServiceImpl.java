@@ -104,7 +104,6 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 		parameterValidator.requireParameterNotNullOrBlank(model.getDriverId());
 		parameterValidator.requireParameterNotNullOrBlank(model.getBatchId());
 		parameterValidator.requireParameterNotNullOrBlank(model.getCarId());
-		parameterValidator.requireParameterNotNullOrBlank(model.getUserId());
 		parameterValidator.requireParameterNotEqualTo(model.getAmount(), 0L);
 	}
 

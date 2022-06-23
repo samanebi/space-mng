@@ -7,8 +7,6 @@ public class DriverSpaceBookingModel {
 
 	private String batchId;
 
-	private String userId;
-
 	private String driverId;
 
 	private String carId;

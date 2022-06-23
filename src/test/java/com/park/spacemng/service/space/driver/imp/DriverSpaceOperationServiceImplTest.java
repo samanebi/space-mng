@@ -234,7 +234,6 @@ class DriverSpaceOperationServiceImplTest {
 		model.setDriverId(driverId);
 		model.setCarId(carId);
 		model.setBatchId(batchId);
-		model.setUserId(userId);
 		model.setAmount(amount);
 
 		DriverInfo driverInfo = new DriverInfo();

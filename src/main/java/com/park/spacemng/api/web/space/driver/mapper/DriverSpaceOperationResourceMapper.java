@@ -23,7 +23,7 @@ public interface DriverSpaceOperationResourceMapper {
 
 	NearbyAvailableSpacesResponse toNearbyAvailableSpacesResponse(NearbyAvailableSpacesRetrievalResult result);
 
-	DriverSpaceBookingModel toDriverBookingModel(SpaceBookingRequest request, String userId);
+	DriverSpaceBookingModel toDriverBookingModel(SpaceBookingRequest request);
 
 	default SpaceBookingResponse toBookingSpaceResponse(DriverSpaceBookingResult result) {
 		return new SpaceBookingResponse(toSpaceDetailsDto(result));

@@ -5,6 +5,7 @@ import com.park.spacemng.model.constants.District;
 import com.park.spacemng.model.constants.StateName;
 import com.park.spacemng.model.constants.Town;
 import com.park.spacemng.model.geo.state.dao.StateDao;
+import com.park.spacemng.model.request.SpaceBookingRequest;
 import com.park.spacemng.model.space.SpaceLocation;
 import com.park.spacemng.model.space.space.Space;
 import com.park.spacemng.model.space.space.Space.Status;
@@ -12,6 +13,8 @@ import com.park.spacemng.model.space.space.dao.SpaceDao;
 import com.park.spacemng.model.user.BirthCertificateInfo;
 import com.park.spacemng.model.user.User;
 import com.park.spacemng.model.user.constants.Gender;
+import com.park.spacemng.model.user.driver.Driver;
+import com.park.spacemng.model.user.driver.dao.DriverDao;
 import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.service.redis.impl.OnlineUserRedisDao;
 import com.park.spacemng.util.AbstractBaseIntegrationTest;
@@ -19,10 +22,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
+
+	private static String driverId;
+
+	private static String spaceId;
 
 	@Autowired
 	ObjectMapper objectMapper;
@@ -34,7 +42,10 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 	StateDao stateDao;
 
 	@Autowired
-	SpaceDao dao;
+	SpaceDao spaceDao;
+
+	@Autowired
+	DriverDao driverDao;
 
 	@BeforeEach
 	void beforeEach() {
@@ -67,13 +78,33 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		birthCertificateInfo.setSerialNumber("sample-owner-serial-number");
 		owner.setBirthCertificateInfo(birthCertificateInfo);
 		space.setOwner(owner);
-		dao.save(space);
-		assertThat(dao.findAll()).hasSize(1);
+		spaceDao.save(space);
+
+		Driver driver = new Driver();
+		driver.setDriverId("sample-driver-id");
+		driver.setStatus(User.Status.ACTIVE);
+		driver.setBirthday(100000000L);
+		driver.setEmail("sample-driver-email");
+		driver.setCellNumber("sample-driver-cell-number");
+		driver.setName("sample-driver-name");
+		driver.setSurname("sample-driver-surname");
+		driver.setGender(Gender.MALE);
+		driverDao.save(driver);
+
+		assertThat(driverDao.findAll()).hasSize(1);
+		assertThat(driverDao.findAll().get(0).getId()).isNotNull();
+		driverId = driverDao.findAll().get(0).getId();
+		assertThat(spaceDao.findAll()).hasSize(1);
+		assertThat(spaceDao.findAll().get(0).getId()).isNotNull();
+		spaceId = spaceDao.findAll().get(0).getId();
 	}
 
 
 	@Test
 	void bookSpace() {
+		SpaceBookingRequest request = new SpaceBookingRequest();
+		HttpEntity<SpaceBookingRequest> entity = new HttpEntity(request);
+
 	}
 
 }
