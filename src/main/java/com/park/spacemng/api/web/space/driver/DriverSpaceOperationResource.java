@@ -55,8 +55,7 @@ public class DriverSpaceOperationResource {
 		return new ResponseEntity<>(mapper.toBookingSpaceResponse(response), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/evacuate/{trackingCode}",
-			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/evacuate/{trackingCode}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> evacuate(
 			@PathVariable String trackingCode) throws GeneralException {
 		service.evacuate(trackingCode);

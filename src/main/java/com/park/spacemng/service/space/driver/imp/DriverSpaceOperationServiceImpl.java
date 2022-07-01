@@ -80,15 +80,15 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 
 		log.info("going to book space for request : {}", model);
 		driverOperationService.retrieveDriver(model.getDriverId());
-		List<SpaceInfo> spaceInfo = spaceOperationService
+		List<SpaceInfo> spaceInfos = spaceOperationService
 				.retrieveSpace(model.getBatchId(), Status.FREE);
-		if (spaceInfo.isEmpty()) {
+		if (spaceInfos.isEmpty()) {
 			log.error("no free space available with batch id : {}", model.getBatchId());
 			throw new SpaceNotAvailableException("no free space available with batch id : " + model.getBatchId());
 		}
 
-		int index = RANDOM.nextInt(spaceInfo.size());
-		SpaceInfo info = spaceInfo.get(index);
+		int index = RANDOM.nextInt(spaceInfos.size());
+		SpaceInfo info = spaceInfos.get(index);
 		spaceOperationService.takeUnderProcess(info.getSpaceId());
 		String trackingCode = bookingOperationService
 				.initiateBookingRequest(mapper.toBookingInitiationModel(model, info));
@@ -103,7 +103,6 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 	private void bookSpaceArgumentValidation(DriverSpaceBookingModel model) throws GeneralException {
 		parameterValidator.requireParameterNotNullOrBlank(model.getDriverId());
 		parameterValidator.requireParameterNotNullOrBlank(model.getBatchId());
-		parameterValidator.requireParameterNotNullOrBlank(model.getCarId());
 		parameterValidator.requireParameterNotEqualTo(model.getAmount(), 0L);
 	}
 

@@ -99,20 +99,23 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 
 	@Override
 	public List<Space> findByPoint(Point point) {
-		List<Space> result = new ArrayList<>();
-		double distance = properties.getDistance();
-		List<Space> spaces = dao.findAllByPointX(point.getX() - distance, point.getX() + distance);
-		dao.findAllByPointY(point.getY() - distance, point.getY() + distance).forEach(space -> {
-			result.addAll(spaces.stream().filter(s -> s.getId().equals(space.getId())).toList());
+		List<Space> spaces = dao.findAll();
+		spaces.forEach(space -> {
+			if (!(Math.abs(space.getPosition().getX() - point.getX()) <= properties.getDistance() &&
+					Math.abs(space.getPosition().getY() - point.getY()) <= properties.getDistance())) {
+				spaces.remove(space);
+			}
 		});
-		return result;
+		List<Space> spaces1 = spaces;
+		return spaces;
 	}
 
 	private List<Space> updateSpaceInformation(SpaceUpdateModel model) {
 		List<Space> spaces = dao.findAllByBatchId(model.getBatchId()).stream().peek(space -> {
 			space.setAddress(model.getAddress());
 			space.setDescription(model.getDescription());
-			space.setLocation(model.getSpaceLocation());
+			Point position = model.getSpaceLocation().getPosition();
+			space.setPosition(position);
 			space.setTitle(model.getTitle());
 		}).collect(Collectors.toList());
 		return dao.saveAll(spaces);

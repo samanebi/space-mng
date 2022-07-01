@@ -11,7 +11,8 @@ public enum ProcessStatus {
 
 	//@formatter off
 	SUCCESS(0),
-	FAILURE(1);
+	FAILURE(1),
+	INTERNAL(500);
 	//@formatter on
 
 	private final int value;

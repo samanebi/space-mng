@@ -5,16 +5,16 @@ import java.util.stream.Stream;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.park.spacemng.model.mogo.MongoBaseEntity;
-import com.park.spacemng.model.space.SpaceLocation;
 import com.park.spacemng.model.user.owner.Owner;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString(callSuper = true)
+import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Data
+@Document(collection = "spaces")
 public class Space extends MongoBaseEntity {
 
 	private String batchId;
@@ -25,7 +25,8 @@ public class Space extends MongoBaseEntity {
 
 	private String address;
 
-	private SpaceLocation location;
+	@GeoSpatialIndexed(name = "position_index")
+	private Point position;
 
 	private Owner owner;
 

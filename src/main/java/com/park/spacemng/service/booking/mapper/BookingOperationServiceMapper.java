@@ -15,6 +15,7 @@ import com.park.spacemng.service.booking.model.BookingRequestsRetrievalResult;
 import com.park.spacemng.service.user.driver.model.DriverInfo;
 import com.park.spacemng.service.user.owner.model.OwnerInfo;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ValueMapping;
 
 @Mapper(componentModel = "spring")
@@ -22,6 +23,7 @@ public interface BookingOperationServiceMapper {
 
 	Driver toDriver(DriverInfo driverInfo);
 
+	@Mapping(target = "id", source = "ownerId")
 	Owner toOwner(OwnerInfo ownerInfo);
 
 	BookingRequestOwnerInfo toBookingRequestOwnerInfo(Owner owner);

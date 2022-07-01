@@ -9,10 +9,12 @@ import com.park.spacemng.service.space.space.model.SpaceInfo;
 import com.park.spacemng.service.space.space.model.SpaceUpdateModel;
 import com.park.spacemng.service.user.owner.model.OwnerInfo;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface SpaceOperationServiceMapper {
 
+	@Mapping(target = "spaceId", source = "id")
 	SpaceInfo toSpaceInfo(Space space);
 
 	List<SpaceInfo> toSpaceInfos(List<Space> spaces);
@@ -20,6 +22,9 @@ public interface SpaceOperationServiceMapper {
 	Space toSpace(SpaceGenerationModel model);
 
 	Owner toOwner(OwnerInfo ownerInfo);
+
+	@Mapping(target = "ownerId", source = "id")
+	OwnerInfo toOwnerInfo(Owner owner);
 
 	SpaceGenerationModel toSpaceGenerationModel(SpaceUpdateModel model);
 

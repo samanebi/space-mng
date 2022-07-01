@@ -172,12 +172,7 @@ class DriverSpaceOperationServiceImplTest {
 		ownerOne.setName(ownerName);
 		ownerOne.setId(ownerId);
 		firstSpace.setOwner(ownerOne);
-		SpaceLocation spaceLocation = new SpaceLocation();
-		spaceLocation.setStateName(stateName);
-		spaceLocation.setTown(town);
-		spaceLocation.setPosition(position);
-		spaceLocation.setDistrict(districts.get(0));
-		firstSpace.setLocation(spaceLocation);
+		firstSpace.setPosition(position);
 		ownerSpaceRetrievalResult.setSpaces(Collections.singletonList(firstSpace));
 
 		NearbyAvailableSpacesRetrievalModel model = new NearbyAvailableSpacesRetrievalModel();
@@ -232,7 +227,6 @@ class DriverSpaceOperationServiceImplTest {
 
 		DriverSpaceBookingModel model = new DriverSpaceBookingModel();
 		model.setDriverId(driverId);
-		model.setCarId(carId);
 		model.setBatchId(batchId);
 		model.setAmount(amount);
 

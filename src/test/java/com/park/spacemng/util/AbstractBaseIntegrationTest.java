@@ -26,7 +26,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public abstract class AbstractBaseIntegrationTest {
 
 	private final static int REDIS_DEFAULT_PORT = 6379;
-	
+
 	private final static String MONGO_DATABASE_NAME = "space-mng";
 
 	private final static String MONGODB_IMAGE_TAG = "mongo:3.6.3";
@@ -43,7 +43,11 @@ public abstract class AbstractBaseIntegrationTest {
 	int port;
 
 	@Autowired
-	TestRestTemplate restTemplate;
+	public TestRestTemplate restTemplate;
+
+	public String getBaseUrl() {
+		return "http://localhost:" + port + "/space-mng/api/";
+	}
 
 	@DynamicPropertySource
 	static void setProperties(DynamicPropertyRegistry registry) {

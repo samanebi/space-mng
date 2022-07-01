@@ -9,8 +9,6 @@ public class DriverSpaceBookingModel {
 
 	private String driverId;
 
-	private String carId;
-
 	private long amount;
 
 }

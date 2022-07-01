@@ -38,7 +38,6 @@ public interface DriverSpaceOperationMapper {
 	@Mapping(target = "spaceId", source = "info.spaceId")
 	@Mapping(target = "ownerId", source = "info.owner.ownerId")
 	@Mapping(target = "driverId", source = "model.driverId")
-	@Mapping(target = "carId", source = "model.carId")
 	@Mapping(target = "amount", source = "model.amount")
 	BookingInitiationModel toBookingInitiationModel(DriverSpaceBookingModel model, SpaceInfo info);
 

@@ -40,7 +40,7 @@ public class OwnerOperationServiceImpl implements OwnerOperationService {
 	public void registerOwner(OwnerRegistrationModel model) {
 		Owner owner = mapper.toOwner(model);
 		owner.setStatus(Status.ACTIVE);
-		owner.setOwnerId(userIdGenerationService.generate());
+		//owner.setOwnerId(userIdGenerationService.generate());
 	}
 
 }

@@ -10,6 +10,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "location.selection")
 public class LocationSelectionProperties {
 
-	private double distance;
+	private Double distance;
 
 }
