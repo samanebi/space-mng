@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.exception.SpaceNotAvailableException;
+import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.space.space.Space.Status;
 import com.park.spacemng.service.booking.BookingOperationService;
 import com.park.spacemng.service.space.driver.DriverSpaceOperationService;
@@ -98,6 +99,11 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 	@Override
 	public void evacuate(String trackingCode) {
 		bookingOperationService.evacuate(trackingCode);
+	}
+
+	@Override
+	public BookingRequest getRequest(String trackingCode) {
+		return bookingOperationService.getRequest(trackingCode);
 	}
 
 	private void bookSpaceArgumentValidation(DriverSpaceBookingModel model) throws GeneralException {

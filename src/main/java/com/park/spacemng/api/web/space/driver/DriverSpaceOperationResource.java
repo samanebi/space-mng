@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import com.park.spacemng.api.web.space.driver.mapper.DriverSpaceOperationResourceMapper;
 import com.park.spacemng.exception.GeneralException;
+import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.constants.ProcessStatus;
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
 import com.park.spacemng.model.request.SpaceBookingRequest;
@@ -60,6 +61,13 @@ public class DriverSpaceOperationResource {
 			@PathVariable String trackingCode) throws GeneralException {
 		service.evacuate(trackingCode);
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/{trackingCode}")
+	public ResponseEntity<GeneralResponse> getRequest(
+			@PathVariable String trackingCode) throws GeneralException {
+		BookingRequest request = service.getRequest(trackingCode);
+		return new ResponseEntity<>(mapper.toBookingRequestRetrievalResponse(request), HttpStatus.OK);
 	}
 
 }

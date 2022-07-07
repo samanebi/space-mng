@@ -3,6 +3,7 @@ package com.park.spacemng.service.booking;
 import java.util.List;
 
 import com.park.spacemng.exception.GeneralException;
+import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.service.booking.model.BookingInitiationModel;
 import com.park.spacemng.service.booking.model.BookingRequestDetails;
 import com.park.spacemng.service.booking.model.BookingRequestsRetrievalResult;
@@ -18,5 +19,7 @@ public interface BookingOperationService {
 	void pay(String trackingCode);
 
 	void evacuate(String trackingCode);
+
+	BookingRequest getRequest(String trackingCode);
 
 }

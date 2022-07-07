@@ -1,6 +1,7 @@
 package com.park.spacemng.service.space.driver;
 
 import com.park.spacemng.exception.GeneralException;
+import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.service.space.driver.model.DriverSpaceBookingModel;
 import com.park.spacemng.service.space.driver.model.DriverSpaceBookingResult;
 import com.park.spacemng.service.space.driver.model.NearbyAvailableSpacesRetrievalModel;
@@ -13,5 +14,7 @@ public interface DriverSpaceOperationService {
 	DriverSpaceBookingResult bookSpace(DriverSpaceBookingModel model) throws GeneralException;
 
 	void evacuate(String trackingCode);
+
+	BookingRequest getRequest(String trackingCode);
 
 }

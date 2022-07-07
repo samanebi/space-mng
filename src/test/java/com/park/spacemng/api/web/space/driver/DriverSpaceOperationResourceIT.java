@@ -150,7 +150,6 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 	void evacuate_success() {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		HttpEntity entity = new HttpEntity(httpHeaders);
-		;
 
 		ResponseEntity<GeneralResponse> response = restTemplate.exchange(getBaseUrl() + "spaces/evacuate/" + spaceId,
 				HttpMethod.GET, entity, GeneralResponse.class);

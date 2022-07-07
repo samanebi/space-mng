@@ -1,11 +1,14 @@
 package com.park.spacemng.api.web.space.driver.mapper;
 
+import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.constants.ProcessStatus;
+import com.park.spacemng.model.dto.BookingRequestDetailsDto;
 import com.park.spacemng.model.dto.LocationDto;
 import com.park.spacemng.model.dto.OwnerDto;
 import com.park.spacemng.model.dto.SpaceDetailsDto;
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
 import com.park.spacemng.model.request.SpaceBookingRequest;
+import com.park.spacemng.model.response.BookingRequestRetrievalResponse;
 import com.park.spacemng.model.response.NearbyAvailableSpacesResponse;
 import com.park.spacemng.model.response.SpaceBookingResponse;
 import com.park.spacemng.service.space.driver.model.DriverLocation;
@@ -42,5 +45,13 @@ public interface DriverSpaceOperationResourceMapper {
 	SpaceDetailsDto toSpaceDetailsDto(DriverSpaceBookingResult result);
 
 	LocationDto toLocationDto(DriverLocation driverLocation);
+
+	BookingRequestDetailsDto toBookingRequestDetailsDto(BookingRequest request);
+
+	default BookingRequestRetrievalResponse toBookingRequestRetrievalResponse(BookingRequest request) {
+		BookingRequestRetrievalResponse response = new BookingRequestRetrievalResponse();
+		response.setDetails(toBookingRequestDetailsDto(request));
+		return response;
+	}
 
 }

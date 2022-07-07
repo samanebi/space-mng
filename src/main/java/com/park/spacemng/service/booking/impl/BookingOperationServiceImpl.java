@@ -104,6 +104,13 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 		dao.save(request);
 	}
 
+	@Override
+	public BookingRequest getRequest(String trackingCode) {
+		return dao.findByTrackingCode(trackingCode).orElseThrow(() ->
+				new BookingRequestNotFoundException("request with tracking code " + trackingCode
+						+ " does not exist ."));
+	}
+
 	private List<String> getTrackingCodes(Map<String, RequestResolution> requests) {
 		return requests.keySet().stream().toList();
 	}
