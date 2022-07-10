@@ -87,7 +87,6 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		spaceId = insertedSpace.getId();
 
 		Driver driver = new Driver();
-		driver.setDriverId("sample-driver-id");
 		driver.setStatus(User.Status.ACTIVE);
 		driver.setBirthday(100000000L);
 		driver.setEmail("sample-driver-email");

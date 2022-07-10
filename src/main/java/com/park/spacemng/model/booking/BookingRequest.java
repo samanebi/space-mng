@@ -10,6 +10,8 @@ import com.park.spacemng.model.user.owner.Owner;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import org.springframework.data.annotation.CreatedDate;
+
 @Data
 public class BookingRequest extends MongoBaseEntity {
 
@@ -21,6 +23,7 @@ public class BookingRequest extends MongoBaseEntity {
 
 	private String carId;
 
+	@CreatedDate
 	private long creationDate;
 
 	private long exerciseDate;

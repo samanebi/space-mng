@@ -9,6 +9,4 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "drivers")
 public class Driver extends User {
 
-	private String driverId;
-
 }

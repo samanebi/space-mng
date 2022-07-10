@@ -6,14 +6,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.park.spacemng.model.mogo.MongoBaseEntity;
 import com.park.spacemng.model.user.owner.Owner;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
+@Setter
+@Getter
 @Document(collection = "spaces")
 public class Space extends MongoBaseEntity {
 
@@ -32,12 +33,15 @@ public class Space extends MongoBaseEntity {
 
 	private Status status;
 
-	@AllArgsConstructor
 	public enum Status {
 
 		FREE(0), PROCESSING(1), TAKEN(2);
 
 		private final int value;
+
+		Status(int value) {
+			this.value = value;
+		}
 
 		@JsonCreator
 		public static Status fromValue(int value) {

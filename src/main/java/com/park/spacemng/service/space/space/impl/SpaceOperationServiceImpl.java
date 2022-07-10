@@ -11,6 +11,7 @@ import com.park.spacemng.exception.SpaceNotFoundException;
 import com.park.spacemng.model.space.space.Space;
 import com.park.spacemng.model.space.space.Space.Status;
 import com.park.spacemng.model.space.space.dao.SpaceDao;
+import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.service.space.space.SpaceOperationService;
 import com.park.spacemng.service.space.space.mapper.SpaceOperationServiceMapper;
 import com.park.spacemng.service.space.space.model.SpaceGenerationModel;
@@ -69,11 +70,12 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 	@Override
 	public void generate(SpaceGenerationModel model) throws GeneralException {
 		List<Space> spaces = new ArrayList<>();
+		Owner owner = ownerOperationService.retrieveOwner(model.getOwnerId());
 		for (int counter = 0; counter < model.getCapacity(); counter++) {
 			Space space = mapper.toSpace(model);
-			space.setOwner(mapper.toOwner(ownerOperationService.retrieveOwner(model.getOwnerId())));
+			space.setOwner(owner);
 			space.setStatus(Status.FREE);
-			spaces.add(mapper.toSpace(model));
+			spaces.add(space);
 		}
 		dao.saveAll(spaces);
 	}
@@ -106,7 +108,6 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 				spaces.remove(space);
 			}
 		});
-		List<Space> spaces1 = spaces;
 		return spaces;
 	}
 

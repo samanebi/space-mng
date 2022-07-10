@@ -41,7 +41,6 @@ public class DriverOperationServiceImpl implements DriverOperationService {
 	public void registerDriver(DriverRegistrationModel model) {
 		Driver driver = mapper.toDriver(model);
 		driver.setStatus(Status.ACTIVE);
-		driver.setDriverId(userIdGenerationService.generate());
 		dao.save(driver);
 	}
 

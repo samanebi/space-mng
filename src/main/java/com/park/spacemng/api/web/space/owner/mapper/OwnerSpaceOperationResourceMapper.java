@@ -31,15 +31,24 @@ public interface OwnerSpaceOperationResourceMapper {
 			String batchId);
 
 	@Mapping(source = "userId", target = "ownerId")
+	@Mapping(source = "request.location", target = "spaceLocation")
 	OwnerSpaceUpdateModel toSpaceUpdateModel(SpaceUpdateRequest request, String userId);
 
 	SpaceRetrievalResponse toSpaceRetrievalResponse(SpaceRequestsRetrievalResult result);
 
 	@Mapping(source = "userId", target = "ownerId")
+	@Mapping(source = "request.location", target = "spaceLocation")
 	OwnerSpaceGenerationModel toSpaceGenerationModel(SpaceGenerationRequest request, String userId);
 
 	@InheritInverseConfiguration
-	SpaceLocation toLocation(LocationRequest location);
+	default SpaceLocation toLocation(LocationRequest location) {
+		SpaceLocation spaceLocation = new SpaceLocation();
+		spaceLocation.setPosition(location.getLocation());
+		spaceLocation.setDistrict(location.getDistrict());
+		spaceLocation.setTown(location.getTown());
+		spaceLocation.setStateName(location.getStateName());
+		return spaceLocation;
+	}
 
 	SpaceBookingModel toSpaceBookingModel(SpaceBookingRequest request);
 

@@ -7,7 +7,6 @@ import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.model.user.owner.dao.OwnerDao;
 import com.park.spacemng.service.user.owner.OwnerOperationService;
 import com.park.spacemng.service.user.owner.mapper.OwnerOperationServiceMapper;
-import com.park.spacemng.service.user.owner.model.OwnerInfo;
 import com.park.spacemng.service.user.owner.model.OwnerRegistrationModel;
 import com.park.spacemng.service.user.userid.UserIdGenerationService;
 import com.park.spacemng.util.ParameterValidator;
@@ -28,12 +27,11 @@ public class OwnerOperationServiceImpl implements OwnerOperationService {
 	private final UserIdGenerationService userIdGenerationService;
 
 	@Override
-	public OwnerInfo retrieveOwner(String ownerId) throws GeneralException {
+	public Owner retrieveOwner(String ownerId) throws GeneralException {
 		parameterValidator.requireParameterNotNullOrBlank(ownerId);
 
-		Owner ownerOptional = dao.findById(ownerId).orElseThrow(() ->
+		return dao.findById(ownerId).orElseThrow(() ->
 				new OwnerNotFoundException("owner not found : " + ownerId));
-		return mapper.toOwnerInfo(ownerOptional);
 	}
 
 	@Override

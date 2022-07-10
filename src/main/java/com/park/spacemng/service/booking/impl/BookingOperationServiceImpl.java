@@ -10,6 +10,7 @@ import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.booking.BookingRequest.Status;
 import com.park.spacemng.model.booking.dao.BookingRequestDao;
 import com.park.spacemng.model.constants.RequestResolution;
+import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.service.booking.BookingOperationService;
 import com.park.spacemng.service.booking.mapper.BookingOperationServiceMapper;
 import com.park.spacemng.service.booking.model.BookingInitiationModel;
@@ -20,7 +21,6 @@ import com.park.spacemng.service.trackincode.TrackingCodeOperationService;
 import com.park.spacemng.service.user.driver.DriverOperationService;
 import com.park.spacemng.service.user.driver.model.DriverInfo;
 import com.park.spacemng.service.user.owner.OwnerOperationService;
-import com.park.spacemng.service.user.owner.model.OwnerInfo;
 import com.park.spacemng.util.ExceptionGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +47,7 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 	@Override
 	public String initiateBookingRequest(BookingInitiationModel model) throws GeneralException {
 		DriverInfo driverInfo = driverOperationService.retrieveDriver(model.getDriverId());
-		OwnerInfo ownerInfo = ownerOperationService.retrieveOwner(model.getOwnerId());
+		Owner ownerInfo = ownerOperationService.retrieveOwner(model.getOwnerId());
 		long currentDate = new Date().getTime();
 		BookingRequest request = new BookingRequest();
 		request.setBatchId(model.getBatchId());
@@ -59,7 +59,7 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 		request.setSpaceId(model.getSpaceId());
 		request.setCarId(model.getCarId());
 		request.setDriver(mapper.toDriver(driverInfo));
-		request.setOwner(mapper.toOwner(ownerInfo));
+		request.setOwner(ownerInfo);
 		request.setStatus(Status.INITIATED);
 		return dao.save(request).getTrackingCode();
 	}
@@ -75,7 +75,8 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 		Map<String, RequestResolution> requests = mapper.toToBookingRequestList(bookingRequestDetails);
 		List<BookingRequest> bookingRequests = dao.findAllByTrackingCodes(getTrackingCodes(requests)).stream()
 				.peek(ExceptionGenerator.runtimeExceptionWrapper(request -> {
-					request.setStatus(mapper.toStatus(requests.get(request.getTrackingCode())));
+					Status status = mapper.toStatus(requests.get(request.getTrackingCode()));
+					request.setStatus(status);
 					spaceOperationService.takeSpace(request.getSpaceId());
 				}, GeneralException.class)).toList();
 		dao.saveAll(bookingRequests);

@@ -21,6 +21,7 @@ import org.mapstruct.ValueMapping;
 @Mapper(componentModel = "spring")
 public interface BookingOperationServiceMapper {
 
+	@Mapping(target = "id", source = "driverId")
 	Driver toDriver(DriverInfo driverInfo);
 
 	@Mapping(target = "id", source = "ownerId")
@@ -28,6 +29,7 @@ public interface BookingOperationServiceMapper {
 
 	BookingRequestOwnerInfo toBookingRequestOwnerInfo(Owner owner);
 
+	@Mapping(target = "driverId", source = "id")
 	BookingRequestDriverInfo toBookingRequestDriverInfo(Driver driver);
 
 	BookingRequestDetails toBookingRequestDetails(BookingRequest request);

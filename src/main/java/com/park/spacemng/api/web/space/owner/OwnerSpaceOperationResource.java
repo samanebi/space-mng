@@ -64,7 +64,7 @@ public class OwnerSpaceOperationResource {
 		return new ResponseEntity<>(mapper.toSpaceRetrievalResponse(result), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/space/requests/resolve",
+	@PostMapping(value = "/space/requests/resolve/{batchId}",
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> resolveSpaceRequests(
 			@NotNull @RequestBody SpaceResolutionRequest request,
