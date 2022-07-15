@@ -38,6 +38,7 @@ public class OwnerOperationServiceImpl implements OwnerOperationService {
 	public void registerOwner(OwnerRegistrationModel model) {
 		Owner owner = mapper.toOwner(model);
 		owner.setStatus(Status.ACTIVE);
+		dao.insert(owner);
 		//owner.setOwnerId(userIdGenerationService.generate());
 	}
 
