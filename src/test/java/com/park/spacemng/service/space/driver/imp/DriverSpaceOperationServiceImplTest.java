@@ -7,6 +7,7 @@ import java.util.List;
 import com.park.spacemng.config.LocationSelectionProperties;
 import com.park.spacemng.config.ParameterValidationMessageProperties;
 import com.park.spacemng.config.TrackingCodeProperties;
+import com.park.spacemng.config.UserIdProperties;
 import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.model.booking.dao.BookingRequestDao;
 import com.park.spacemng.model.constants.District;
@@ -24,7 +25,6 @@ import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.model.user.owner.dao.OwnerDao;
 import com.park.spacemng.service.booking.BookingOperationService;
 import com.park.spacemng.service.booking.mapper.BookingOperationServiceMapper;
-import com.park.spacemng.service.booking.model.BookingInitiationModel;
 import com.park.spacemng.service.geo.state.StateGeoOperationService;
 import com.park.spacemng.service.geo.state.mapper.StateGeoOperationServiceMapper;
 import com.park.spacemng.service.location.LocationOperationService;
@@ -54,6 +54,7 @@ import com.park.spacemng.service.user.driver.model.DriverInfo;
 import com.park.spacemng.service.user.owner.OwnerOperationService;
 import com.park.spacemng.service.user.owner.mapper.OwnerOperationServiceMapper;
 import com.park.spacemng.service.user.owner.model.OwnerInfo;
+import com.park.spacemng.service.user.userid.UserIdGenerationService;
 import com.park.spacemng.util.ParameterValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -184,7 +185,7 @@ class DriverSpaceOperationServiceImplTest {
 				.thenReturn(locationOperationService);
 		when(locationOperationService.getDesiredLocation(desiredLocationRetrievalModel))
 				.thenReturn(desiredLocationRetrievalResult);
-		when(ownerSpaceOperationService.querySpaces(any()))
+		when(ownerSpaceOperationService.findSpaces(any()))
 				.thenReturn(ownerSpaceRetrievalResult);
 		when(onlineOwnerOperationService.isOnline(ownerId)).thenReturn(true);
 
@@ -256,15 +257,9 @@ class DriverSpaceOperationServiceImplTest {
 		spaceLocation.setPosition(spacePosition);
 		spaceInfo.setSpaceLocation(spaceLocation);
 
-		BookingInitiationModel bookingInitiationModel = new BookingInitiationModel();
-		bookingInitiationModel.setDriverId(driverId);
-		bookingInitiationModel.setAmount(amount);
-		bookingInitiationModel.setBatchId(batchId);
-		bookingInitiationModel.setOwnerId(spaceOwnerId);
-
 		when(driverOperationService.retrieveDriver(driverId)).thenReturn(driverInfo);
 		when(spaceOperationService.retrieveSpace(batchId, spaceStatus)).thenReturn(Collections.singletonList(spaceInfo));
-		when(bookingOperationService.initiateBookingRequest(bookingInitiationModel)).thenReturn(bookingTrackingCode);
+		when(bookingOperationService.initiateBookingRequest(any())).thenReturn(bookingTrackingCode);
 
 		DriverSpaceBookingResult result = service.bookSpace(model);
 
@@ -299,7 +294,7 @@ class DriverSpaceOperationServiceImplTest {
 					SpaceOperationServiceMapper.class, OwnerOperationService.class, OwnerOperationServiceMapper.class,
 					BookingOperationService.class, BookingOperationServiceMapper.class,
 					TrackingCodeOperationService.class, TrackingCodeProperties.class,
-					StateGeoOperationServiceMapper.class
+					StateGeoOperationServiceMapper.class, UserIdGenerationService.class, UserIdProperties.class
 			},
 			useDefaultFilters = false,
 			includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
@@ -310,7 +305,9 @@ class DriverSpaceOperationServiceImplTest {
 							SpaceOperationService.class, SpaceOperationServiceMapper.class, OwnerOperationService.class,
 							OwnerOperationServiceMapper.class, BookingOperationService.class,
 							BookingOperationServiceMapper.class, TrackingCodeOperationService.class,
-							TrackingCodeProperties.class, StateGeoOperationServiceMapper.class }))
+							TrackingCodeProperties.class, StateGeoOperationServiceMapper.class,
+							UserIdGenerationService.class, UserIdProperties.class
+					}))
 
 	static class TestConfigs {
 

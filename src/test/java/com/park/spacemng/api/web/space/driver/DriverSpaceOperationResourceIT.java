@@ -2,6 +2,8 @@ package com.park.spacemng.api.web.space.driver;
 
 import java.util.Date;
 
+import com.park.spacemng.model.booking.BookingRequest;
+import com.park.spacemng.model.booking.dao.BookingRequestDao;
 import com.park.spacemng.model.constants.ProcessStatus;
 import com.park.spacemng.model.geo.state.dao.StateDao;
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
@@ -38,7 +40,13 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 
 	private static String driverId;
 
+	private static Driver globalDriver;
+
 	private static String spaceId;
+
+	private static Space globalSpace;
+
+	private static Owner globalOwner;
 
 	@Autowired
 	OnlineUserRedisDao redisDao;
@@ -55,8 +63,14 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 	@Autowired
 	OwnerDao ownerDao;
 
+	@Autowired
+	BookingRequestDao bookingRequestDao;
+
 	@BeforeEach
 	void beforeEach() {
+		spaceDao.deleteAll();
+		driverDao.deleteAll();
+		ownerDao.deleteAll();
 		Space space = new Space();
 		space.setId("sample-user-id");
 		space.setBatchId("sample-batch-id");
@@ -80,11 +94,11 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		birthCertificateInfo.setSerialCharacter("sample-owner-serial-character");
 		birthCertificateInfo.setSerialNumber("sample-owner-serial-number");
 		owner.setBirthCertificateInfo(birthCertificateInfo);
-		Owner savedOwner = ownerDao.insert(owner);
-		space.setOwner(savedOwner);
-		redisDao.set(savedOwner.getId(), new Date().getTime());
-		Space insertedSpace = spaceDao.insert(space);
-		spaceId = insertedSpace.getId();
+		globalOwner = ownerDao.insert(owner);
+		space.setOwner(globalOwner);
+		redisDao.set(globalOwner.getId(), new Date().getTime());
+		globalSpace = spaceDao.insert(space);
+		spaceId = globalSpace.getId();
 
 		Driver driver = new Driver();
 		driver.setStatus(User.Status.ACTIVE);
@@ -94,7 +108,7 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		driver.setName("sample-driver-name");
 		driver.setSurname("sample-driver-surname");
 		driver.setGender(Gender.MALE);
-		driverDao.insert(driver);
+		globalDriver = driverDao.insert(driver);
 
 		assertThat(driverDao.findAll()).hasSize(1);
 		assertThat(driverDao.findAll().get(0).getId()).isNotNull();
@@ -147,10 +161,24 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 
 	@Test
 	void evacuate_success() {
+		String trackingCode = "sample-tracking-code";
+
 		HttpHeaders httpHeaders = new HttpHeaders();
 		HttpEntity entity = new HttpEntity(httpHeaders);
 
-		ResponseEntity<GeneralResponse> response = restTemplate.exchange(getBaseUrl() + "spaces/evacuate/" + spaceId,
+		BookingRequest bookingRequest = new BookingRequest();
+		bookingRequest.setSpaceId(spaceId);
+		bookingRequest.setOwner(globalOwner);
+		bookingRequest.setStatus(BookingRequest.Status.PAYED);
+		bookingRequest.setCarId("sample-car-id");
+		bookingRequest.setDriver(globalDriver);
+		bookingRequest.setCarId("sample-car-id");
+		bookingRequest.setTrackingCode(trackingCode);
+		bookingRequest.setAmount(10000L);
+		bookingRequest.setBatchId(globalSpace.getBatchId());
+		bookingRequestDao.insert(bookingRequest);
+
+		ResponseEntity<GeneralResponse> response = restTemplate.exchange(getBaseUrl() + "spaces/evacuate/" + trackingCode,
 				HttpMethod.GET, entity, GeneralResponse.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);

@@ -1,9 +1,9 @@
 package com.park.spacemng.util;
 
 import com.redis.testcontainers.RedisContainer;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testcontainers.containers.MongoDBContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -33,11 +33,10 @@ public abstract class AbstractBaseIntegrationTest {
 
 	private final static String REDIS_IMAGE_TAG = "redis:4-alpine";
 
-	@Container
-	public static MongoDBContainer mongoDBContainer = new MongoDBContainer(MONGODB_IMAGE_TAG);
+	public static MongoDBContainer mongoDBContainer = new MongoDBContainer(MONGODB_IMAGE_TAG).withReuse(true);
 
-	@Container
-	public static RedisContainer redisContainer = new RedisContainer(DockerImageName.parse(REDIS_IMAGE_TAG));
+	public static RedisContainer redisContainer = new RedisContainer(DockerImageName.parse(REDIS_IMAGE_TAG))
+			.withReuse(true);
 
 	@LocalServerPort
 	int port;
@@ -55,6 +54,12 @@ public abstract class AbstractBaseIntegrationTest {
 		registry.add("spring.redis.url", () -> redisContainer.getContainerIpAddress());
 		registry.add("spring.redis.port", () -> redisContainer.getMappedPort(REDIS_DEFAULT_PORT));
 		registry.add("spring.data.mongodb.database", () -> MONGO_DATABASE_NAME);
+	}
+
+	@BeforeAll
+	public static void beforeAll() {
+		mongoDBContainer.start();
+		redisContainer.start();
 	}
 
 }
