@@ -1,6 +1,5 @@
 package com.park.spacemng.service.user.online.impl;
 
-import java.time.Duration;
 import java.util.Date;
 
 import com.park.spacemng.config.OnlineUserProperties;
@@ -22,7 +21,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 
 	@Override
 	public void processHeartBeat(String userId) {
-		dao.setOrUpdate(userId, new Date().getTime(), Duration.ofHours(properties.getTimout()));
+		dao.setOrUpdate(userId, new Date().getTime());
 	}
 
 }
