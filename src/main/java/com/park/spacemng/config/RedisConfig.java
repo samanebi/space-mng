@@ -16,7 +16,7 @@ public class RedisConfig {
 	@Bean(name = "RedisTemplate")
 	public RedisTemplate<String, Long> redisTemplate(
 			RedisConnectionFactory redisConnectionFactory) {
-		final RedisTemplate<String, Long> template = new RedisTemplate<>();
+		RedisTemplate<String, Long> template = new RedisTemplate<>();
 		template.setConnectionFactory(redisConnectionFactory);
 		template.setKeySerializer(new GenericToStringSerializer<>(String.class));
 		template.setValueSerializer(new Jackson2JsonRedisSerializer<>(Long.class));

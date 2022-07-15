@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class OnlineUserRedisDao extends AbstractRedisDaoImpl<String, Long> {
 
-	private static final String ONLINE_USER_REDIS_DOA_HEADER = "ONLINE_USER";
+	private static final String ONLINE_USER_REDIS_DAO_HEADER = "ONLINE_USER";
 
 	public OnlineUserRedisDao(RedisTemplate<String, Long> redisTemplate, @Value("${online.user.ttl}") int ttlHours) {
 		super(redisTemplate, ttlHours);
@@ -15,7 +15,7 @@ public class OnlineUserRedisDao extends AbstractRedisDaoImpl<String, Long> {
 
 	@Override
 	protected String getKeyHeader() {
-		return ONLINE_USER_REDIS_DOA_HEADER;
+		return ONLINE_USER_REDIS_DAO_HEADER;
 	}
 
 }
