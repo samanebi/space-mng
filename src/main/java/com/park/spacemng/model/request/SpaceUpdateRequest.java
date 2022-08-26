@@ -27,4 +27,6 @@ public class SpaceUpdateRequest {
 
 	private long price;
 
+	private long entryFee;
+
 }

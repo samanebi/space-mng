@@ -22,4 +22,6 @@ public class OwnerSpaceGenerationModel {
 
 	private long price;
 
+	private long entryFee;
+
 }

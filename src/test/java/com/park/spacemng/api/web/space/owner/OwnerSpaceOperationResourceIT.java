@@ -102,6 +102,7 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 
 		SpaceGenerationRequest request = new SpaceGenerationRequest();
 		request.setPrice(price);
+		request.setEntryFee(price);
 		request.setBatchId(batchId);
 		LocationRequest locationRequest = new LocationRequest();
 		locationRequest.setLocation(new Point(1.0, 1.0));
@@ -135,6 +136,7 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 			assertThat(space.getDescription()).isEqualTo(description);
 			assertThat(space.getTitle()).isNotNull();
 			assertThat(space.getTitle()).isEqualTo(title);
+			assertThat(space.getEntryFee()).isEqualTo(price);
 			assertThat(space.getOwner()).isNotNull();
 			assertThat(space.getPrice()).isEqualTo(price);
 			assertThat(space.getOwner().getFathersName()).isNotNull();

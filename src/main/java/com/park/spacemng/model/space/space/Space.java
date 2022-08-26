@@ -35,6 +35,8 @@ public class Space extends MongoBaseEntity {
 
 	private long price;
 
+	private long entryFee;
+
 	public enum Status {
 
 		FREE(0), PROCESSING(1), TAKEN(2);

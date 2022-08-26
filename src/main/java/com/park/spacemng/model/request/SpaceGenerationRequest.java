@@ -35,4 +35,8 @@ public class SpaceGenerationRequest {
 	@NotNull
 	private long price;
 
+	@Positive
+	@NotNull
+	private long entryFee;
+
 }

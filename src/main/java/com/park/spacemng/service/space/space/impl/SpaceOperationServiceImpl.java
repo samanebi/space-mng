@@ -122,6 +122,7 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 			space.setPosition(position);
 			space.setTitle(Objects.isNull(model.getTitle()) ? space.getTitle() : model.getTitle());
 			space.setPrice(model.getPrice() == 0L ? space.getPrice() : model.getPrice());
+			space.setEntryFee(model.getEntryFee() == 0L ? space.getEntryFee() : model.getEntryFee());
 		}).collect(Collectors.toList());
 		return dao.saveAll(spaces);
 	}

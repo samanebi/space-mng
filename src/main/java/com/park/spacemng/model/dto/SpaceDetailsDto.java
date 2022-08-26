@@ -21,4 +21,6 @@ public class SpaceDetailsDto {
 
 	private long price;
 
+	private long entryFee;
+
 }

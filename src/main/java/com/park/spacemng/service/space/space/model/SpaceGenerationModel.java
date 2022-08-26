@@ -22,4 +22,6 @@ public class SpaceGenerationModel {
 
 	private long price;
 
+	private long entryFee;
+
 }

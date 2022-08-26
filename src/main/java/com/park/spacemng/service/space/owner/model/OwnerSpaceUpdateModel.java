@@ -22,4 +22,6 @@ public class OwnerSpaceUpdateModel {
 
 	private long price;
 
+	private long entryFee;
+
 }

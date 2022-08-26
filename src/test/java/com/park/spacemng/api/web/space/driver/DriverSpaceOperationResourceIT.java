@@ -77,6 +77,7 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		space.setBatchId("sample-batch-id");
 		space.setStatus(Status.FREE);
 		space.setPrice(10000L);
+		space.setEntryFee(10000L);
 		space.setAddress("sample-address");
 		space.setDescription("sample-description");
 		space.setTitle("sample-title");
@@ -159,6 +160,7 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		assertThat(response.getBody().getStatus()).isEqualTo(ProcessStatus.SUCCESS);
 		assertThat(response.getBody().getSpaces()).hasSize(1);
 		assertThat(response.getBody().getSpaces().get(0).getPrice()).isEqualTo(10000L);
+		assertThat(response.getBody().getSpaces().get(0).getEntryFee()).isEqualTo(10000L);
 	}
 
 	@Test

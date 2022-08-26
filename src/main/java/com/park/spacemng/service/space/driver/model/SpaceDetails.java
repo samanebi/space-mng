@@ -19,4 +19,6 @@ public class SpaceDetails {
 
 	private long price;
 
+	private long entryFee;
+
 }

@@ -22,4 +22,6 @@ public class SpaceUpdateModel {
 
 	private long price;
 
+	private long entryFee;
+
 }
