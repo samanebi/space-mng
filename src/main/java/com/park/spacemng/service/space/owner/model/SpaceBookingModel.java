@@ -14,8 +14,6 @@ public class SpaceBookingModel {
 
 	private String carId;
 
-	private long amount;
-
 	private RequestResolution resolution;
 
 }

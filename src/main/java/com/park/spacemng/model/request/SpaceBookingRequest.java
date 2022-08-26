@@ -18,9 +18,6 @@ public class SpaceBookingRequest {
 	@NotBlank
 	private String driverId;
 
-	@PositiveOrZero
-	private long amount;
-
 	@NotNull
 	@NotBlank
 	private String trackingCode;

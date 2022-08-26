@@ -20,4 +20,6 @@ public class OwnerSpaceUpdateModel {
 
 	private int capacity;
 
+	private long price;
+
 }

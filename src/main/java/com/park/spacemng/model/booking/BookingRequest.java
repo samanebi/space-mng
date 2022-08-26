@@ -34,7 +34,7 @@ public class BookingRequest extends MongoBaseEntity {
 
 	private Driver driver;
 
-	private long amount;
+	private long price;
 
 	private PaymentProviderResponse providerResponse;
 

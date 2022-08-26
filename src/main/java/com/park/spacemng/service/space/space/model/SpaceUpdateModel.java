@@ -20,4 +20,6 @@ public class SpaceUpdateModel {
 
 	private int capacity;
 
+	private long price;
+
 }

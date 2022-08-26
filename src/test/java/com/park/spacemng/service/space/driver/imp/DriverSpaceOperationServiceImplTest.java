@@ -223,7 +223,6 @@ class DriverSpaceOperationServiceImplTest {
 		DriverSpaceBookingModel model = new DriverSpaceBookingModel();
 		model.setDriverId(driverId);
 		model.setBatchId(batchId);
-		model.setAmount(amount);
 
 		Driver driverInfo = new Driver();
 		driverInfo.setId(driverId);

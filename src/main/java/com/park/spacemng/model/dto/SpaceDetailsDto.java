@@ -19,4 +19,6 @@ public class SpaceDetailsDto {
 
 	private String description;
 
+	private long price;
+
 }

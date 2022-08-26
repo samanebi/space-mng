@@ -17,4 +17,6 @@ public class SpaceDetails {
 
 	private String description;
 
+	private long price;
+
 }

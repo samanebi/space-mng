@@ -20,4 +20,6 @@ public class SpaceGenerationModel {
 
 	private int capacity;
 
+	private long price;
+
 }

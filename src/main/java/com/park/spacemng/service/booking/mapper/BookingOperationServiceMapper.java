@@ -32,6 +32,7 @@ public interface BookingOperationServiceMapper {
 	@Mapping(target = "driverId", source = "id")
 	BookingRequestDriverInfo toBookingRequestDriverInfo(Driver driver);
 
+	@Mapping(target = "price", source = "price")
 	BookingRequestDetails toBookingRequestDetails(BookingRequest request);
 
 	BookingRequest toBookingRequest(BookingRequestDetails details);

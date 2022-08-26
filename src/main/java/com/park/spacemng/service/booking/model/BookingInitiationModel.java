@@ -15,6 +15,6 @@ public class BookingInitiationModel {
 
 	private String driverId;
 
-	private long amount;
+	private long price;
 
 }

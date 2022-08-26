@@ -13,22 +13,18 @@ import lombok.ToString;
 @ToString
 public class SpaceUpdateRequest {
 
-	@NotBlank
 	private String batchId;
 
-	@NotBlank
 	private String title;
 
-	@NotBlank
 	private String description;
 
-	@NotBlank
 	private String address;
 
-	@NotNull
 	private LocationRequest location;
 
-	@Positive
 	private int capacity;
+
+	private long price;
 
 }

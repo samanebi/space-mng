@@ -76,6 +76,7 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		space.setId("sample-user-id");
 		space.setBatchId("sample-batch-id");
 		space.setStatus(Status.FREE);
+		space.setPrice(10000L);
 		space.setAddress("sample-address");
 		space.setDescription("sample-description");
 		space.setTitle("sample-title");
@@ -126,7 +127,6 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 	void bookSpace_success() {
 		SpaceBookingRequest request = new SpaceBookingRequest();
 		request.setDriverId(driverId);
-		request.setAmount(1000L);
 		request.setBatchId("sample-batch-id");
 		HttpEntity<SpaceBookingRequest> entity = new HttpEntity(request);
 
@@ -158,6 +158,7 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		assertThat(response.getBody().getStatus()).isNotNull();
 		assertThat(response.getBody().getStatus()).isEqualTo(ProcessStatus.SUCCESS);
 		assertThat(response.getBody().getSpaces()).hasSize(1);
+		assertThat(response.getBody().getSpaces().get(0).getPrice()).isEqualTo(10000L);
 	}
 
 	@Test
@@ -175,7 +176,7 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		bookingRequest.setDriver(globalDriver);
 		bookingRequest.setCarId("sample-car-id");
 		bookingRequest.setTrackingCode(trackingCode);
-		bookingRequest.setAmount(10000L);
+		bookingRequest.setPrice(10000L);
 		bookingRequest.setBatchId(globalSpace.getBatchId());
 		bookingRequestDao.insert(bookingRequest);
 

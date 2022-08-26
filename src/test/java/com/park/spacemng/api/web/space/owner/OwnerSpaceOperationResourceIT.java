@@ -97,8 +97,10 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		String description = "sample-description";
 		String title = "Sample-title";
 		int capacity = 5;
+		long price = 1000L;
 
 		SpaceGenerationRequest request = new SpaceGenerationRequest();
+		request.setPrice(price);
 		request.setBatchId(batchId);
 		LocationRequest locationRequest = new LocationRequest();
 		locationRequest.setLocation(new Point(1.0, 1.0));
@@ -133,6 +135,7 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 			assertThat(space.getTitle()).isNotNull();
 			assertThat(space.getTitle()).isEqualTo(title);
 			assertThat(space.getOwner()).isNotNull();
+			assertThat(space.getPrice()).isEqualTo(price);
 			assertThat(space.getOwner().getFathersName()).isNotNull();
 			assertThat(space.getOwner().getFathersName()).isEqualTo("sample-father-name");
 			assertThat(space.getOwner().getName()).isNotNull();
@@ -204,6 +207,7 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		long amount = 10000L;
 
 		Space space = new Space();
+		space.setPrice(amount);
 		space.setPosition(new Point(2.0, 2.0));
 		space.setDescription("wrong-description");
 		space.setTitle("wrong-title");
@@ -221,7 +225,7 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		bookingRequest.setDriver(globalDriver);
 		bookingRequest.setCarId("sample-car-id");
 		bookingRequest.setTrackingCode(trackingCode);
-		bookingRequest.setAmount(amount);
+		bookingRequest.setPrice(amount);
 		bookingRequest.setBatchId(space.getBatchId());
 		BookingRequest insertedBookingRequest = bookingRequestDao.insert(bookingRequest);
 
@@ -241,8 +245,8 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		assertThat(bookingRequestDetails.getBatchId()).isEqualTo(batchId);
 		assertThat(bookingRequestDetails.getResolution()).isNull();
 		assertThat(bookingRequestDetails.getTrackingCode()).isEqualTo(trackingCode);
-		assertThat(bookingRequestDetails.getAmount()).isNotZero();
-		assertThat(bookingRequestDetails.getAmount()).isEqualTo(amount);
+		assertThat(bookingRequestDetails.getPrice()).isNotZero();
+		assertThat(bookingRequestDetails.getPrice()).isEqualTo(amount);
 	}
 
 	@Test
@@ -269,7 +273,7 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		bookingRequest.setDriver(globalDriver);
 		bookingRequest.setCarId("sample-car-id");
 		bookingRequest.setTrackingCode(trackingCode);
-		bookingRequest.setAmount(amount);
+		bookingRequest.setPrice(amount);
 		bookingRequest.setBatchId(space.getBatchId());
 		BookingRequest insertedBookingRequest = bookingRequestDao.insert(bookingRequest);
 
@@ -282,7 +286,6 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		spaceBookingRequest.setBatchId(batchId);
 		spaceBookingRequest.setTrackingCode(trackingCode);
 		spaceBookingRequest.setResolution(RequestResolution.APPROVE);
-		spaceBookingRequest.setAmount(amount);
 		List<SpaceBookingRequest> bookingRequests = new ArrayList<>();
 		bookingRequests.add(spaceBookingRequest);
 		request.setRequests(bookingRequests);

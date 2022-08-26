@@ -105,7 +105,6 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 	private void bookSpaceArgumentValidation(DriverSpaceBookingModel model) throws GeneralException {
 		parameterValidator.requireParameterNotNullOrBlank(model.getDriverId());
 		parameterValidator.requireParameterNotNullOrBlank(model.getBatchId());
-		parameterValidator.requireParameterNotEqualTo(model.getAmount(), 0L);
 	}
 
 }

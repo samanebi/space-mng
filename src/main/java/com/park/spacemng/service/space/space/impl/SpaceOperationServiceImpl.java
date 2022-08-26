@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -112,11 +113,15 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 
 	private List<Space> updateSpaceInformation(SpaceUpdateModel model) {
 		List<Space> spaces = dao.findAllByBatchId(model.getBatchId()).stream().peek(space -> {
-			space.setAddress(model.getAddress());
-			space.setDescription(model.getDescription());
-			Point position = model.getSpaceLocation().getPosition();
+			space.setAddress(Objects.isNull(model.getAddress())? space.getAddress(): model.getAddress());
+			space.setDescription(Objects.isNull(model.getDescription())? space.getDescription():
+					model.getDescription());
+			Point position = (Objects.isNull(model.getSpaceLocation()) ||
+					Objects.isNull(model.getSpaceLocation().getPosition()))
+					? space.getPosition() : model.getSpaceLocation().getPosition();
 			space.setPosition(position);
-			space.setTitle(model.getTitle());
+			space.setTitle(Objects.isNull(model.getTitle()) ? space.getTitle() : model.getTitle());
+			space.setPrice(model.getPrice() == 0L ? space.getPrice() : model.getPrice());
 		}).collect(Collectors.toList());
 		return dao.saveAll(spaces);
 	}

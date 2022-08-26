@@ -49,7 +49,7 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 		long currentDate = new Date().getTime();
 		BookingRequest request = new BookingRequest();
 		request.setBatchId(model.getBatchId());
-		request.setAmount(model.getAmount());
+		request.setPrice(model.getPrice());
 		request.setCreationDate(currentDate);
 		request.setExerciseDate(currentDate);
 		request.setStateChangedDate(currentDate);

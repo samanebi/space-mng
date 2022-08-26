@@ -31,7 +31,6 @@ public interface DriverSpaceOperationResourceMapper {
 
 	@Mapping(target = "batchId", source = "batchId")
 	@Mapping(target = "driverId", source = "driverId")
-	@Mapping(target = "amount", source = "amount")
 	DriverSpaceBookingModel toDriverBookingModel(SpaceBookingRequest request);
 
 	default SpaceBookingResponse toBookingSpaceResponse(DriverSpaceBookingResult result) {

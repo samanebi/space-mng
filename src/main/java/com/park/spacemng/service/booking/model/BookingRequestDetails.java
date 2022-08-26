@@ -10,8 +10,8 @@ public class BookingRequestDetails {
 
 	private String batchId;
 
-	private long amount;
-
 	private RequestResolution resolution;
+
+	private long price;
 
 }

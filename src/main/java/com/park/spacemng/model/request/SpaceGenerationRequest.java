@@ -31,4 +31,8 @@ public class SpaceGenerationRequest {
 	@Positive
 	private int capacity;
 
+	@Positive
+	@NotNull
+	private long price;
+
 }

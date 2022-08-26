@@ -119,7 +119,7 @@ class PaymentResourceIT extends AbstractBaseIntegrationTest {
 		bookingRequest.setDriver(globalDriver);
 		bookingRequest.setCarId("sample-car-id");
 		bookingRequest.setTrackingCode("sample-tracking-code");
-		bookingRequest.setAmount(10000L);
+		bookingRequest.setPrice(10000L);
 		bookingRequest.setBatchId(globalSpace.getBatchId());
 		globalRequest = bookingRequestDao.insert(bookingRequest);
 	}

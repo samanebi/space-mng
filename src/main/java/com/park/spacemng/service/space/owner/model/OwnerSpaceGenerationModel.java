@@ -20,4 +20,6 @@ public class OwnerSpaceGenerationModel {
 
 	private int capacity;
 
+	private long price;
+
 }

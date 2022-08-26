@@ -24,4 +24,6 @@ public class SpaceInfo {
 
 	private Space.Status status;
 
+	private long price;
+
 }
