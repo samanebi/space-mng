@@ -1,15 +1,12 @@
 package com.park.spacemng.service.booking.impl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import com.park.spacemng.exception.BookingRequestNotFoundException;
 import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.booking.BookingRequest.Status;
 import com.park.spacemng.model.booking.dao.BookingRequestDao;
 import com.park.spacemng.model.constants.RequestResolution;
+import com.park.spacemng.model.user.driver.Driver;
 import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.service.booking.BookingOperationService;
 import com.park.spacemng.service.booking.mapper.BookingOperationServiceMapper;
@@ -18,23 +15,24 @@ import com.park.spacemng.service.booking.model.BookingRequestDetails;
 import com.park.spacemng.service.booking.model.BookingRequestsRetrievalResult;
 import com.park.spacemng.service.space.space.SpaceOperationService;
 import com.park.spacemng.service.trackincode.TrackingCodeOperationService;
-import com.park.spacemng.service.user.driver.DriverOperationService;
-import com.park.spacemng.service.user.driver.model.DriverInfo;
-import com.park.spacemng.service.user.owner.OwnerOperationService;
+import com.park.spacemng.service.user.user.UserOperationService;
 import com.park.spacemng.util.ExceptionGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class BookingOperationServiceImpl implements BookingOperationService {
 
-	private final DriverOperationService driverOperationService;
+	private final UserOperationService<Driver> driverOperationService;
 
-	private final OwnerOperationService ownerOperationService;
+	private final UserOperationService<Owner> ownerOperationService;
 
 	private final BookingOperationServiceMapper mapper;
 
@@ -46,8 +44,8 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 
 	@Override
 	public String initiateBookingRequest(BookingInitiationModel model) throws GeneralException {
-		DriverInfo driverInfo = driverOperationService.retrieveDriver(model.getDriverId());
-		Owner ownerInfo = ownerOperationService.retrieveOwner(model.getOwnerId());
+		Driver driverInfo = driverOperationService.retrieveUser(model.getDriverId());
+		Owner ownerInfo = ownerOperationService.retrieveUser(model.getOwnerId());
 		long currentDate = new Date().getTime();
 		BookingRequest request = new BookingRequest();
 		request.setBatchId(model.getBatchId());
@@ -58,7 +56,7 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 		request.setTrackingCode(trackingCodeOperationService.generate());
 		request.setSpaceId(model.getSpaceId());
 		request.setCarId(model.getCarId());
-		request.setDriver(mapper.toDriver(driverInfo));
+		request.setDriver(driverInfo);
 		request.setOwner(ownerInfo);
 		request.setStatus(Status.INITIATED);
 		return dao.save(request).getTrackingCode();

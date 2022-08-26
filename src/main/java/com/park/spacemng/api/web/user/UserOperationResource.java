@@ -1,19 +1,20 @@
 package com.park.spacemng.api.web.user;
 
-import javax.validation.constraints.NotNull;
-
 import com.park.spacemng.api.web.user.mapper.UserOperationResourceMapper;
 import com.park.spacemng.model.constants.ProcessStatus;
 import com.park.spacemng.model.request.DriverRegistrationRequest;
+import com.park.spacemng.model.request.LoginRequest;
 import com.park.spacemng.model.request.OwnerRegistrationRequest;
 import com.park.spacemng.model.response.GeneralResponse;
-import com.park.spacemng.service.user.driver.DriverOperationService;
+import com.park.spacemng.model.user.constants.UserType;
+import com.park.spacemng.model.user.driver.Driver;
+import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.service.user.driver.model.DriverRegistrationModel;
-import com.park.spacemng.service.user.owner.OwnerOperationService;
 import com.park.spacemng.service.user.owner.model.OwnerRegistrationModel;
+import com.park.spacemng.service.user.user.UserOperationService;
+import com.park.spacemng.service.user.user.UserOperationStrategy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotNull;
+
 @Slf4j
 @RestController
 @Validated
@@ -30,23 +33,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserOperationResource {
 
-	private final DriverOperationService driverOperationService;
-
-	private final OwnerOperationService ownerOperationService;
-
+	private final UserOperationStrategy userOperationStrategy;
 	private final UserOperationResourceMapper mapper;
 
 	@PostMapping(value = "/driver/register", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> registerDriver(@NotNull @RequestBody DriverRegistrationRequest request) {
+		UserOperationService<Driver> userOperationService = userOperationStrategy.get(UserType.DRIVER);
 		DriverRegistrationModel model = mapper.toDriverRegistrationModel(request);
-		driverOperationService.registerDriver(model);
+		userOperationService.registerUser(model);
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/owner/register", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> registerOwner(@NotNull @RequestBody OwnerRegistrationRequest request) {
+		UserOperationService<Owner> userOperationService = userOperationStrategy.get(UserType.OWNER);
 		OwnerRegistrationModel model = mapper.toOwnerRegistrationModel(request);
-		ownerOperationService.registerOwner(model);
+		userOperationService.registerUser(model);
+		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<GeneralResponse> login(@NotNull @RequestBody LoginRequest request) {
+		UserOperationService userOperationService = userOperationStrategy.get(mapper.toUserType(request.getUserType()));
+		userOperationService.login(request.getCellNumber(), request.getPassword());
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
 

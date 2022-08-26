@@ -30,6 +30,8 @@ public class User extends MongoBaseEntity {
 
 	private Status status;
 
+	private String password;
+
 	@AllArgsConstructor
 	public enum Status {
 

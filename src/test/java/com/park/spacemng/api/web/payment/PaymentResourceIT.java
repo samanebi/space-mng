@@ -13,6 +13,7 @@ import com.park.spacemng.model.user.driver.Driver;
 import com.park.spacemng.model.user.driver.dao.DriverDao;
 import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.model.user.owner.dao.OwnerDao;
+import com.park.spacemng.service.user.driver.mapper.DriverOperationServiceMapper;
 import com.park.spacemng.util.AbstractBaseIntegrationTest;
 import com.park.spacemng.util.Constants;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,6 +54,9 @@ class PaymentResourceIT extends AbstractBaseIntegrationTest {
 
 	@Autowired
 	DriverDao driverDao;
+
+	@Autowired
+	DriverOperationServiceMapper mapper;
 
 	@BeforeEach
 	void beforeEach() {

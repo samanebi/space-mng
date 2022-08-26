@@ -71,6 +71,7 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		spaceDao.deleteAll();
 		driverDao.deleteAll();
 		ownerDao.deleteAll();
+		bookingRequestDao.deleteAll();
 		Space space = new Space();
 		space.setId("sample-user-id");
 		space.setBatchId("sample-batch-id");

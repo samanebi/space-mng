@@ -1,9 +1,5 @@
 package com.park.spacemng.service.space.driver.imp;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import com.park.spacemng.config.LocationSelectionProperties;
 import com.park.spacemng.config.ParameterValidationMessageProperties;
 import com.park.spacemng.config.TrackingCodeProperties;
@@ -20,6 +16,7 @@ import com.park.spacemng.model.space.space.Space;
 import com.park.spacemng.model.space.space.Space.Status;
 import com.park.spacemng.model.space.space.dao.SpaceDao;
 import com.park.spacemng.model.user.User;
+import com.park.spacemng.model.user.driver.Driver;
 import com.park.spacemng.model.user.driver.dao.DriverDao;
 import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.model.user.owner.dao.OwnerDao;
@@ -35,11 +32,7 @@ import com.park.spacemng.service.location.model.DesiredLocationRetrievalResult;
 import com.park.spacemng.service.location.strategy.LocationOperationStrategy;
 import com.park.spacemng.service.space.driver.DriverSpaceOperationService;
 import com.park.spacemng.service.space.driver.mapper.DriverSpaceOperationMapper;
-import com.park.spacemng.service.space.driver.model.DriverSpaceBookingModel;
-import com.park.spacemng.service.space.driver.model.DriverSpaceBookingResult;
-import com.park.spacemng.service.space.driver.model.NearbyAvailableSpacesRetrievalModel;
-import com.park.spacemng.service.space.driver.model.NearbyAvailableSpacesRetrievalResult;
-import com.park.spacemng.service.space.driver.model.SpaceDetails;
+import com.park.spacemng.service.space.driver.model.*;
 import com.park.spacemng.service.space.owner.OnlineOwnerOperationService;
 import com.park.spacemng.service.space.owner.OwnerSpaceOperationService;
 import com.park.spacemng.service.space.owner.model.OwnerSpaceRetrievalModel;
@@ -48,17 +41,14 @@ import com.park.spacemng.service.space.space.SpaceOperationService;
 import com.park.spacemng.service.space.space.mapper.SpaceOperationServiceMapper;
 import com.park.spacemng.service.space.space.model.SpaceInfo;
 import com.park.spacemng.service.trackincode.TrackingCodeOperationService;
-import com.park.spacemng.service.user.driver.DriverOperationService;
 import com.park.spacemng.service.user.driver.mapper.DriverOperationServiceMapper;
-import com.park.spacemng.service.user.driver.model.DriverInfo;
-import com.park.spacemng.service.user.owner.OwnerOperationService;
 import com.park.spacemng.service.user.owner.mapper.OwnerOperationServiceMapper;
 import com.park.spacemng.service.user.owner.model.OwnerInfo;
+import com.park.spacemng.service.user.user.UserOperationService;
 import com.park.spacemng.service.user.userid.UserIdGenerationService;
 import com.park.spacemng.util.ParameterValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -68,6 +58,10 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.data.geo.Point;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -100,7 +94,7 @@ class DriverSpaceOperationServiceImplTest {
 	LocationOperationService locationOperationService;
 
 	@MockBean
-	DriverOperationService driverOperationService;
+	UserOperationService<Driver> driverOperationService;
 
 	@MockBean
 	SpaceOperationService spaceOperationService;
@@ -231,8 +225,8 @@ class DriverSpaceOperationServiceImplTest {
 		model.setBatchId(batchId);
 		model.setAmount(amount);
 
-		DriverInfo driverInfo = new DriverInfo();
-		driverInfo.setDriverId(driverId);
+		Driver driverInfo = new Driver();
+		driverInfo.setId(driverId);
 		driverInfo.setStatus(userStatus);
 		driverInfo.setName(driverName);
 		driverInfo.setSurname(driverSurname);
@@ -257,7 +251,7 @@ class DriverSpaceOperationServiceImplTest {
 		spaceLocation.setPosition(spacePosition);
 		spaceInfo.setSpaceLocation(spaceLocation);
 
-		when(driverOperationService.retrieveDriver(driverId)).thenReturn(driverInfo);
+		when(driverOperationService.retrieveUser(driverId)).thenReturn(driverInfo);
 		when(spaceOperationService.retrieveSpace(batchId, spaceStatus)).thenReturn(Collections.singletonList(spaceInfo));
 		when(bookingOperationService.initiateBookingRequest(any())).thenReturn(bookingTrackingCode);
 
@@ -289,9 +283,8 @@ class DriverSpaceOperationServiceImplTest {
 	@ComponentScan(
 			basePackageClasses = { DriverSpaceOperationService.class, DriverSpaceOperationMapper.class,
 					ParameterValidator.class, LocationOperationStrategy.class,
-					DistrictBasedLocationOperationService.class, StateGeoOperationService.class,
-					DriverOperationService.class, DriverOperationServiceMapper.class, SpaceOperationService.class,
-					SpaceOperationServiceMapper.class, OwnerOperationService.class, OwnerOperationServiceMapper.class,
+					DistrictBasedLocationOperationService.class, StateGeoOperationService.class, DriverOperationServiceMapper.class, SpaceOperationService.class,
+					SpaceOperationServiceMapper.class, OwnerOperationServiceMapper.class,
 					BookingOperationService.class, BookingOperationServiceMapper.class,
 					TrackingCodeOperationService.class, TrackingCodeProperties.class,
 					StateGeoOperationServiceMapper.class, UserIdGenerationService.class, UserIdProperties.class
@@ -300,9 +293,8 @@ class DriverSpaceOperationServiceImplTest {
 			includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
 					classes = { DriverSpaceOperationService.class, DriverSpaceOperationMapper.class,
 							ParameterValidator.class, LocationOperationStrategy.class,
-							DistrictBasedLocationOperationService.class, StateGeoOperationService.class,
-							DriverOperationService.class, DriverOperationServiceMapper.class,
-							SpaceOperationService.class, SpaceOperationServiceMapper.class, OwnerOperationService.class,
+							DistrictBasedLocationOperationService.class, StateGeoOperationService.class, DriverOperationServiceMapper.class,
+							SpaceOperationService.class, SpaceOperationServiceMapper.class,
 							OwnerOperationServiceMapper.class, BookingOperationService.class,
 							BookingOperationServiceMapper.class, TrackingCodeOperationService.class,
 							TrackingCodeProperties.class, StateGeoOperationServiceMapper.class,

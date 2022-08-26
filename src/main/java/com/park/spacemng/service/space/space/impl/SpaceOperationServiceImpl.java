@@ -1,10 +1,5 @@
 package com.park.spacemng.service.space.space.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-
 import com.park.spacemng.config.LocationSelectionProperties;
 import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.exception.SpaceNotFoundException;
@@ -18,12 +13,16 @@ import com.park.spacemng.service.space.space.model.SpaceGenerationModel;
 import com.park.spacemng.service.space.space.model.SpaceInfo;
 import com.park.spacemng.service.space.space.model.SpaceQueryModel;
 import com.park.spacemng.service.space.space.model.SpaceUpdateModel;
-import com.park.spacemng.service.user.owner.OwnerOperationService;
+import com.park.spacemng.service.user.user.UserOperationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,7 +35,7 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 
 	private final SpaceOperationServiceMapper mapper;
 
-	private final OwnerOperationService ownerOperationService;
+	private final UserOperationService<Owner> ownerOperationService;
 
 	private final LocationSelectionProperties properties;
 
@@ -70,7 +69,7 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 	@Override
 	public void generate(SpaceGenerationModel model) throws GeneralException {
 		List<Space> spaces = new ArrayList<>();
-		Owner owner = ownerOperationService.retrieveOwner(model.getOwnerId());
+		Owner owner = ownerOperationService.retrieveUser(model.getOwnerId());
 		for (int counter = 0; counter < model.getCapacity(); counter++) {
 			Space space = mapper.toSpace(model);
 			space.setOwner(owner);

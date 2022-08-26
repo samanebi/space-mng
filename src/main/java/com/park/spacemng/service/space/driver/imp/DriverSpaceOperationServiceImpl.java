@@ -1,31 +1,27 @@
 package com.park.spacemng.service.space.driver.imp;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.exception.SpaceNotAvailableException;
 import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.space.space.Space.Status;
+import com.park.spacemng.model.user.driver.Driver;
 import com.park.spacemng.service.booking.BookingOperationService;
 import com.park.spacemng.service.space.driver.DriverSpaceOperationService;
 import com.park.spacemng.service.space.driver.mapper.DriverSpaceOperationMapper;
-import com.park.spacemng.service.space.driver.model.DriverSpaceBookingModel;
-import com.park.spacemng.service.space.driver.model.DriverSpaceBookingResult;
-import com.park.spacemng.service.space.driver.model.NearbyAvailableSpacesRetrievalModel;
-import com.park.spacemng.service.space.driver.model.NearbyAvailableSpacesRetrievalResult;
-import com.park.spacemng.service.space.driver.model.SpaceDetails;
+import com.park.spacemng.service.space.driver.model.*;
 import com.park.spacemng.service.space.owner.OnlineOwnerOperationService;
 import com.park.spacemng.service.space.owner.OwnerSpaceOperationService;
 import com.park.spacemng.service.space.space.SpaceOperationService;
 import com.park.spacemng.service.space.space.model.SpaceInfo;
-import com.park.spacemng.service.user.driver.DriverOperationService;
+import com.park.spacemng.service.user.user.UserOperationService;
 import com.park.spacemng.util.ParameterValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -40,7 +36,7 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 
 	private final OnlineOwnerOperationService onlineOwnerOperationService;
 
-	private final DriverOperationService driverOperationService;
+	private final UserOperationService<Driver> driverOperationService;
 
 	private final SpaceOperationService spaceOperationService;
 
@@ -80,7 +76,7 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 		bookSpaceArgumentValidation(model);
 
 		log.info("going to book space for request : {}", model);
-		driverOperationService.retrieveDriver(model.getDriverId());
+		driverOperationService.retrieveUser(model.getDriverId());
 		List<SpaceInfo> spaceInfos = spaceOperationService
 				.retrieveSpace(model.getBatchId(), Status.FREE);
 		if (spaceInfos.isEmpty()) {

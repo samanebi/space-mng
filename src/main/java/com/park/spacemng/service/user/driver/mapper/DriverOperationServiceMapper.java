@@ -1,8 +1,8 @@
 package com.park.spacemng.service.user.driver.mapper;
 
 import com.park.spacemng.model.user.driver.Driver;
-import com.park.spacemng.service.user.driver.model.DriverInfo;
 import com.park.spacemng.service.user.driver.model.DriverRegistrationModel;
+import com.park.spacemng.service.user.driver.model.DriverInfo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

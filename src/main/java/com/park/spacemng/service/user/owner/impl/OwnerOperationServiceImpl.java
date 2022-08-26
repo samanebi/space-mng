@@ -5,18 +5,18 @@ import com.park.spacemng.exception.OwnerNotFoundException;
 import com.park.spacemng.model.user.User.Status;
 import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.model.user.owner.dao.OwnerDao;
-import com.park.spacemng.service.user.owner.OwnerOperationService;
 import com.park.spacemng.service.user.owner.mapper.OwnerOperationServiceMapper;
 import com.park.spacemng.service.user.owner.model.OwnerRegistrationModel;
+import com.park.spacemng.service.user.user.UserOperationService;
+import com.park.spacemng.service.user.user.model.UserRegistrationModel;
 import com.park.spacemng.service.user.userid.UserIdGenerationService;
 import com.park.spacemng.util.ParameterValidator;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OwnerOperationServiceImpl implements OwnerOperationService {
+public class OwnerOperationServiceImpl implements UserOperationService<Owner> {
 
 	private final OwnerDao dao;
 
@@ -24,10 +24,14 @@ public class OwnerOperationServiceImpl implements OwnerOperationService {
 
 	private final ParameterValidator parameterValidator;
 
-	private final UserIdGenerationService userIdGenerationService;
+	@Override
+	public void login(String username, String password) {
+		password.equals(dao.findByCellNumber(username).orElseThrow(()
+				-> new OwnerNotFoundException("there is no owner with cellNumber " + username)).getPassword());
+	}
 
 	@Override
-	public Owner retrieveOwner(String ownerId) throws GeneralException {
+	public Owner retrieveUser(String ownerId) throws GeneralException {
 		parameterValidator.requireParameterNotNullOrBlank(ownerId);
 
 		return dao.findById(ownerId).orElseThrow(() ->
@@ -35,8 +39,8 @@ public class OwnerOperationServiceImpl implements OwnerOperationService {
 	}
 
 	@Override
-	public void registerOwner(OwnerRegistrationModel model) {
-		Owner owner = mapper.toOwner(model);
+	public void registerUser(UserRegistrationModel model) {
+		Owner owner = mapper.toOwner((OwnerRegistrationModel) model);
 		owner.setStatus(Status.ACTIVE);
 		dao.insert(owner);
 		//owner.setOwnerId(userIdGenerationService.generate());
