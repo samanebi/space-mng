@@ -15,6 +15,7 @@ import com.park.spacemng.model.request.SpaceGenerationRequest;
 import com.park.spacemng.model.request.SpaceResolutionRequest;
 import com.park.spacemng.model.request.SpaceUpdateRequest;
 import com.park.spacemng.model.response.GeneralResponse;
+import com.park.spacemng.model.response.SpaceResolutionResponse;
 import com.park.spacemng.model.response.SpaceRetrievalResponse;
 import com.park.spacemng.model.space.space.Space;
 import com.park.spacemng.model.space.space.Space.Status;
@@ -290,13 +291,14 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		bookingRequests.add(spaceBookingRequest);
 		request.setRequests(bookingRequests);
 
-		ResponseEntity<SpaceRetrievalResponse> response = restTemplate.exchange(getBaseUrl()
+		ResponseEntity<SpaceResolutionResponse> response = restTemplate.exchange(getBaseUrl()
 						+ "spaces/space/requests/resolve/"
 						+ insertedBookingRequest.getBatchId(),
-				HttpMethod.POST, new HttpEntity<>(request, httpHeaders), SpaceRetrievalResponse.class);
+				HttpMethod.POST, new HttpEntity<>(request, httpHeaders), SpaceResolutionResponse.class);
 
 		assertThat(response).isNotNull();
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertThat(response.getBody().getRest()).isNotEmpty();
 		List<BookingRequest> allBookingRequests = bookingRequestDao.findAll();
 		assertThat(allBookingRequests).hasSize(1);
 		BookingRequest retrievedBookingRequest = allBookingRequests.get(0);

@@ -1,6 +1,7 @@
 package com.park.spacemng.service.space.owner.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.park.spacemng.api.web.space.owner.mapper.OwnerSpaceOperationResourceMapper;
 import com.park.spacemng.exception.GeneralException;
@@ -71,9 +72,9 @@ public class OwnerSpaceOperationServiceImpl implements OwnerSpaceOperationServic
 	}
 
 	@Override
-	public void resolveSpaceRequests(SpaceRequestsResolutionModel model) throws ParameterValidationException {
+	public Map<String, Integer> resolveSpaceRequests(SpaceRequestsResolutionModel model) throws ParameterValidationException {
 		verifyResolutionRequestParameters(model);
-		bookingOperationService.resolve(mapper.toBookingRequestDetailsList(model.getRequests()));
+		return bookingOperationService.resolve(mapper.toBookingRequestDetailsList(model.getRequests()));
 	}
 
 	private void verifyResolutionRequestParameters(SpaceRequestsResolutionModel model)

@@ -6,6 +6,7 @@ import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.booking.BookingRequest.Status;
 import com.park.spacemng.model.booking.dao.BookingRequestDao;
 import com.park.spacemng.model.constants.RequestResolution;
+import com.park.spacemng.model.space.space.Space;
 import com.park.spacemng.model.user.driver.Driver;
 import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.service.booking.BookingOperationService;
@@ -22,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +71,7 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 	}
 
 	@Override
-	public void resolve(List<BookingRequestDetails> bookingRequestDetails) {
+	public Map<String, Integer> resolve(List<BookingRequestDetails> bookingRequestDetails) {
 		Map<String, RequestResolution> requests = mapper.toToBookingRequestList(bookingRequestDetails);
 		List<BookingRequest> bookingRequests = dao.findAllByTrackingCodes(getTrackingCodes(requests)).stream()
 				.peek(ExceptionGenerator.runtimeExceptionWrapper(request -> {
@@ -78,6 +80,18 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 					spaceOperationService.takeSpace(request.getSpaceId());
 				}, GeneralException.class)).toList();
 		dao.saveAll(bookingRequests);
+		return constructRestMap(bookingRequestDetails);
+	}
+
+	private Map<String, Integer> constructRestMap(List<BookingRequestDetails> bookingRequestDetails) {
+		Map<String, Integer> rest = new HashMap<>();
+		for (BookingRequestDetails details : bookingRequestDetails){
+			if (!rest.containsKey(details.getBatchId())){
+				rest.put(details.getBatchId(), spaceOperationService.retrieveSpace(details.getBatchId(),
+						Space.Status.FREE).size());
+			}
+		}
+		return rest;
 	}
 
 	@Override

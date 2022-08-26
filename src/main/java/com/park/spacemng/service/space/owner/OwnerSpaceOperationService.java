@@ -11,6 +11,8 @@ import com.park.spacemng.service.space.owner.model.SpaceRequestsRetrievalResult;
 
 import org.springframework.data.geo.Point;
 
+import java.util.Map;
+
 public interface OwnerSpaceOperationService {
 
 	void generateSpaces(OwnerSpaceGenerationModel model) throws GeneralException;
@@ -19,7 +21,7 @@ public interface OwnerSpaceOperationService {
 
 	SpaceRequestsRetrievalResult getSpaceRequests(String batchId) throws ParameterValidationException;
 
-	void resolveSpaceRequests(SpaceRequestsResolutionModel model) throws ParameterValidationException;
+	Map<String, Integer> resolveSpaceRequests(SpaceRequestsResolutionModel model) throws ParameterValidationException;
 
 	OwnerSpaceRetrievalResult querySpaces(OwnerSpaceRetrievalModel model);
 
