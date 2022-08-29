@@ -1,28 +1,25 @@
 package com.park.spacemng.model.request;
 
+import com.park.spacemng.model.constants.CarType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
-import com.park.spacemng.model.constants.RequestResolution;
-import lombok.Data;
-
-@Data
+@Setter
+@Getter
+@ToString
 public class SpaceBookingRequest {
 
-	@NotNull
-	@NotBlank
-	private String batchId;
+    @NotNull
+    @NotBlank
+    private String batchId;
 
-	@NotNull
-	@NotBlank
-	private String driverId;
+    private String driverId;
 
-	@NotNull
-	@NotBlank
-	private String trackingCode;
-
-	@NotNull
-	private RequestResolution resolution;
+    @NotNull
+    private CarType carSize;
 
 }

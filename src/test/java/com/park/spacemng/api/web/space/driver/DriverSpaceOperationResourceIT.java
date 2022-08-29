@@ -4,10 +4,11 @@ import java.util.Date;
 
 import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.booking.dao.BookingRequestDao;
+import com.park.spacemng.model.constants.CarType;
 import com.park.spacemng.model.constants.ProcessStatus;
 import com.park.spacemng.model.geo.state.dao.StateDao;
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
-import com.park.spacemng.model.request.SpaceBookingRequest;
+import com.park.spacemng.model.request.SpaceResolutionRequestDetails;
 import com.park.spacemng.model.response.GeneralResponse;
 import com.park.spacemng.model.response.NearbyAvailableSpacesResponse;
 import com.park.spacemng.model.response.SpaceBookingResponse;
@@ -126,10 +127,11 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 
 	@Test
 	void bookSpace_success() {
-		SpaceBookingRequest request = new SpaceBookingRequest();
+		SpaceResolutionRequestDetails request = new SpaceResolutionRequestDetails();
 		request.setDriverId(driverId);
+		request.setCarSize(CarType.HUNCHBACK);
 		request.setBatchId("sample-batch-id");
-		HttpEntity<SpaceBookingRequest> entity = new HttpEntity(request);
+		HttpEntity<SpaceResolutionRequestDetails> entity = new HttpEntity(request);
 
 		ResponseEntity<SpaceBookingResponse> response = restTemplate.exchange(getBaseUrl() + "spaces/book",
 				HttpMethod.POST, entity, SpaceBookingResponse.class);
@@ -139,7 +141,6 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		assertThat(response.getBody().getStatus()).isNotNull();
 		assertThat(response.getBody().getStatus()).isEqualTo(ProcessStatus.SUCCESS);
 		assertThat(response.getBody().getSpace()).isNotNull();
-		assertThat(response.getBody().getSpace().getSpaceId()).isNotNull();
 		assertThat(response.getBody().getSpace().getBatchId()).isNotNull();
 	}
 

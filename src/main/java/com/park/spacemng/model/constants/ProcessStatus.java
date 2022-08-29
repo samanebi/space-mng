@@ -12,7 +12,13 @@ public enum ProcessStatus {
 	//@formatter off
 	SUCCESS(0),
 	FAILURE(1),
-	INTERNAL(500);
+	INTERNAL(500),
+	BOOKING_REQUEST_NOT_FOUND(2),
+	DRIVER_NOT_FOUND(3),
+	OWNER_NOT_FOUND(4),
+	PARAMETER_VALIDATION_FAILED(5),
+	SPACE_NOT_AVAILABLE(6),
+	SPACE_NOT_FOUND(7);
 	//@formatter on
 
 	private final int value;

@@ -6,6 +6,7 @@ import com.park.spacemng.model.request.DriverRegistrationRequest;
 import com.park.spacemng.model.request.LoginRequest;
 import com.park.spacemng.model.request.OwnerRegistrationRequest;
 import com.park.spacemng.model.response.GeneralResponse;
+import com.park.spacemng.model.response.UserRegisterResponse;
 import com.park.spacemng.model.user.constants.UserType;
 import com.park.spacemng.model.user.driver.Driver;
 import com.park.spacemng.model.user.owner.Owner;
@@ -37,19 +38,17 @@ public class UserOperationResource {
 	private final UserOperationResourceMapper mapper;
 
 	@PostMapping(value = "/driver/register", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<GeneralResponse> registerDriver(@NotNull @RequestBody DriverRegistrationRequest request) {
+	public ResponseEntity<UserRegisterResponse> registerDriver(@NotNull @RequestBody DriverRegistrationRequest request) {
 		UserOperationService<Driver> userOperationService = userOperationStrategy.get(UserType.DRIVER);
 		DriverRegistrationModel model = mapper.toDriverRegistrationModel(request);
-		userOperationService.registerUser(model);
-		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
+		return new ResponseEntity<>(new UserRegisterResponse(userOperationService.registerUser(model)), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/owner/register", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<GeneralResponse> registerOwner(@NotNull @RequestBody OwnerRegistrationRequest request) {
+	public ResponseEntity<UserRegisterResponse> registerOwner(@NotNull @RequestBody OwnerRegistrationRequest request) {
 		UserOperationService<Owner> userOperationService = userOperationStrategy.get(UserType.OWNER);
 		OwnerRegistrationModel model = mapper.toOwnerRegistrationModel(request);
-		userOperationService.registerUser(model);
-		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
+		return new ResponseEntity<>(new UserRegisterResponse(userOperationService.registerUser(model)), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)

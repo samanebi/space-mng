@@ -9,6 +9,7 @@ import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.constants.ProcessStatus;
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
 import com.park.spacemng.model.request.SpaceBookingRequest;
+import com.park.spacemng.model.request.SpaceResolutionRequestDetails;
 import com.park.spacemng.model.response.GeneralResponse;
 import com.park.spacemng.model.response.NearbyAvailableSpacesResponse;
 import com.park.spacemng.model.response.SpaceBookingResponse;

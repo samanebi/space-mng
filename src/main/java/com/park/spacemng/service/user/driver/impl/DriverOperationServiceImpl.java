@@ -42,10 +42,10 @@ public class DriverOperationServiceImpl implements UserOperationService<Driver> 
 	}
 
 	@Override
-	public void registerUser(UserRegistrationModel model) {
+	public String registerUser(UserRegistrationModel model) {
 		Driver driver = mapper.toDriver((DriverRegistrationModel) model);
 		driver.setStatus(Status.ACTIVE);
-		dao.save(driver);
+		return dao.save(driver).getId();
 	}
 
 }

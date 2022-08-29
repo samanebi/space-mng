@@ -26,12 +26,8 @@ public class UserRegistrationRequest {
     @NotNull
     private String cellNumber;
 
-    @NotBlank
-    @NotNull
     private String email;
 
-    @Positive
-    @NotNull
     private long birthday;
 
     @NotNull

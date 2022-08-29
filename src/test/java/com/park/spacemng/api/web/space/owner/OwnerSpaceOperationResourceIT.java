@@ -5,15 +5,9 @@ import java.util.List;
 
 import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.booking.dao.BookingRequestDao;
-import com.park.spacemng.model.constants.District;
-import com.park.spacemng.model.constants.RequestResolution;
-import com.park.spacemng.model.constants.StateName;
-import com.park.spacemng.model.constants.Town;
-import com.park.spacemng.model.request.LocationRequest;
-import com.park.spacemng.model.request.SpaceBookingRequest;
-import com.park.spacemng.model.request.SpaceGenerationRequest;
-import com.park.spacemng.model.request.SpaceResolutionRequest;
-import com.park.spacemng.model.request.SpaceUpdateRequest;
+import com.park.spacemng.model.constants.*;
+import com.park.spacemng.model.request.*;
+import com.park.spacemng.model.request.SpaceResolutionRequestDetails;
 import com.park.spacemng.model.response.GeneralResponse;
 import com.park.spacemng.model.response.SpaceResolutionResponse;
 import com.park.spacemng.model.response.SpaceRetrievalResponse;
@@ -227,6 +221,7 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		bookingRequest.setCarId("sample-car-id");
 		bookingRequest.setDriver(globalDriver);
 		bookingRequest.setCarId("sample-car-id");
+		bookingRequest.setCarSize(CarSize.HUNCHBACK);
 		bookingRequest.setTrackingCode(trackingCode);
 		bookingRequest.setPrice(amount);
 		bookingRequest.setBatchId(space.getBatchId());
@@ -250,6 +245,7 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		assertThat(bookingRequestDetails.getTrackingCode()).isEqualTo(trackingCode);
 		assertThat(bookingRequestDetails.getPrice()).isNotZero();
 		assertThat(bookingRequestDetails.getPrice()).isEqualTo(amount);
+		assertThat(bookingRequestDetails.getCarSize()).isEqualTo(CarType.HUNCHBACK);
 	}
 
 	@Test
@@ -284,13 +280,13 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		httpHeaders.add(Constants.HEADER_USER_ID, globalOwner.getId());
 
 		SpaceResolutionRequest request = new SpaceResolutionRequest();
-		SpaceBookingRequest spaceBookingRequest = new SpaceBookingRequest();
-		spaceBookingRequest.setDriverId(globalDriver.getId());
-		spaceBookingRequest.setBatchId(batchId);
-		spaceBookingRequest.setTrackingCode(trackingCode);
-		spaceBookingRequest.setResolution(RequestResolution.APPROVE);
-		List<SpaceBookingRequest> bookingRequests = new ArrayList<>();
-		bookingRequests.add(spaceBookingRequest);
+		SpaceResolutionRequestDetails spaceResolutionRequestDetails = new SpaceResolutionRequestDetails();
+		spaceResolutionRequestDetails.setDriverId(globalDriver.getId());
+		spaceResolutionRequestDetails.setBatchId(batchId);
+		spaceResolutionRequestDetails.setTrackingCode(trackingCode);
+		spaceResolutionRequestDetails.setResolution(RequestResolution.APPROVE);
+		List<SpaceResolutionRequestDetails> bookingRequests = new ArrayList<>();
+		bookingRequests.add(spaceResolutionRequestDetails);
 		request.setRequests(bookingRequests);
 
 		ResponseEntity<SpaceResolutionResponse> response = restTemplate.exchange(getBaseUrl()

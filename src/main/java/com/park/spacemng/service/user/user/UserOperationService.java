@@ -9,6 +9,6 @@ public interface UserOperationService<T extends User> {
 
     T retrieveUser(String id);
 
-    void registerUser(UserRegistrationModel model);
+    String registerUser(UserRegistrationModel model);
 
 }

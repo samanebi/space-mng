@@ -1,5 +1,6 @@
 package com.park.spacemng.service.booking.model;
 
+import com.park.spacemng.model.constants.CarSize;
 import lombok.Data;
 
 @Data
@@ -16,5 +17,7 @@ public class BookingInitiationModel {
 	private String driverId;
 
 	private long price;
+
+	private CarSize carSize;
 
 }

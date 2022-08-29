@@ -14,15 +14,10 @@ import lombok.ToString;
 @ToString
 public class OwnerRegistrationRequest extends UserRegistrationRequest {
 
-	@NotBlank
-	@NotNull
 	private String nationalId;
 
-	@NotNull
 	private BirthInfoDetails birthCertificateInfo;
 
-	@NotBlank
-	@NotNull
 	private String fathersName;
 
 }

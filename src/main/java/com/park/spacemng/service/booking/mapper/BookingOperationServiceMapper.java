@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.park.spacemng.model.booking.BookingRequest;
+import com.park.spacemng.model.constants.CarSize;
+import com.park.spacemng.model.constants.CarType;
 import com.park.spacemng.model.constants.RequestResolution;
 import com.park.spacemng.model.user.driver.Driver;
 import com.park.spacemng.model.user.owner.Owner;
@@ -34,6 +36,8 @@ public interface BookingOperationServiceMapper {
 
 	@Mapping(target = "price", source = "price")
 	BookingRequestDetails toBookingRequestDetails(BookingRequest request);
+
+	CarType toCarType(CarSize carSize);
 
 	BookingRequest toBookingRequest(BookingRequestDetails details);
 

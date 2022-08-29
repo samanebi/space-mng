@@ -8,6 +8,7 @@ import com.park.spacemng.model.dto.OwnerDto;
 import com.park.spacemng.model.dto.SpaceDetailsDto;
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
 import com.park.spacemng.model.request.SpaceBookingRequest;
+import com.park.spacemng.model.request.SpaceResolutionRequestDetails;
 import com.park.spacemng.model.response.BookingRequestRetrievalResponse;
 import com.park.spacemng.model.response.NearbyAvailableSpacesResponse;
 import com.park.spacemng.model.response.SpaceBookingResponse;
@@ -34,7 +35,9 @@ public interface DriverSpaceOperationResourceMapper {
 	DriverSpaceBookingModel toDriverBookingModel(SpaceBookingRequest request);
 
 	default SpaceBookingResponse toBookingSpaceResponse(DriverSpaceBookingResult result) {
-		return new SpaceBookingResponse(toSpaceDetailsDto(result));
+		SpaceBookingResponse spaceBookingResponse = new SpaceBookingResponse(toSpaceDetailsDto(result));
+		spaceBookingResponse.setTrackingCode(result.getTrackingCode());
+		return spaceBookingResponse;
 	}
 
 	SpaceDetailsDto toSpaceDetailsDto(SpaceDetails space);

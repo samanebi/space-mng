@@ -13,6 +13,8 @@ public class SpaceBookingResponse extends GeneralResponse {
 
 	private SpaceDetailsDto space;
 
+	private String trackingCode;
+
 	public SpaceBookingResponse() {
 		super(ProcessStatus.SUCCESS);
 	}

@@ -9,8 +9,6 @@ public class SpaceDetailsDto {
 
 	private OwnerDto owner;
 
-	private String spaceId;
-
 	private String batchId;
 
 	private String title;

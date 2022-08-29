@@ -52,6 +52,7 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 		BookingRequest request = new BookingRequest();
 		request.setBatchId(model.getBatchId());
 		request.setPrice(model.getPrice());
+		request.setCarSize(model.getCarSize());
 		request.setCreationDate(currentDate);
 		request.setExerciseDate(currentDate);
 		request.setStateChangedDate(currentDate);

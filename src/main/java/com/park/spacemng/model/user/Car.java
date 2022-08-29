@@ -1,6 +1,6 @@
 package com.park.spacemng.model.user;
 
-import com.park.spacemng.model.user.constants.CarType;
+import com.park.spacemng.model.constants.CarSize;
 import lombok.Data;
 
 @Data
@@ -16,6 +16,6 @@ public class Car {
 
 	private Plate plate;
 
-	private CarType type;
+	private CarSize type;
 
 }

@@ -10,6 +10,6 @@ import lombok.Data;
 public class SpaceResolutionRequest {
 
 	@NotEmpty
-	private List<SpaceBookingRequest> requests;
+	private List<SpaceResolutionRequestDetails> requests;
 
 }

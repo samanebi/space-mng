@@ -1,5 +1,6 @@
 package com.park.spacemng.service.booking.model;
 
+import com.park.spacemng.model.constants.CarType;
 import com.park.spacemng.model.constants.RequestResolution;
 import lombok.Data;
 
@@ -13,5 +14,7 @@ public class BookingRequestDetails {
 	private RequestResolution resolution;
 
 	private long price;
+
+	private CarType carSize;
 
 }

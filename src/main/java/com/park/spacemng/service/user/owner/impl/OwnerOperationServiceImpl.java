@@ -39,11 +39,11 @@ public class OwnerOperationServiceImpl implements UserOperationService<Owner> {
 	}
 
 	@Override
-	public void registerUser(UserRegistrationModel model) {
+	public String registerUser(UserRegistrationModel model) {
 		Owner owner = mapper.toOwner((OwnerRegistrationModel) model);
 		owner.setStatus(Status.ACTIVE);
-		dao.insert(owner);
 		//owner.setOwnerId(userIdGenerationService.generate());
+		return dao.insert(owner).getId();
 	}
 
 }
