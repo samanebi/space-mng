@@ -8,12 +8,6 @@ public class SpaceBookingModel {
 
 	private String trackingCode;
 
-	private String batchId;
-
-	private String driverId;
-
-	private String carId;
-
 	private RequestResolution resolution;
 
 }

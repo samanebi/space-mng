@@ -2,6 +2,7 @@ package com.park.spacemng.api.web.space.owner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.booking.dao.BookingRequestDao;
@@ -277,12 +278,9 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 		BookingRequest insertedBookingRequest = bookingRequestDao.insert(bookingRequest);
 
 		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.add(Constants.HEADER_USER_ID, globalOwner.getId());
 
 		SpaceResolutionRequest request = new SpaceResolutionRequest();
 		SpaceResolutionRequestDetails spaceResolutionRequestDetails = new SpaceResolutionRequestDetails();
-		spaceResolutionRequestDetails.setDriverId(globalDriver.getId());
-		spaceResolutionRequestDetails.setBatchId(batchId);
 		spaceResolutionRequestDetails.setTrackingCode(trackingCode);
 		spaceResolutionRequestDetails.setResolution(RequestResolution.APPROVE);
 		List<SpaceResolutionRequestDetails> bookingRequests = new ArrayList<>();
@@ -296,7 +294,7 @@ class OwnerSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 
 		assertThat(response).isNotNull();
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(response.getBody().getRest()).isNotEmpty();
+		assertThat(Objects.requireNonNull(response.getBody()).getRest()).isNotEmpty();
 		List<BookingRequest> allBookingRequests = bookingRequestDao.findAll();
 		assertThat(allBookingRequests).hasSize(1);
 		BookingRequest retrievedBookingRequest = allBookingRequests.get(0);

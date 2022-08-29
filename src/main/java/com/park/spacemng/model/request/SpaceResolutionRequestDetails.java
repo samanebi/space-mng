@@ -12,20 +12,10 @@ public class SpaceResolutionRequestDetails {
 
 	@NotNull
 	@NotBlank
-	private String batchId;
-
-	@NotNull
-	@NotBlank
-	private String driverId;
-
-	@NotNull
-	@NotBlank
 	private String trackingCode;
 
 	@NotNull
 	private RequestResolution resolution;
 
-	@NotNull
-	private CarType carSize;
 
 }

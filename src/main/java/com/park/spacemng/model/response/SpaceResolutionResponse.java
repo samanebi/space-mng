@@ -6,14 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Map;
 
 @Setter
 @Getter
-@AllArgsConstructor
 public class SpaceResolutionResponse extends GeneralResponse {
 
-    private Map<String, Integer> rest;
+    private List<RestDetails> rest;
 
     public SpaceResolutionResponse() {
         super(ProcessStatus.SUCCESS);

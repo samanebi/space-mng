@@ -1,12 +1,16 @@
 package com.park.spacemng.api.web.space.owner.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.park.spacemng.model.request.LocationRequest;
 import com.park.spacemng.model.request.SpaceResolutionRequestDetails;
 import com.park.spacemng.model.request.SpaceGenerationRequest;
 import com.park.spacemng.model.request.SpaceResolutionRequest;
 import com.park.spacemng.model.request.SpaceUpdateRequest;
+import com.park.spacemng.model.response.RestDetails;
+import com.park.spacemng.model.response.SpaceResolutionResponse;
 import com.park.spacemng.model.response.SpaceRetrievalResponse;
 import com.park.spacemng.model.space.SpaceLocation;
 import com.park.spacemng.service.booking.model.BookingRequestDetails;
@@ -27,7 +31,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface OwnerSpaceOperationResourceMapper {
 
-	SpaceRequestsResolutionModel toSpaceRequestsResolutionModel(SpaceResolutionRequest request, String userId,
+	SpaceRequestsResolutionModel toSpaceRequestsResolutionModel(SpaceResolutionRequest request,
 			String batchId);
 
 	@Mapping(source = "userId", target = "ownerId")
@@ -63,5 +67,14 @@ public interface OwnerSpaceOperationResourceMapper {
 	List<BookingRequestDetails> toBookingRequestDetailsList(List<SpaceBookingModel> models);
 
 	SpaceQueryModel toSpaceQueryModel(OwnerSpaceRetrievalModel model);
+
+	default SpaceResolutionResponse toSpaceResolutionResponse(Map<String, Integer> rests){
+		SpaceResolutionResponse response = new SpaceResolutionResponse();
+		response.setRest(new ArrayList<>());
+		for (String key : rests.keySet()){
+			response.getRest().add(new RestDetails(key, rests.get(key)));
+		}
+		return response;
+	}
 
 }

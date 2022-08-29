@@ -1,15 +1,12 @@
 package com.park.spacemng.api.web.space.driver;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import com.park.spacemng.api.web.space.driver.mapper.DriverSpaceOperationResourceMapper;
 import com.park.spacemng.exception.GeneralException;
 import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.constants.ProcessStatus;
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
 import com.park.spacemng.model.request.SpaceBookingRequest;
-import com.park.spacemng.model.request.SpaceResolutionRequestDetails;
+import com.park.spacemng.model.response.BookingRequestRetrievalResponse;
 import com.park.spacemng.model.response.GeneralResponse;
 import com.park.spacemng.model.response.NearbyAvailableSpacesResponse;
 import com.park.spacemng.model.response.SpaceBookingResponse;
@@ -18,17 +15,14 @@ import com.park.spacemng.service.space.driver.model.DriverSpaceBookingResult;
 import com.park.spacemng.service.space.driver.model.NearbyAvailableSpacesRetrievalResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Slf4j
 @RestController
@@ -65,7 +59,7 @@ public class DriverSpaceOperationResource {
 	}
 
 	@GetMapping(value = "/{trackingCode}")
-	public ResponseEntity<GeneralResponse> getRequest(
+	public ResponseEntity<BookingRequestRetrievalResponse> getRequest(
 			@PathVariable String trackingCode) throws GeneralException {
 		BookingRequest request = service.getRequest(trackingCode);
 		return new ResponseEntity<>(mapper.toBookingRequestRetrievalResponse(request), HttpStatus.OK);

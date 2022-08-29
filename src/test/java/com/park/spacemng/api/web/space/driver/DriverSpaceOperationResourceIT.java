@@ -8,6 +8,7 @@ import com.park.spacemng.model.constants.CarType;
 import com.park.spacemng.model.constants.ProcessStatus;
 import com.park.spacemng.model.geo.state.dao.StateDao;
 import com.park.spacemng.model.request.NearbyAvailableSpacesRequest;
+import com.park.spacemng.model.request.SpaceBookingRequest;
 import com.park.spacemng.model.request.SpaceResolutionRequestDetails;
 import com.park.spacemng.model.response.GeneralResponse;
 import com.park.spacemng.model.response.NearbyAvailableSpacesResponse;
@@ -127,7 +128,7 @@ class DriverSpaceOperationResourceIT extends AbstractBaseIntegrationTest {
 
 	@Test
 	void bookSpace_success() {
-		SpaceResolutionRequestDetails request = new SpaceResolutionRequestDetails();
+		SpaceBookingRequest request = new SpaceBookingRequest();
 		request.setDriverId(driverId);
 		request.setCarSize(CarType.HUNCHBACK);
 		request.setBatchId("sample-batch-id");

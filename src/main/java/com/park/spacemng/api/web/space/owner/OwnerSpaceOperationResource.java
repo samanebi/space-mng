@@ -63,11 +63,10 @@ public class OwnerSpaceOperationResource {
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SpaceResolutionResponse> resolveSpaceRequests(
 			@NotNull @RequestBody SpaceResolutionRequest request,
-			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId,
 			@NotBlank @PathVariable String batchId) throws ParameterValidationException {
 		Map<String, Integer> result = service.resolveSpaceRequests(mapper
-				.toSpaceRequestsResolutionModel(request, userId, batchId));
-		return new ResponseEntity<>(new SpaceResolutionResponse(result), HttpStatus.OK);
+				.toSpaceRequestsResolutionModel(request, batchId));
+		return new ResponseEntity<>(mapper.toSpaceResolutionResponse(result), HttpStatus.OK);
 	}
 
 }
