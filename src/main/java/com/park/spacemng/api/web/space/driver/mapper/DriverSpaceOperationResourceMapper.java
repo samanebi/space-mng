@@ -40,6 +40,7 @@ public interface DriverSpaceOperationResourceMapper {
 		return spaceBookingResponse;
 	}
 
+	@Mapping(target = "location.position", source = "position")
 	SpaceDetailsDto toSpaceDetailsDto(SpaceDetails space);
 
 	OwnerDto toOwnerDto(OwnerDetails owner);

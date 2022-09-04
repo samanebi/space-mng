@@ -56,7 +56,8 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 		ownerSpaceOperationService.findSpaces(model.getLocation()).getSpaces()
 				.forEach(space -> {
 					if (onlineOwnerOperationService
-							.isOnline(space.getOwner().getId())) {
+							.isOnline(space.getOwner().getId()) && result.stream()
+							.noneMatch(spaceDetails -> spaceDetails.getBatchId().equals(space.getBatchId()))) {
 						result.add(mapper.toSpaceDetails(space));
 					}
 				});

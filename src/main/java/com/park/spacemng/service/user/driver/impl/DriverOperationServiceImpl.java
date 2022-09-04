@@ -2,12 +2,14 @@ package com.park.spacemng.service.user.driver.impl;
 
 import com.park.spacemng.exception.DriverNotFoundException;
 import com.park.spacemng.exception.GeneralException;
+import com.park.spacemng.exception.InvalidCredentialsException;
 import com.park.spacemng.exception.OwnerNotFoundException;
 import com.park.spacemng.model.user.User.Status;
 import com.park.spacemng.model.user.driver.Driver;
 import com.park.spacemng.model.user.driver.dao.DriverDao;
 import com.park.spacemng.service.user.driver.mapper.DriverOperationServiceMapper;
 import com.park.spacemng.service.user.driver.model.DriverRegistrationModel;
+import com.park.spacemng.service.user.owner.model.LoginResult;
 import com.park.spacemng.service.user.user.UserOperationService;
 import com.park.spacemng.service.user.user.model.UserRegistrationModel;
 import com.park.spacemng.service.user.userid.UserIdGenerationService;
@@ -27,9 +29,14 @@ public class DriverOperationServiceImpl implements UserOperationService<Driver> 
 	private final ParameterValidator parameterValidator;
 
 	@Override
-	public void login(String username, String password) {
-		password.equals(dao.findByCellNumber(username).orElseThrow(()
-				-> new DriverNotFoundException("there is no driver with cellNumber " + username)).getPassword());
+	public LoginResult login(String username, String password) {
+		Driver driver = dao.findByCellNumber(username).orElseThrow(()
+				-> new DriverNotFoundException("there is no driver with cellNumber " + username));
+		boolean result = password.equals(driver.getPassword());
+		if (!result){
+			throw new InvalidCredentialsException("password not correct");
+		}
+		return new LoginResult(driver);
 	}
 
 	@Override

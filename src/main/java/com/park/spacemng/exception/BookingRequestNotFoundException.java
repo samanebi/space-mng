@@ -5,7 +5,7 @@ import com.park.spacemng.model.constants.ProcessStatus;
 public class BookingRequestNotFoundException extends GeneralException {
 
 	public BookingRequestNotFoundException(String message) {
-		super(ProcessStatus.FAILURE, message);
+		super(ProcessStatus.BOOKING_REQUEST_NOT_FOUND, message);
 	}
 
 }

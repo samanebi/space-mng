@@ -5,7 +5,7 @@ import com.park.spacemng.model.constants.ProcessStatus;
 public class DriverNotFoundException extends GeneralException {
 
 	public DriverNotFoundException(String message) {
-		super(ProcessStatus.FAILURE, message);
+		super(ProcessStatus.DRIVER_NOT_FOUND, message);
 	}
 
 }

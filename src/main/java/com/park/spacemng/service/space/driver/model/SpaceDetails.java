@@ -1,11 +1,14 @@
 package com.park.spacemng.service.space.driver.model;
 
 import lombok.Data;
+import org.springframework.data.geo.Point;
 
 @Data
 public class SpaceDetails {
 
 	private OwnerDetails owner;
+
+	private Point position;
 
 	private String spaceId;
 

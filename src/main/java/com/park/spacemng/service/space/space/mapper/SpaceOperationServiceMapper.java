@@ -19,6 +19,7 @@ public interface SpaceOperationServiceMapper {
 
 	List<SpaceInfo> toSpaceInfos(List<Space> spaces);
 
+	@Mapping(target = "position", source = "model.spaceLocation.position")
 	Space toSpace(SpaceGenerationModel model);
 
 	Owner toOwner(OwnerInfo ownerInfo);

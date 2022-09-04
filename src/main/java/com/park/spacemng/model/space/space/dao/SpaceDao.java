@@ -25,4 +25,8 @@ public interface SpaceDao extends MongoRepository<Space, String> {
 
 	List<Space> findAllByPositionIsNear(Point point, Distance distance);
 
+	List<Space> findByOwnerId(String id);
+
+	int countAllByBatchIdAndStatus(String batchId, Space.Status status);
+
 }

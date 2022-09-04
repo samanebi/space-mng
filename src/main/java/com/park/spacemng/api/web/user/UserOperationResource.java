@@ -1,16 +1,16 @@
 package com.park.spacemng.api.web.user;
 
 import com.park.spacemng.api.web.user.mapper.UserOperationResourceMapper;
-import com.park.spacemng.model.constants.ProcessStatus;
 import com.park.spacemng.model.request.DriverRegistrationRequest;
 import com.park.spacemng.model.request.LoginRequest;
 import com.park.spacemng.model.request.OwnerRegistrationRequest;
-import com.park.spacemng.model.response.GeneralResponse;
+import com.park.spacemng.model.response.LoginResponse;
 import com.park.spacemng.model.response.UserRegisterResponse;
 import com.park.spacemng.model.user.constants.UserType;
 import com.park.spacemng.model.user.driver.Driver;
 import com.park.spacemng.model.user.owner.Owner;
 import com.park.spacemng.service.user.driver.model.DriverRegistrationModel;
+import com.park.spacemng.service.user.owner.model.LoginResult;
 import com.park.spacemng.service.user.owner.model.OwnerRegistrationModel;
 import com.park.spacemng.service.user.user.UserOperationService;
 import com.park.spacemng.service.user.user.UserOperationStrategy;
@@ -52,10 +52,10 @@ public class UserOperationResource {
 	}
 
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<GeneralResponse> login(@NotNull @RequestBody LoginRequest request) {
+	public ResponseEntity<LoginResponse> login(@NotNull @RequestBody LoginRequest request) {
 		UserOperationService userOperationService = userOperationStrategy.get(mapper.toUserType(request.getUserType()));
-		userOperationService.login(request.getCellNumber(), request.getPassword());
-		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
+		LoginResult loginResult = userOperationService.login(request.getCellNumber(), request.getPassword());
+		return new ResponseEntity<>(mapper.toLoginResponse(loginResult), HttpStatus.OK);
 	}
 
 }

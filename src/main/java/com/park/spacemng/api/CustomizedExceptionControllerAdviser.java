@@ -81,4 +81,11 @@ public class CustomizedExceptionControllerAdviser extends ResponseEntityExceptio
 				HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 
+	@ExceptionHandler(InvalidCredentialsException.class)
+	public final ResponseEntity<GeneralResponse> handleInvalidCredentialsException(GeneralException ex, WebRequest request) {
+		log.error("general exception happened : {}", ex.getMessage());
+		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.INVALID_CREDENTIALS, ex.getMessage()),
+				HttpStatus.UNPROCESSABLE_ENTITY);
+	}
+
 }

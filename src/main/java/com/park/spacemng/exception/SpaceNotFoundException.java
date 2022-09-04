@@ -5,7 +5,7 @@ import com.park.spacemng.model.constants.ProcessStatus;
 public class SpaceNotFoundException extends GeneralException {
 
 	public SpaceNotFoundException(String message) {
-		super(ProcessStatus.FAILURE, message);
+		super(ProcessStatus.SPACE_NOT_FOUND, message);
 	}
 
 }

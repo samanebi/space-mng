@@ -18,7 +18,8 @@ public enum ProcessStatus {
 	OWNER_NOT_FOUND(4),
 	PARAMETER_VALIDATION_FAILED(5),
 	SPACE_NOT_AVAILABLE(6),
-	SPACE_NOT_FOUND(7);
+	SPACE_NOT_FOUND(7),
+	INVALID_CREDENTIALS(8);
 	//@formatter on
 
 	private final int value;

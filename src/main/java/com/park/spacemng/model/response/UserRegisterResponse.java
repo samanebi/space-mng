@@ -11,13 +11,17 @@ import javax.naming.ldap.PagedResultsControl;
 @Setter
 @Getter
 @ToString
-@AllArgsConstructor
 public class UserRegisterResponse extends GeneralResponse{
 
     private String userId;
 
     public UserRegisterResponse() {
         super(ProcessStatus.SUCCESS);
+    }
+
+    public UserRegisterResponse(String userId) {
+        super(ProcessStatus.SUCCESS);
+        this.userId = userId;
     }
 
 }

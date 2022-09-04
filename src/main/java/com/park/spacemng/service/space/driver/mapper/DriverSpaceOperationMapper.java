@@ -29,6 +29,7 @@ public interface DriverSpaceOperationMapper {
 	OwnerSpaceRetrievalModel toOwnerSpaceRetrievalModel(DesiredLocation location);
 
 	@Mapping(target = "spaceId", source = "id")
+	@Mapping(target = "position", source = "position")
 	SpaceDetails toSpaceDetails(Space space);
 
 	@Mapping(target = "ownerId", source = "id")

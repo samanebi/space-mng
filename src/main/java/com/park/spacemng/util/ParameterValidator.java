@@ -29,7 +29,7 @@ public final class ParameterValidator {
 	public void requireParameterNotEqualTo(Object argument, Object target) throws GeneralException {
 		requireParameterNotNull(argument);
 		ExceptionGenerator.generateIfFalse(!Objects.equals(argument, target),
-				messages.getEqualParameter().formatted(argument, target));
+				"parameter {0} is equal to {1}".formatted(argument, target));
 	}
 
 }
