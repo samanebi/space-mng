@@ -31,6 +31,7 @@ public class OnlineUserResource {
 	@GetMapping(value = "/heart-beat", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> heartBeat(@NotNull @NotBlank
 	@RequestHeader(Constants.HEADER_USER_ID) String userId) {
+		log.info("heart beat received for userId {}", userId);
 		service.processHeartBeat(userId);
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}

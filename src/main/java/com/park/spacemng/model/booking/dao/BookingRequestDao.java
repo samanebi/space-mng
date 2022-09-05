@@ -19,4 +19,6 @@ public interface BookingRequestDao extends MongoRepository<BookingRequest, Strin
 
 	Optional<BookingRequest> findByTrackingCode(String trackingCode);
 
+	List<BookingRequest> findByStatusAndCreationDateAfter(BookingRequest.Status status, long creationDate);
+
 }

@@ -40,6 +40,7 @@ public class OwnerSpaceOperationResource {
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> generateSpaces(@NotNull @RequestBody SpaceGenerationRequest request,
 			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) throws GeneralException {
+		log.info("generating space for request : {}", request);
 		service.generateSpaces(mapper.toSpaceGenerationModel(request, userId));
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
@@ -48,6 +49,7 @@ public class OwnerSpaceOperationResource {
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> updateSpace(@NotNull @RequestBody SpaceUpdateRequest request,
 			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) throws GeneralException {
+		log.info("updating space with request : {}", request);
 		service.updateSpace(mapper.toSpaceUpdateModel(request, userId));
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
@@ -55,6 +57,7 @@ public class OwnerSpaceOperationResource {
 	@GetMapping(value = "/space/requests/{batchId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SpaceRetrievalResponse> getSpaceRequests(
 			@NotBlank @PathVariable String batchId) throws ParameterValidationException {
+		log.info("retrieving space requests for batchId : {} ", batchId);
 		SpaceRequestsRetrievalResult result = service.getSpaceRequests(batchId);
 		return new ResponseEntity<>(mapper.toSpaceRetrievalResponse(result), HttpStatus.OK);
 	}
@@ -64,6 +67,7 @@ public class OwnerSpaceOperationResource {
 	public ResponseEntity<SpaceResolutionResponse> resolveSpaceRequests(
 			@NotNull @RequestBody SpaceResolutionRequest request,
 			@NotBlank @PathVariable String batchId) throws ParameterValidationException {
+		log.info("resolving space requests for request {} and batchId {}", request, batchId);
 		Map<String, Integer> result = service.resolveSpaceRequests(mapper
 				.toSpaceRequestsResolutionModel(request, batchId));
 		return new ResponseEntity<>(mapper.toSpaceResolutionResponse(result), HttpStatus.OK);

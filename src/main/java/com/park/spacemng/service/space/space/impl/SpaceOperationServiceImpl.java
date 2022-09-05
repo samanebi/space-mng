@@ -101,6 +101,7 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 
 	@Override
 	public List<Space> findByPoint(Point point) {
+		log.info("finding spaces nearby point : {} ", point);
 		List<Space> spaces = dao.findAll();
 		spaces.forEach(space -> {
 			if (!(Math.abs(space.getPosition().getX() - point.getX()) <= properties.getDistance() &&
@@ -112,6 +113,7 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 	}
 
 	private List<Space> updateSpaceInformation(SpaceUpdateModel model) {
+		log.info("updating space information for model : {} ", model);
 		List<Space> spaces = dao.findAllByBatchId(model.getBatchId()).stream().peek(space -> {
 			space.setAddress(Objects.isNull(model.getAddress())? space.getAddress(): model.getAddress());
 			space.setDescription(Objects.isNull(model.getDescription())? space.getDescription():

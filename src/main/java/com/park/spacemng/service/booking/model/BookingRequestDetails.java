@@ -17,4 +17,10 @@ public class BookingRequestDetails {
 
 	private CarType carSize;
 
+	private String driverName;
+
+	private String driverSurname;
+
+	private String driverCellNumber;
+
 }

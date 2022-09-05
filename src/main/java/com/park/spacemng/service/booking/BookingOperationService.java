@@ -23,4 +23,6 @@ public interface BookingOperationService {
 
 	BookingRequest getRequest(String trackingCode);
 
+	void expire(BookingRequest request);
+
 }

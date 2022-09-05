@@ -63,6 +63,7 @@ public class OwnerSpaceOperationServiceImpl implements OwnerSpaceOperationServic
 	@Override
 	public SpaceRequestsRetrievalResult getSpaceRequests(String batchId) throws ParameterValidationException {
 		if (Strings.isBlank(batchId)) {
+			log.error("batch id is empty or blank");
 			throw new ParameterValidationException("batch id is empty or null.");
 		}
 

@@ -48,7 +48,6 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 	public NearbyAvailableSpacesRetrievalResult getNearbyAvailableSpaces(NearbyAvailableSpacesRetrievalModel model) throws GeneralException {
 		nearbyAvailableSpacesArgumentValidation(model);
 
-		log.info("going to get nearby available spaces for request : {}", model);
 		/*DesiredLocationRetrievalResult desiredLocation = locationStrategy
 				.getLocationOperationService(getLocationSelectionType())
 				.getDesiredLocation(mapper.toDesiredLocationRetrievalModel(model));*/
@@ -76,7 +75,6 @@ public class DriverSpaceOperationServiceImpl implements DriverSpaceOperationServ
 	public DriverSpaceBookingResult bookSpace(DriverSpaceBookingModel model) throws GeneralException {
 		bookSpaceArgumentValidation(model);
 
-		log.info("going to book space for request : {}", model);
 		driverOperationService.retrieveUser(model.getDriverId());
 		List<SpaceInfo> spaceInfos = spaceOperationService
 				.retrieveSpace(model.getBatchId(), Status.FREE);

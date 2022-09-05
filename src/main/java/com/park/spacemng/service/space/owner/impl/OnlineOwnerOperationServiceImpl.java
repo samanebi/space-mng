@@ -16,6 +16,7 @@ public class OnlineOwnerOperationServiceImpl implements OnlineOwnerOperationServ
 
 	@Override
 	public boolean isOnline(String ownerId) {
+		log.info("getting to know that user is online {}", ownerId);
 		return dao.exists(ownerId);
 	}
 

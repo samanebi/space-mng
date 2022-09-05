@@ -46,6 +46,7 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 
 	@Override
 	public String initiateBookingRequest(BookingInitiationModel model) throws GeneralException {
+		log.info("initiating booking request for model : {}", model);
 		Driver driverInfo = driverOperationService.retrieveUser(model.getDriverId());
 		Owner ownerInfo = ownerOperationService.retrieveUser(model.getOwnerId());
 		long currentDate = new Date().getTime();
@@ -62,6 +63,7 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 		request.setDriver(driverInfo);
 		request.setOwner(ownerInfo);
 		request.setStatus(Status.INITIATED);
+		request.setStateChangedDate(new Date().getTime());
 		return dao.save(request).getTrackingCode();
 	}
 
@@ -76,9 +78,17 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 		Map<String, RequestResolution> requests = mapper.toToBookingRequestList(bookingRequestDetails);
 		List<BookingRequest> bookingRequests = dao.findAllByTrackingCodes(getTrackingCodes(requests)).stream()
 				.peek(ExceptionGenerator.runtimeExceptionWrapper(request -> {
+					if (!request.getStatus().equals(Status.INITIATED)){
+						log.error("can not resolve request with status {} ", request.getStatus());
+						throw new IllegalStateException("can not resolve request " + request.getTrackingCode()
+								+ " with status : " + request.getStatus());
+					}
 					Status status = mapper.toStatus(requests.get(request.getTrackingCode()));
 					request.setStatus(status);
-					spaceOperationService.takeSpace(request.getSpaceId());
+					request.setStateChangedDate(new Date().getTime());
+					if (status.equals(Status.ACCEPTED)){
+						spaceOperationService.takeSpace(request.getSpaceId());
+					}
 				}, GeneralException.class)).toList();
 		dao.saveAll(bookingRequests);
 		return constructRestMap(bookingRequestDetails);
@@ -113,6 +123,7 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 			request.setStatus(Status.CONFIRMED);
 			spaceOperationService.freeSpace(request.getSpaceId());
 		} else {
+			log.error("requesting to evacuate before payment {}", trackingCode);
 			throw new IllegalArgumentException("request cant be evacuated before payment.");
 		}
 		dao.save(request);
@@ -123,6 +134,12 @@ public class BookingOperationServiceImpl implements BookingOperationService {
 		return dao.findByTrackingCode(trackingCode).orElseThrow(() ->
 				new BookingRequestNotFoundException("request with tracking code " + trackingCode
 						+ " does not exist ."));
+	}
+
+	@Override
+	public void expire(BookingRequest request) {
+		request.setStatus(Status.EXPIRED);
+		request.setStateChangedDate(new Date().getTime());
 	}
 
 	private List<String> getTrackingCodes(Map<String, RequestResolution> requests) {

@@ -14,6 +14,7 @@ import com.park.spacemng.service.space.driver.DriverSpaceOperationService;
 import com.park.spacemng.service.space.driver.model.DriverSpaceBookingResult;
 import com.park.spacemng.service.space.driver.model.NearbyAvailableSpacesRetrievalResult;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.flogger.Flogger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,6 +39,7 @@ public class DriverSpaceOperationResource {
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<NearbyAvailableSpacesResponse> getNearbyAvailableSpaces(
 			@Valid @RequestBody NearbyAvailableSpacesRequest request) throws GeneralException {
+		log.info("retrieving nearby spaces for request {}", request);
 		NearbyAvailableSpacesRetrievalResult response =
 				service.getNearbyAvailableSpaces(mapper.toNearbyAvailableSpacesRetrievalModel(request));
 		return new ResponseEntity<>(mapper.toNearbyAvailableSpacesResponse(response), HttpStatus.OK);
@@ -47,6 +49,7 @@ public class DriverSpaceOperationResource {
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SpaceBookingResponse> bookSpace(@NotNull @RequestBody SpaceBookingRequest request)
 			throws GeneralException {
+		log.info("booking space for request {}", request);
 		DriverSpaceBookingResult response = service.bookSpace(mapper.toDriverBookingModel(request));
 		return new ResponseEntity<>(mapper.toBookingSpaceResponse(response), HttpStatus.OK);
 	}
@@ -54,6 +57,7 @@ public class DriverSpaceOperationResource {
 	@GetMapping(value = "/evacuate/{trackingCode}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GeneralResponse> evacuate(
 			@PathVariable String trackingCode) throws GeneralException {
+		log.info("evacuating space for trackingCode {}", trackingCode);
 		service.evacuate(trackingCode);
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
@@ -61,6 +65,7 @@ public class DriverSpaceOperationResource {
 	@GetMapping(value = "/{trackingCode}")
 	public ResponseEntity<BookingRequestRetrievalResponse> getRequest(
 			@PathVariable String trackingCode) throws GeneralException {
+		log.info("retrieving booking request details for trackingCode {}", trackingCode);
 		BookingRequest request = service.getRequest(trackingCode);
 		return new ResponseEntity<>(mapper.toBookingRequestRetrievalResponse(request), HttpStatus.OK);
 	}

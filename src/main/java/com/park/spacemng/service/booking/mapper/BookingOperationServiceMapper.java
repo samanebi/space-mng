@@ -35,6 +35,9 @@ public interface BookingOperationServiceMapper {
 	BookingRequestDriverInfo toBookingRequestDriverInfo(Driver driver);
 
 	@Mapping(target = "price", source = "price")
+	@Mapping(target = "driverName", source = "driver.name")
+	@Mapping(target = "driverSurname", source = "driver.surname")
+	@Mapping(target = "driverCellNumber", source = "driver.cellNumber")
 	BookingRequestDetails toBookingRequestDetails(BookingRequest request);
 
 	CarType toCarType(CarSize carSize);

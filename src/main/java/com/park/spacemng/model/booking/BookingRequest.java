@@ -50,7 +50,8 @@ public class BookingRequest extends MongoBaseEntity {
 		ACCEPTED(1),
 		REJECTED(2),
 		PAYED(3),
-		CONFIRMED(4);
+		CONFIRMED(4),
+		EXPIRED(5);
 
 		private final int value;
 

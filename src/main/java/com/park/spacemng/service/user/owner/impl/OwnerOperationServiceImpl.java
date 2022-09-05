@@ -19,6 +19,7 @@ import com.park.spacemng.service.user.user.model.UserRegistrationModel;
 import com.park.spacemng.service.user.userid.UserIdGenerationService;
 import com.park.spacemng.util.ParameterValidator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.math.ec.custom.sec.SecT113Field;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OwnerOperationServiceImpl implements UserOperationService<Owner> {
 
 	private final OwnerDao dao;
@@ -64,6 +66,7 @@ public class OwnerOperationServiceImpl implements UserOperationService<Owner> {
 
 	@Override
 	public Owner retrieveUser(String ownerId) throws GeneralException {
+		log.info("going to retrieve owner : {}", ownerId);
 		parameterValidator.requireParameterNotNullOrBlank(ownerId);
 
 		return dao.findById(ownerId).orElseThrow(() ->

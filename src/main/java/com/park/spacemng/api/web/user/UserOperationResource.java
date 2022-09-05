@@ -39,6 +39,7 @@ public class UserOperationResource {
 
 	@PostMapping(value = "/driver/register", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserRegisterResponse> registerDriver(@NotNull @RequestBody DriverRegistrationRequest request) {
+		log.info("registering driver for request : {}", request);
 		UserOperationService<Driver> userOperationService = userOperationStrategy.get(UserType.DRIVER);
 		DriverRegistrationModel model = mapper.toDriverRegistrationModel(request);
 		return new ResponseEntity<>(new UserRegisterResponse(userOperationService.registerUser(model)), HttpStatus.OK);
@@ -46,6 +47,7 @@ public class UserOperationResource {
 
 	@PostMapping(value = "/owner/register", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserRegisterResponse> registerOwner(@NotNull @RequestBody OwnerRegistrationRequest request) {
+		log.info("registering owner for request : {}", request);
 		UserOperationService<Owner> userOperationService = userOperationStrategy.get(UserType.OWNER);
 		OwnerRegistrationModel model = mapper.toOwnerRegistrationModel(request);
 		return new ResponseEntity<>(new UserRegisterResponse(userOperationService.registerUser(model)), HttpStatus.OK);
@@ -53,6 +55,7 @@ public class UserOperationResource {
 
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<LoginResponse> login(@NotNull @RequestBody LoginRequest request) {
+		log.info("login request for request : {}", request);
 		UserOperationService userOperationService = userOperationStrategy.get(mapper.toUserType(request.getUserType()));
 		LoginResult loginResult = userOperationService.login(request.getCellNumber(), request.getPassword());
 		return new ResponseEntity<>(mapper.toLoginResponse(loginResult), HttpStatus.OK);

@@ -16,9 +16,11 @@ import com.park.spacemng.service.user.userid.UserIdGenerationService;
 import com.park.spacemng.util.ParameterValidator;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class DriverOperationServiceImpl implements UserOperationService<Driver> {
 
@@ -41,6 +43,7 @@ public class DriverOperationServiceImpl implements UserOperationService<Driver> 
 
 	@Override
 	public Driver retrieveUser(String driverId) throws GeneralException {
+		log.info("going to retrieve driver : {}", driverId);
 		parameterValidator.requireParameterNotNullOrBlank(driverId);
 
 		Driver driver = dao.findById(driverId).orElseThrow(() ->

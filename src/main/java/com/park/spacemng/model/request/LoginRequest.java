@@ -4,9 +4,11 @@ import com.park.spacemng.model.constants.UserTypeDto;
 import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
+@ToString
 public class LoginRequest {
 
     private String cellNumber;

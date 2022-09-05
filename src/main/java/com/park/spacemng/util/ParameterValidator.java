@@ -18,12 +18,12 @@ public final class ParameterValidator {
 	public void requireParameterNotNullOrBlank(String argument) throws GeneralException {
 		requireParameterNotNull(argument);
 		ExceptionGenerator.generateIfFalse(Strings.isNotBlank(argument),
-				messages.getBlankParameter());
+				"one of string arguments are blank");
 	}
 
 	public void requireParameterNotNull(Object argument) throws GeneralException {
 		ExceptionGenerator.generateIfFalse(Objects.nonNull(argument),
-				messages.getNullParameter());
+				"one of arguments is null");
 	}
 
 	public void requireParameterNotEqualTo(Object argument, Object target) throws GeneralException {
