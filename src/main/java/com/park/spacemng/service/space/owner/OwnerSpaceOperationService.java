@@ -15,6 +15,8 @@ import java.util.Map;
 
 public interface OwnerSpaceOperationService {
 
+	void deleteSpace(String batchId, String userId);
+
 	void generateSpaces(OwnerSpaceGenerationModel model) throws GeneralException;
 
 	void updateSpace(OwnerSpaceUpdateModel model) throws GeneralException;

@@ -1,5 +1,6 @@
 package com.park.spacemng.service.booking.model;
 
+import com.park.spacemng.model.booking.BookingRequest;
 import com.park.spacemng.model.constants.CarType;
 import com.park.spacemng.model.constants.RequestResolution;
 import lombok.Data;
@@ -22,5 +23,11 @@ public class BookingRequestDetails {
 	private String driverSurname;
 
 	private String driverCellNumber;
+
+	private BookingRequest.Status status;
+
+	private String title;
+
+	private long creationDate;
 
 }

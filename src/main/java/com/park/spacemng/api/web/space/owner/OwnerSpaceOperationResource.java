@@ -45,9 +45,19 @@ public class OwnerSpaceOperationResource {
 		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/delete/{batchId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<GeneralResponse> deleteSpaces(
+			@NotBlank @PathVariable String batchId,
+			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) throws GeneralException {
+		log.info("deleting space for batchId : {}", batchId);
+		service.deleteSpace(batchId, userId);
+		return new ResponseEntity<>(new GeneralResponse(ProcessStatus.SUCCESS), HttpStatus.OK);
+	}
+
 	@PostMapping(value = "/space/update",
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<GeneralResponse> updateSpace(@NotNull @RequestBody SpaceUpdateRequest request,
+	public ResponseEntity<GeneralResponse> updateSpace(
+			@NotNull @RequestBody SpaceUpdateRequest request,
 			@NotBlank @RequestHeader(Constants.HEADER_USER_ID) String userId) throws GeneralException {
 		log.info("updating space with request : {}", request);
 		service.updateSpace(mapper.toSpaceUpdateModel(request, userId));

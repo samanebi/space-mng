@@ -20,4 +20,6 @@ public class BookingInitiationModel {
 
 	private CarSize carSize;
 
+	private String spaceTitle;
+
 }

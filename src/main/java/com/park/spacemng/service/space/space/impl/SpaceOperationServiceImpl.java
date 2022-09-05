@@ -47,6 +47,12 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 	}
 
 	@Override
+	public Owner retrieveOwner(String batchId) {
+		return dao.findAllByBatchId(batchId).stream().findFirst()
+				.orElseThrow(() -> new SpaceNotFoundException("pace not found with batchId : " + batchId)).getOwner();
+	}
+
+	@Override
 	public void takeUnderProcess(String spaceId) throws SpaceNotFoundException {
 		Space space = getSpace(spaceId);
 		space.setStatus(Status.PROCESSING);
@@ -127,6 +133,11 @@ public class SpaceOperationServiceImpl implements SpaceOperationService {
 			space.setEntryFee(model.getEntryFee() == 0L ? space.getEntryFee() : model.getEntryFee());
 		}).collect(Collectors.toList());
 		return dao.saveAll(spaces);
+	}
+
+	@Override
+	public void delete(String batchId) {
+		dao.deleteAll(dao.findAllByBatchId(batchId));
 	}
 
 	private List<Space> getRandomSpaces(SpaceUpdateModel model, List<Space> spaces, List<Space> freeSpaceList) {

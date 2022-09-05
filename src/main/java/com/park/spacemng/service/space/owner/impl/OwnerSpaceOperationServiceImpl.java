@@ -39,6 +39,14 @@ public class OwnerSpaceOperationServiceImpl implements OwnerSpaceOperationServic
 	private final ParameterValidator parameterValidator;
 
 	@Override
+	public void deleteSpace(String batchId, String userId) {
+		if (!spaceOperationService.retrieveOwner(batchId).getId().equals(userId)){
+			throw new IllegalStateException("user : " + userId + " is not owner of space : " + batchId);
+		}
+		spaceOperationService.delete(batchId);
+	}
+
+	@Override
 	public void generateSpaces(OwnerSpaceGenerationModel model) throws GeneralException {
 		validateGeneraSpacesParameter(model);
 		spaceOperationService.generate(mapper.toSpaceGenerationModel(model));

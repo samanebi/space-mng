@@ -8,17 +8,21 @@ import com.park.spacemng.model.constants.CarSize;
 import com.park.spacemng.model.mogo.MongoBaseEntity;
 import com.park.spacemng.model.user.driver.Driver;
 import com.park.spacemng.model.user.owner.Owner;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
+@Setter
+@Getter
+@ToString
 public class BookingRequest extends MongoBaseEntity {
 
 	private String trackingCode;
 
 	private String batchId;
+
+	private String spaceTitle;
 
 	private String spaceId;
 
